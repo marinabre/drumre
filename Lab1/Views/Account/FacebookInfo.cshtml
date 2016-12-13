@@ -1,0 +1,46 @@
+﻿
+@model IList<Lab1.Models.MovieDetails>
+@if (Model.Count > 0)
+{
+    <h3>Movies you liked on Facebook</h3>
+    <div class="row">
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Title</th>
+                <th>Details</th>
+                <th>Subtitles</th>
+            </tr>
+            
+            @{ int rowId = 0;}
+            @foreach (var movie in Model)
+            {
+                string target = "row" + rowId;
+                string hashtarget = "#" + target;
+                rowId++;
+                <tr>
+                    <td>@movie.item.Title</td>
+                    <td><button type="button" class="btn btn-default" data-toggle="collapse" data-target=@hashtarget>Show</button>
+                        <div id=@target class="collapse">
+                            Year: @movie.item.Year <br />
+                            Director: @movie.item.Director<br/>
+                            IMDb Score: @movie.item.imdbRating<br />
+                            Actors: @movie.item.Actors
+
+                        </div>
+                    </td>
+                    <td>
+                        @if (movie.downloadLink != null)
+                        {
+                            <a href=@movie.downloadLink>Download</a>
+                        }
+                        else
+                        {
+                            <p></p>
+                        }
+                    </td>
+                </tr>
+            }
+            </table>        
+    </div>
+}
+
