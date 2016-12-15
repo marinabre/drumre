@@ -66,6 +66,7 @@ namespace Lab1
             options.Scope.Add("user_about_me");
             options.Scope.Add("user_birthday");
             options.Scope.Add("user_likes");
+            options.Scope.Add("user_actions.video");
             options.AppId = "1279180495466644";
             options.AppSecret = "780860b63672ff262370699538722160";
             options.Provider = new FacebookAuthenticationProvider

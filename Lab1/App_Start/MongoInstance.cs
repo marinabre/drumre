@@ -19,7 +19,7 @@ namespace Lab1.App_Start
         private MongoInstance()
         {
             var client = new MongoClient();
-            db = client.GetDatabase("Lab1-v3");
+            db = client.GetDatabase("Lab1-v4");
         }
 
         public static IMongoDatabase GetDatabase

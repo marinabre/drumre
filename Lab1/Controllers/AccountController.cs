@@ -21,6 +21,8 @@ using System.Configuration;
 using MongoDB.Bson;
 using Lab1.App_Start;
 using MongoDB.Bson.Serialization.Conventions;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Lab1.Controllers
 {
@@ -457,6 +459,7 @@ namespace Lab1.Controllers
         [Authorize]
         public async Task<ActionResult> FacebookInfo()
         {
+
             //Open connection to database:
             var db = MongoInstance.GetDatabase;
 
@@ -464,90 +467,58 @@ namespace Lab1.Controllers
             pack.Add(new IgnoreExtraElementsConvention(true));
             ConventionRegistry.Register("ignore extra elements", pack, t => true);
 
-            //Initialize OMDb and OSDb clients:
-            OMDbClient omdb = new OMDbClient(true);
-            var osdb = Osdb.Login("eng", "FileBot");
-
             //Prepare database collections:
             var persons = db.GetCollection<Person>("Person");
-            var movies = db.GetCollection<Item>("Movies");
-            var subtitles = db.GetCollection<Subtitle>("Subtitles");
 
             //Get FacebookAccessToken from ExternalCookie and use it to get user information from Facebook:
             var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
             var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
             var fb = new FacebookClient(access_token);
-            dynamic myInfo = fb.Get("me?fields=id,email,first_name,last_name,birthday,movies");
+            //Specify what info we are getting from Facebook:
+            dynamic myInfo = fb.Get("me?fields=id,email,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch");
 
             //Process results:
-            IList<Models.Movie> movieList = new List<Models.Movie>();
+            IList<Models.FBMovie> movieList = new List<Models.FBMovie>();
+            IList<Models.FBMovie> watchesList = new List<Models.FBMovie>();
+            IList<Models.FBMovie> wantsList = new List<Models.FBMovie>();
             IList<Models.MovieDetails> detailedMovieList = new List<Models.MovieDetails>();
+
+            //dohvat i spremanje kategorije Likes:
             foreach (dynamic fbMovie in myInfo.movies.data)
             {
-                Models.Movie movie = new Models.Movie()
+                Models.FBMovie movie = new Models.FBMovie()
                 {
                     Title = fbMovie.name,
                     Id = fbMovie.id
                 };
                 movieList.Add(movie);
+                detailedMovieList.Add(AddToDbIfNotExist(movie));
+            }
 
-                //If movie is not in the database, add it and the subtitles
-
-                Item dbMovie = null;
-                Subtitle dbSubtitle = null;
-                var mquery = movies.Find(p => p.Title == movie.Title);
-                if (mquery.Count() > 0)
+            //dohvat i spremanje kategorije Watched:
+            dynamic watches = GetProperty(myInfo, "video.watches");
+            foreach (dynamic fbMovie in watches.data)
+            {
+                Models.FBMovie movie = new Models.FBMovie()
                 {
-                    dbMovie = mquery.First();
-                    var squery = subtitles.Find(p => p.MovieName == movie.Title);
-                    if (squery.Count() > 0)
-                    {
-                        dbSubtitle = squery.First();
-                    }
+                    Title = fbMovie.data.movie.title,
+                    Id = fbMovie.data.movie.id
+                };
+                watchesList.Add(movie);
+                detailedMovieList.Add(AddToDbIfNotExist(movie));
+            }
 
-                }
-
-                if (dbMovie == null)
+            //dohvat i spremanje kategorije Wants To Watch:
+            dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
+            foreach (dynamic fbMovie in wants.data)
+            {
+                Models.FBMovie movie = new Models.FBMovie()
                 {
-                    Item omdbResult = await omdb.GetItemByTitle(movie.Title);
-                    if (omdbResult != null)
-                    {
-                        movies.ReplaceOne(p => p.Title == omdbResult.Title,
-                            omdbResult,
-                            new UpdateOptions { IsUpsert = true });
-                        dbMovie = omdbResult;
-
-                        var squery = subtitles.Find(p => p.MovieName == movie.Title);
-                        if (squery.Count() > 0)
-                        {
-                            dbSubtitle = squery.First();
-                        }
-                        if (dbSubtitle == null)
-                        {
-                            var osdbResult = osdb.SearchSubtitlesFromQuery("eng", movie.Title);
-                            if (osdbResult.Count > 0)
-                            {
-                                subtitles.ReplaceOne(p => p.SubtitleId == osdbResult.First().SubtitleId,
-                                    osdbResult.First(),
-                                    new UpdateOptions { IsUpsert = true });
-                                dbSubtitle = osdbResult.First();
-                            }
-                        }
-                    }
-                }
-
-                Uri link = null;
-                if (dbSubtitle != null)
-                {
-                    link = dbSubtitle.SubTitleDownloadLink;
-                }
-
-                detailedMovieList.Add(new Models.MovieDetails
-                {
-                    item = dbMovie,
-                    downloadLink = link
-                });
-                      
+                    Title = fbMovie.data.movie.title,
+                    Id = fbMovie.data.movie.id
+                };
+                wantsList.Add(movie);
+                detailedMovieList.Add(AddToDbIfNotExist(movie));
             }
 
             Person me = new Person
@@ -556,6 +527,8 @@ namespace Lab1.Controllers
                 Surname = myInfo.last_name,
                 Birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
                 LikedMovies = movieList,
+                Watches = watchesList,
+                Wants = wantsList,
                 Email = myInfo.email
             };
             //persons.InsertOne(me);
@@ -563,8 +536,103 @@ namespace Lab1.Controllers
                 me,
                 new UpdateOptions { IsUpsert = true });
 
-            
+            //testiranje dohvata informacija o popularnosti s fejsa. Ovaj dio koda tu nikako ne pripada:
+            var muviz = db.GetCollection<Models.Movie>("Muviz");
+            Models.Movie testni = new Models.Movie();
+            refreshMovieInfoFromFB(testni, "http://www.imdb.com/title/tt0068646");
+            muviz.InsertOne(testni);
+
+
+
+
             return View(detailedMovieList);
+        }
+
+        public async void refreshMovieInfoFromFB(Models.Movie Movie, string imdbURL)
+        {
+            var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
+            var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            var fb = new FacebookClient(access_token);
+            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+            Info = GetProperty(Info, imdbURL);
+            Movie.Title = Info.og_object.title;
+            Movie.FBLikes = Info.og_object.engagement.count;
+            Movie.FBShares = Info.share.share_count;
+        }
+
+        public static object GetProperty(object target, string name)
+        {
+            var site = System.Runtime.CompilerServices.CallSite<Func<System.Runtime.CompilerServices.CallSite, object, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.GetMember(0, name, target.GetType(), new[] { Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create(0, null) }));
+            return site.Target(site, target);
+        }
+
+        public Models.MovieDetails AddToDbIfNotExist(FBMovie movie)
+        {
+            //Open connection to database:
+            var db = MongoInstance.GetDatabase;
+
+            //Initialize OMDb and OSDb clients:
+            OMDbClient omdb = new OMDbClient(true);
+            var osdb = Osdb.Login("eng", "FileBot");
+
+            //Prepare database collections:
+            var movies = db.GetCollection<Item>("Movies");
+            var subtitles = db.GetCollection<Subtitle>("Subtitles");
+            //If movie is not in the database, add it and the subtitles
+
+            Item dbMovie = null;
+            Subtitle dbSubtitle = null;
+            var mquery = movies.Find(p => p.Title == movie.Title);
+            if (mquery.Count() > 0)
+            {
+                dbMovie = mquery.First();
+                var squery = subtitles.Find(p => p.MovieName == movie.Title);
+                if (squery.Count() > 0)
+                {
+                    dbSubtitle = squery.First();
+                }
+
+            }
+
+            if (dbMovie == null)
+            {
+                Item omdbResult = omdb.GetItemByTitle(movie.Title).Result;
+                if (omdbResult != null)
+                {
+                    movies.ReplaceOne(p => p.Title == omdbResult.Title,
+                        omdbResult,
+                        new UpdateOptions { IsUpsert = true });
+                    dbMovie = omdbResult;
+
+                    var squery = subtitles.Find(p => p.MovieName == movie.Title);
+                    if (squery.Count() > 0)
+                    {
+                        dbSubtitle = squery.First();
+                    }
+                    if (dbSubtitle == null)
+                    {
+                        var osdbResult = osdb.SearchSubtitlesFromQuery("eng", movie.Title);
+                        if (osdbResult.Count > 0)
+                        {
+                            subtitles.ReplaceOne(p => p.SubtitleId == osdbResult.First().SubtitleId,
+                                osdbResult.First(),
+                                new UpdateOptions { IsUpsert = true });
+                            dbSubtitle = osdbResult.First();
+                        }
+                    }
+                }
+            }
+
+            Uri link = null;
+            if (dbSubtitle != null)
+            {
+                link = dbSubtitle.SubTitleDownloadLink;
+            }
+            return new Models.MovieDetails
+            {
+                item = dbMovie,
+                downloadLink = link
+            };
         }
 
 
@@ -586,7 +654,6 @@ namespace Lab1.Controllers
             }
             return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
-
 
         #region Helpers
         // Used for XSRF protection when adding external logins
