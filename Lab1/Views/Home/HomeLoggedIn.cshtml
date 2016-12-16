@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Lab1.Models.MovieViewModel>
+
+@{
+    ViewBag.Title = "Recommended";
+}
+
+<h2>Welcome</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Runtime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Director)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Writer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metascore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IMDBRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Likes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Shares)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Runtime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Director)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Writer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Metascore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMDBRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Likes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Shares)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Watched this", "AddToWatched", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Don't show this again", "AddToDropout", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
