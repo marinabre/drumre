@@ -9,12 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
+using BLL;
 
 namespace Lab1.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
+        BLL.Baza baza = new BLL.Baza();
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -61,9 +63,8 @@ namespace Lab1.Controllers
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
             //var results2 = await IMDB.GetMovieAsync(47964, MovieMethods.Credits | MovieMethods.Videos);
             List<TMDbLib.Objects.Movies.Movie> rez = new List<TMDbLib.Objects.Movies.Movie>();
-            // 5998528
-            //54001 zadnji id u bazi
-            for (int j = 54001; j <= 100000; j += 1000)
+            // 6 328 656
+            for (int j = 1; j <= 10000; j += 1000)
             {
                 for (int i = j; i <= j + 1000; i++)
                 {
@@ -75,7 +76,7 @@ namespace Lab1.Controllers
                     }
                     catch
                     {
-                        spremiFilmove(rez);
+                        baza.spremiFilmove(rez);
                         rez = null;
                     }
 
@@ -86,30 +87,14 @@ namespace Lab1.Controllers
                 }
                 if (rez != null)
                 {
-                    spremiFilmove(rez);
+                    baza.spremiFilmove(rez);
                 }
 
             }
             return rez;
 
         }
-        public async void spremiFilmove(List<TMDbLib.Objects.Movies.Movie> newObjects)
-        {
-            var db = MongoInstance.GetDatabase;
-            var collection = db.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
-            await collection.InsertManyAsync(newObjects);
-
-            //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
-            //da ne pizdi zbog duplića
-            // var models = new WriteModel<BsonDocument>[newObjects.Count];
-            //// use ReplaceOneModel with property IsUpsert set to true to upsert whole documents
-            //for (var i = 0; i < newObjects.Count; i++)
-            //{
-            //    var bsonDoc = newObjects[i].ToBsonDocument();
-            //    models[i] = new ReplaceOneModel<BsonDocument>(new BsonDocument("_id", newObjects[i].Id), bsonDoc) { IsUpsert = true };
-            //};
-            //await collection.BulkWriteAsync(models);
-        }
+      
 
         ////thetvdb.com API KEY: BDA5FCAB219B7E8E
         //public List<BazaPodataka.TVShow> thetvdb()
