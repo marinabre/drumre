@@ -148,6 +148,10 @@
       <HintPath>..\packages\TMDbLib.1.0.0\lib\net451\TMDbLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TVDBSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TVDBSharp.2.0.1\lib\TVDBSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
