@@ -13,7 +13,7 @@ using Facebook;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
-using static Lab1.Controllers.ManageController;
+using Lab1.Controllers;
 using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
@@ -574,7 +574,7 @@ namespace Lab1.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
-                return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
+                return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
             }
             IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             if (result.Succeeded)
@@ -584,7 +584,7 @@ namespace Lab1.Controllers
                 await StoreFacebookAuthToken(currentUser);
                 return RedirectToAction("Manage");
             }
-            return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
+            return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
         }
 
 

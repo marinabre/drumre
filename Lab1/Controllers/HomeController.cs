@@ -1,4 +1,5 @@
 ﻿using Lab1.App_Start;
+using Lab1.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -15,6 +16,26 @@ namespace Lab1.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var movies = new List<MovieViewModel>();
+                var BLLmovies = BLL.DummyHelpers.MovieProvider.RecommendMovies();
+                foreach (var BLLmovie in BLLmovies)
+                {
+                    var movie = new MovieViewModel();
+                    movie.CastFromMovie(BLLmovie);
+                    movies.Add(movie);
+                }
+                return View("HomeLoggedIn", movies);
+            }
+            else
+            {
+                return View();
+            }            
+        }
+
+        public ActionResult Search()
         {
             return View();
         }
