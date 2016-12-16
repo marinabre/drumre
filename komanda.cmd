@@ -1,1 +1,0 @@
-mongod --dbpath=\Users\Ivyclover\Documents\GitHub\drumre\baza

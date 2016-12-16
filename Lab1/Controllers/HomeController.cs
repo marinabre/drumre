@@ -56,18 +56,18 @@ namespace Lab1.Controllers
             return View();
 
         }
-        public async System.Threading.Tasks.Task<List<Movie>> IMDB2()
+        public async System.Threading.Tasks.Task<List<TMDbLib.Objects.Movies.Movie>> IMDB2()
         {
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
             //var results2 = await IMDB.GetMovieAsync(47964, MovieMethods.Credits | MovieMethods.Videos);
-            List<TMDbLib.Objects.Movies.Movie> rez = new List<Movie>();
+            List<TMDbLib.Objects.Movies.Movie> rez = new List<TMDbLib.Objects.Movies.Movie>();
             // 5998528
             //54001 zadnji id u bazi
             for (int j = 54001; j <= 100000; j += 1000)
             {
                 for (int i = j; i <= j + 1000; i++)
                 {
-                    Movie pom = new Movie();
+                    TMDbLib.Objects.Movies.Movie pom = new TMDbLib.Objects.Movies.Movie();
                     try
                     {
                         pom = await IMDB.GetMovieAsync(i, MovieMethods.Credits | MovieMethods.Videos);
@@ -93,10 +93,10 @@ namespace Lab1.Controllers
             return rez;
 
         }
-        public async void spremiFilmove(List<Movie> newObjects)
+        public async void spremiFilmove(List<TMDbLib.Objects.Movies.Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
-            var collection = db.GetCollection<Movie>("movies");
+            var collection = db.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
             await collection.InsertManyAsync(newObjects);
 
             //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
