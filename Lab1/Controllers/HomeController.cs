@@ -19,14 +19,17 @@ namespace Lab1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                #region Getting recommended movies here
                 var movies = new List<MovieViewModel>();
                 var BLLmovies = BLL.DummyHelpers.MovieProvider.RecommendMovies();
                 foreach (var BLLmovie in BLLmovies)
                 {
+                    if (BLLmovie.Title == "") continue;
                     var movie = new MovieViewModel();
                     movie.CastFromMovie(BLLmovie);
                     movies.Add(movie);
                 }
+                #endregion
                 return View("HomeLoggedIn", movies);
             }
             else

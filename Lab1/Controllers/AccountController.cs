@@ -387,7 +387,8 @@ namespace Lab1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                //return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "Home");
             }
 
             if (ModelState.IsValid)
@@ -559,7 +560,8 @@ namespace Lab1.Controllers
 
 
 
-            return View(detailedMovieList);
+            //return View(detailedMovieList);
+            return RedirectToAction("Index", "Home");
         }
 
         public async void refreshMovieInfoFromFB(Models.Movie Movie, string imdbURL)

@@ -11,9 +11,8 @@ namespace Lab1.Models
     {
         #region Variables
         public string Title { get; set; }
-        public int Year { get; set; }
-        public decimal Rating { get; set; }
-        public int Runtime { get; set; }
+        public string Year { get; set; }
+        public string Runtime { get; set; }
         public string Genre { get; set; }
         public string Director { get; set; }
         public string Writer { get; set; }
@@ -36,7 +35,6 @@ namespace Lab1.Models
         {
             Title = movie.Title;
             Year = movie.Year;
-            Rating = movie.Rating;
             Runtime = movie.Runtime;
             Genre = movie.Genre;
             Director = movie.Director;
