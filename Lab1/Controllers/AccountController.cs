@@ -26,7 +26,7 @@ using Newtonsoft.Json;
 using Microsoft.CSharp.RuntimeBinder;
 using BLL;
 
-namespace Lab1.Controllers
+namespace Projekt.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -565,17 +565,7 @@ namespace Lab1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async void refreshMovieInfoFromFB(BLL.Movie Movie, string imdbURL)
-        {
-            var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
-            var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
-            var fb = new FacebookClient(access_token);
-            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
-            Info = GetProperty(Info, imdbURL);
-            Movie.Title = Info.og_object.title;
-            Movie.FBLikes = Info.og_object.engagement.count;
-            Movie.FBShares = Info.share.share_count;
-        }
+        
 
         public static object GetProperty(object target, string name)
         {
@@ -659,7 +649,7 @@ namespace Lab1.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
-                return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
+                return RedirectToAction("Manage", new { Message = Projekt.Controllers.ManageController.ManageMessageId.Error });
             }
             IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             if (result.Succeeded)
@@ -669,7 +659,7 @@ namespace Lab1.Controllers
                 await StoreFacebookAuthToken(currentUser);
                 return RedirectToAction("Manage");
             }
-            return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
+            return RedirectToAction("Manage", new { Message = Projekt.Controllers.ManageController.ManageMessageId.Error });
         }
 
         #region Helpers

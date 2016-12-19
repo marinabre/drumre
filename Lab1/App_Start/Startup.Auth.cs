@@ -10,7 +10,7 @@ using Microsoft.Owin.Security.Facebook;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
-namespace Lab1
+namespace Projekt
 {
     public partial class Startup
     {
