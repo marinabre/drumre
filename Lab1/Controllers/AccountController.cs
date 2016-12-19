@@ -23,6 +23,7 @@ using Lab1.App_Start;
 using MongoDB.Bson.Serialization.Conventions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace Lab1.Controllers
 {
@@ -386,7 +387,8 @@ namespace Lab1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                //return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "Home");
             }
 
             if (ModelState.IsValid)
@@ -496,29 +498,42 @@ namespace Lab1.Controllers
             }
 
             //dohvat i spremanje kategorije Watched:
-            dynamic watches = GetProperty(myInfo, "video.watches");
-            foreach (dynamic fbMovie in watches.data)
+            try
             {
-                Models.FBMovie movie = new Models.FBMovie()
+                dynamic watches = GetProperty(myInfo, "video.watches");
+                foreach (dynamic fbMovie in watches.data)
                 {
-                    Title = fbMovie.data.movie.title,
-                    Id = fbMovie.data.movie.id
-                };
-                watchesList.Add(movie);
-                detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    Models.FBMovie movie = new Models.FBMovie()
+                    {
+                        Title = fbMovie.data.movie.title,
+                        Id = fbMovie.data.movie.id
+                    };
+                    watchesList.Add(movie);
+                    detailedMovieList.Add(AddToDbIfNotExist(movie));
+                }
+            } catch (RuntimeBinderException)
+            {
+                
             }
 
+
             //dohvat i spremanje kategorije Wants To Watch:
-            dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
-            foreach (dynamic fbMovie in wants.data)
+            try
             {
-                Models.FBMovie movie = new Models.FBMovie()
+                dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
+                foreach (dynamic fbMovie in wants.data)
                 {
-                    Title = fbMovie.data.movie.title,
-                    Id = fbMovie.data.movie.id
-                };
-                wantsList.Add(movie);
-                detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    Models.FBMovie movie = new Models.FBMovie()
+                    {
+                        Title = fbMovie.data.movie.title,
+                        Id = fbMovie.data.movie.id
+                    };
+                    wantsList.Add(movie);
+                    detailedMovieList.Add(AddToDbIfNotExist(movie));
+                }
+            } catch (RuntimeBinderException)
+            {
+                
             }
 
             Person me = new Person
@@ -545,7 +560,8 @@ namespace Lab1.Controllers
 
 
 
-            return View(detailedMovieList);
+            //return View(detailedMovieList);
+            return RedirectToAction("Index", "Home");
         }
 
         public async void refreshMovieInfoFromFB(Models.Movie Movie, string imdbURL)
