@@ -254,3 +254,5 @@ paket-files/
 *.wt
 *.orig
 [Bb]AZA/
+BAZA/*.wt
+BAZA/collection-*.wt
