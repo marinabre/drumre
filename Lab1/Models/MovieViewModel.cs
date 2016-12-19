@@ -31,7 +31,7 @@ namespace Lab1.Models
         #endregion
 
         #region Methods
-        public void CastFromMovie(BLL.Movie movie) 
+        public void CastFromMovie(BLLDummy.Movie movie) 
         {
             Title = movie.Title;
             Year = movie.Year;

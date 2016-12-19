@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
+using BLL;
 
 namespace Lab1.Controllers
 {

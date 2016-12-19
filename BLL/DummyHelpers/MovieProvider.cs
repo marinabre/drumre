@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -6,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BLL.DummyHelpers
 {
     public class MovieProvider
     {
-        public static List<Movie> RecommendMovies()
+        public static List<BLLDummy.Movie> RecommendMovies()
         {
-            var movies = new List<Movie>();
+            var movies = new List<BLLDummy.Movie>();
 
-            IMongoClient client = new MongoClient();
-            IMongoDatabase db = client.GetDatabase("Lab1-v4");
+            //IMongoClient client = new MongoClient();
+            IMongoDatabase db = MongoInstance.GetDatabase;
             var collection = db.GetCollection<BsonDocument>("Movies");
 
             var filter = new BsonDocument();
@@ -25,7 +27,7 @@ namespace BLL.DummyHelpers
 
             foreach (var movieDB in res)
             {
-                var movie = new Movie();
+                var movie = new BLLDummy.Movie();
                 if (movieDB["Director"].BsonType != BsonType.Null)
                 {
                     movie.Director = movieDB["Director"].AsString;

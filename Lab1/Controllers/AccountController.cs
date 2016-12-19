@@ -24,6 +24,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.CSharp.RuntimeBinder;
+using BLL;
 
 namespace Lab1.Controllers
 {
@@ -480,15 +481,15 @@ namespace Lab1.Controllers
             dynamic myInfo = fb.Get("me?fields=id,email,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch");
 
             //Process results:
-            IList<Models.FBMovie> movieList = new List<Models.FBMovie>();
-            IList<Models.FBMovie> watchesList = new List<Models.FBMovie>();
-            IList<Models.FBMovie> wantsList = new List<Models.FBMovie>();
-            IList<Models.MovieDetails> detailedMovieList = new List<Models.MovieDetails>();
+            IList<BLL.FBMovie> movieList = new List<BLL.FBMovie>();
+            IList<BLL.FBMovie> watchesList = new List<BLL.FBMovie>();
+            IList<BLL.FBMovie> wantsList = new List<BLL.FBMovie>();
+            IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
 
             //dohvat i spremanje kategorije Likes:
             foreach (dynamic fbMovie in myInfo.movies.data)
             {
-                Models.FBMovie movie = new Models.FBMovie()
+                BLL.FBMovie movie = new BLL.FBMovie()
                 {
                     Title = fbMovie.name,
                     Id = fbMovie.id
@@ -503,7 +504,7 @@ namespace Lab1.Controllers
                 dynamic watches = GetProperty(myInfo, "video.watches");
                 foreach (dynamic fbMovie in watches.data)
                 {
-                    Models.FBMovie movie = new Models.FBMovie()
+                    BLL.FBMovie movie = new BLL.FBMovie()
                     {
                         Title = fbMovie.data.movie.title,
                         Id = fbMovie.data.movie.id
@@ -523,7 +524,7 @@ namespace Lab1.Controllers
                 dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
                 foreach (dynamic fbMovie in wants.data)
                 {
-                    Models.FBMovie movie = new Models.FBMovie()
+                    BLL.FBMovie movie = new BLL.FBMovie()
                     {
                         Title = fbMovie.data.movie.title,
                         Id = fbMovie.data.movie.id
@@ -552,8 +553,8 @@ namespace Lab1.Controllers
                 new UpdateOptions { IsUpsert = true });
 
             //testiranje dohvata informacija o popularnosti s fejsa. Ovaj dio koda tu nikako ne pripada:
-            var muviz = db.GetCollection<Models.Movie>("Muviz");
-            Models.Movie testni = new Models.Movie();
+            var muviz = db.GetCollection<BLL.Movie>("Muviz");
+            BLL.Movie testni = new BLL.Movie();
             refreshMovieInfoFromFB(testni, "http://www.imdb.com/title/tt0068646");
             muviz.InsertOne(testni);
 
@@ -564,7 +565,7 @@ namespace Lab1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async void refreshMovieInfoFromFB(Models.Movie Movie, string imdbURL)
+        public async void refreshMovieInfoFromFB(BLL.Movie Movie, string imdbURL)
         {
             var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
             var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
@@ -582,7 +583,7 @@ namespace Lab1.Controllers
             return site.Target(site, target);
         }
 
-        public Models.MovieDetails AddToDbIfNotExist(FBMovie movie)
+        public BLL.MovieDetails AddToDbIfNotExist(FBMovie movie)
         {
             //Open connection to database:
             var db = MongoInstance.GetDatabase;
@@ -644,7 +645,7 @@ namespace Lab1.Controllers
             {
                 link = dbSubtitle.SubTitleDownloadLink;
             }
-            return new Models.MovieDetails
+            return new BLL.MovieDetails
             {
                 item = dbMovie,
                 downloadLink = link
