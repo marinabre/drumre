@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
-namespace Lab1.Models
+namespace BLL
 {
     public class Person
     {

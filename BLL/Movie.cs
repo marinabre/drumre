@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using TMDbLib.Objects.General;
 
-namespace Lab1.Models
+namespace BLL
 {
     public class Movie
     {
