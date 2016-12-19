@@ -1,10 +1,10 @@
-﻿using Lab1.Models;
+﻿using Projekt.Models;
 using Microsoft.Owin;
 using MongoDB.Driver;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Lab1.Startup))]
-namespace Lab1
+[assembly: OwinStartupAttribute(typeof(Projekt.Startup))]
+namespace Projekt
 {
     public partial class Startup
     {
@@ -12,7 +12,7 @@ namespace Lab1
         {
             ConfigureAuth(app);
             //MongoClient client = new MongoClient();
-            //var db = client.GetDatabase("Lab1");
+            //var db = client.GetDatabase("Projekt");
             //var collection = db.GetCollection<Person>("Person");
 
             //Person person = new Person

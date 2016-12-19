@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Lab1.Models;
+using Projekt.Models;
 using Microsoft.Owin.Security.Facebook;
 using System.Threading.Tasks;
 using System.Security.Claims;

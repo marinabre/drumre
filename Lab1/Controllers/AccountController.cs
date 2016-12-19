@@ -8,18 +8,18 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Lab1.Models;
+using Projekt.Models;
 using Facebook;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
-using Lab1.Controllers;
+using Projekt.Controllers;
 using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
 using System.Configuration;
 using MongoDB.Bson;
-using Lab1.App_Start;
+using Projekt.App_Start;
 using MongoDB.Bson.Serialization.Conventions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -565,7 +565,17 @@ namespace Projekt.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+        public async void refreshMovieInfoFromFB(BLL.Movie Movie, string imdbURL)
+        {
+            var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
+            var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            var fb = new FacebookClient(access_token);
+            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+            Info = GetProperty(Info, imdbURL);
+            Movie.Title = Info.og_object.title;
+            Movie.FBLikes = Info.og_object.engagement.count;
+            Movie.FBShares = Info.share.share_count;
+        }
 
         public static object GetProperty(object target, string name)
         {

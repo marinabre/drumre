@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Lab1.Models
+namespace Projekt.Models
 {
     public class MovieViewModel
     {
