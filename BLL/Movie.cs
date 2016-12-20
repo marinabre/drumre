@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.General;
+using OSDBnet;
 
 namespace BLL
 {
@@ -15,12 +17,24 @@ namespace BLL
         
         public ObjectId Id { get; set; }
         public String IMDbId { get; set; }
-        public bool Adult { get; set; }
         public String Title { get; set; }
+        public int? Runtime { get; set; }
+        public Credits Credits { get; set; }
         public IList<Genre> Genres { get; set; }
+        public KeywordsContainer Keywords { get; set; }
+        public string Overview { get; set; }
+        public double Popularity { get; set; }
         public String PosterPath { get; set; }
-        public DateTime ReleaseDate { get; set; }
-        
+        public DateTime? ReleaseDate { get; set; }
+
+        public SearchContainer<TMDbLib.Objects.Reviews.ReviewBase> Reviews { get; set; }
+        public SearchContainer<TMDbLib.Objects.Search.SearchMovie> Similar { get; set; }
+        public string Status { get; set; }
+        public ResultContainer<Video> Videos { get; set; }
+        public double VoteAverage { get; set; }
+        public int VoteCount { get; set; }
+
+
 
         //Marina, ovo do tuda možeš mjenjat, ovo ispod nemoj, to je za podatke iz mojih APIja. Ana :*
         //P.S. funkcije za dohvat možeš zgurat pod MovieRepository
@@ -38,5 +52,7 @@ namespace BLL
         public int TomatoUserMeter { get; set; }
         public decimal TomatoUserRating { get; set; }
         public int TomatoUserReviews { get; set; }
+
+        public Subtitle MovieSubtitle { get; set; } 
     }
 }

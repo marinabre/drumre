@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projekt", "Lab1\Projekt.csproj", "{7998C3DE-BF36-40BF-A6FB-C4985EAF67CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{7A222F6D-C90B-48B1-8037-5E5A587652FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DohvatPodataka", "DohvatPodataka\DohvatPodataka.csproj", "{194B9979-B9E0-4E4F-B383-1CEC50896EC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7A222F6D-C90B-48B1-8037-5E5A587652FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A222F6D-C90B-48B1-8037-5E5A587652FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A222F6D-C90B-48B1-8037-5E5A587652FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{194B9979-B9E0-4E4F-B383-1CEC50896EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{194B9979-B9E0-4E4F-B383-1CEC50896EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{194B9979-B9E0-4E4F-B383-1CEC50896EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{194B9979-B9E0-4E4F-B383-1CEC50896EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

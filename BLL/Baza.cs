@@ -11,34 +11,21 @@ namespace BLL
 {
     public class Baza
     {
-        //mongo instance Anin je u app_start folderu na main projektu, odlučiti kaj s tim
-        protected static IMongoClient _client;
-        protected static IMongoDatabase _database;
-
-        public Baza()
+        public void spremiFilmove(List<Movie> newObjects)
         {
-            if (_client == null)
-            {
-                _client = new MongoClient();
-                _database = _client.GetDatabase("projekt");
-            }
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
+            collection.InsertMany(newObjects);
+            // await collection.InsertManyAsync(newObjects);
         }
-
-        public async void spremiFilmove(List<TMDbLib.Objects.Movies.Movie> newObjects)
+        public void updateMovie(Movie updatedMovie)
         {
-            var collection = _database.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
-            await collection.InsertManyAsync(newObjects);
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
 
-            //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
-            //da ne pizdi zbog duplića
-            // var models = new WriteModel<BsonDocument>[newObjects.Count];
-            //// use ReplaceOneModel with property IsUpsert set to true to upsert whole documents
-            //for (var i = 0; i < newObjects.Count; i++)
-            //{
-            //    var bsonDoc = newObjects[i].ToBsonDocument();
-            //    models[i] = new ReplaceOneModel<BsonDocument>(new BsonDocument("_id", newObjects[i].Id), bsonDoc) { IsUpsert = true };
-            //};
-            //await collection.BulkWriteAsync(models);
+            collection.ReplaceOne(p => p.Title == updatedMovie.IMDbId,
+                        updatedMovie,
+                        new UpdateOptions { IsUpsert = true });
         }
 
         //public List<TVShow> dohvatiEmisije(string name)
@@ -53,5 +40,18 @@ namespace BLL
         //    collection.InsertMany(newObjects);
         //}
 
+
+
+
+        //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
+        //da ne pizdi zbog duplića
+        // var models = new WriteModel<BsonDocument>[newObjects.Count];
+        //// use ReplaceOneModel with property IsUpsert set to true to upsert whole documents
+        //for (var i = 0; i < newObjects.Count; i++)
+        //{
+        //    var bsonDoc = newObjects[i].ToBsonDocument();
+        //    models[i] = new ReplaceOneModel<BsonDocument>(new BsonDocument("_id", newObjects[i].Id), bsonDoc) { IsUpsert = true };
+        //};
+        //await collection.BulkWriteAsync(models);
     }
 }
