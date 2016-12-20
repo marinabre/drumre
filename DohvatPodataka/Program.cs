@@ -33,7 +33,7 @@ namespace DohvatPodataka
 
             List<BLL.Movie> rez = new List<BLL.Movie>();
             // 6 328 656
-            for (int j = 201; j <= 1000; j += 50)
+            for (int j = 1001; j <= 2000; j += 50)
             {
                 for (int i = j; i < j + 50; i++)
                 {
@@ -72,18 +72,7 @@ namespace DohvatPodataka
                         };
 
                         newMovie = repo.OMDbData(newMovie);
-                        try
-                        {
-                            var osdb = Osdb.Login("eng", "FileBot");
-                            var subtitles = osdb.SearchSubtitlesFromImdb("eng", newMovie.IMDbId.Substring(2));
-                            if (subtitles.Count > 0)
-                            {
-                                newMovie.MovieSubtitle = subtitles.First();
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                        }
+                        newMovie = repo.SubtitleData(newMovie);
                         rez.Add(newMovie);
                     }
                 }

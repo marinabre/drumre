@@ -1,4 +1,5 @@
 ﻿using OMDbSharp;
+using OSDBnet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,28 @@ namespace BLL
             return movie;
         }
 
+        public Movie SubtitleData(Movie movie, bool refresh = false)
+        {
+            try
+            {
+                var osdb = Osdb.Login("eng", "FileBot");
+                var subtitles = osdb.SearchSubtitlesFromImdb("eng", movie.IMDbId.Substring(2));
+                if (subtitles.Count > 0)
+                {
+                    movie.MovieSubtitle = subtitles.First();
+                    if (refresh)
+                    {
+                        baza.updateMovie(movie);
+                    }
+
+                }
+                return movie;
+            }
+            catch (Exception e)
+            {
+                return movie;
+            }
+        }
 
 
     }
