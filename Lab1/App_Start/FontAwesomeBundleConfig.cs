@@ -1,8 +1,8 @@
 using System.Web.Optimization;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(Lab1.App_Start.FontAwesomeBundleConfig), "RegisterBundles")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(Projekt.App_Start.FontAwesomeBundleConfig), "RegisterBundles")]
 
-namespace Lab1.App_Start
+namespace Projekt.App_Start
 {
 	public class FontAwesomeBundleConfig
 	{

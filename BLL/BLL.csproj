@@ -81,6 +81,7 @@
     <Compile Include="MongoInstance.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieDetails.cs" />
+    <Compile Include="MovieRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿using Lab1.App_Start;
-using Lab1.Models;
+﻿using Projekt.App_Start;
+using Projekt.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -11,7 +11,7 @@ using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 using BLL;
 
-namespace Lab1.Controllers
+namespace Projekt.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller

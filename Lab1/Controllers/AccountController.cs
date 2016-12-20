@@ -8,25 +8,25 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Lab1.Models;
+using Projekt.Models;
 using Facebook;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Owin;
-using Lab1.Controllers;
+using Projekt.Controllers;
 using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
 using System.Configuration;
 using MongoDB.Bson;
-using Lab1.App_Start;
+using Projekt.App_Start;
 using MongoDB.Bson.Serialization.Conventions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.CSharp.RuntimeBinder;
 using BLL;
 
-namespace Lab1.Controllers
+namespace Projekt.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -659,7 +659,7 @@ namespace Lab1.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
-                return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
+                return RedirectToAction("Manage", new { Message = Projekt.Controllers.ManageController.ManageMessageId.Error });
             }
             IdentityResult result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             if (result.Succeeded)
@@ -669,7 +669,7 @@ namespace Lab1.Controllers
                 await StoreFacebookAuthToken(currentUser);
                 return RedirectToAction("Manage");
             }
-            return RedirectToAction("Manage", new { Message = Lab1.Controllers.ManageController.ManageMessageId.Error });
+            return RedirectToAction("Manage", new { Message = Projekt.Controllers.ManageController.ManageMessageId.Error });
         }
 
         #region Helpers
