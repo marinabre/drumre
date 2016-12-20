@@ -30,11 +30,10 @@ namespace DohvatPodataka
         {
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
             OMDbClient omdb = new OMDbClient(true);
-            var osdb = Osdb.Login("eng", "FileBot");
 
             List<BLL.Movie> rez = new List<BLL.Movie>();
             // 6 328 656
-            for (int j = 101; j <= 1000; j += 50)
+            for (int j = 201; j <= 1000; j += 50)
             {
                 for (int i = j; i < j + 50; i++)
                 {
@@ -75,6 +74,7 @@ namespace DohvatPodataka
                         newMovie = repo.OMDbData(newMovie);
                         try
                         {
+                            var osdb = Osdb.Login("eng", "FileBot");
                             var subtitles = osdb.SearchSubtitlesFromImdb("eng", newMovie.IMDbId.Substring(2));
                             if (subtitles.Count > 0)
                             {
@@ -90,7 +90,7 @@ namespace DohvatPodataka
                 if (rez != null)
                 {
                     baza.spremiFilmove(rez);
-                    rez = null;
+                    rez = new List<BLL.Movie>();
                 }
 
             }
