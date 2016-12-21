@@ -462,14 +462,17 @@ namespace Projekt.Controllers
         [Authorize]
         public async Task<ActionResult> FacebookInfo()
         {
+            refreshUserData();
 
+            //return View(detailedMovieList);
+            return RedirectToAction("Index", "Home");
+        }
+
+        
+        public async void refreshUserData()
+        {
             //Open connection to database:
             var db = MongoInstance.GetDatabase;
-
-            var pack = new ConventionPack();
-            pack.Add(new IgnoreExtraElementsConvention(true));
-            ConventionRegistry.Register("ignore extra elements", pack, t => true);
-
             //Prepare database collections:
             var persons = db.GetCollection<Person>("Person");
 
@@ -512,11 +515,8 @@ namespace Projekt.Controllers
                     watchesList.Add(movie);
                     detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
-            } catch (RuntimeBinderException)
-            {
-                
             }
-
+            catch (RuntimeBinderException) { }
 
             //dohvat i spremanje kategorije Wants To Watch:
             try
@@ -532,10 +532,8 @@ namespace Projekt.Controllers
                     wantsList.Add(movie);
                     detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
-            } catch (RuntimeBinderException)
-            {
-                
             }
+            catch (RuntimeBinderException) { }
 
             Person me = new Person
             {
@@ -547,27 +545,11 @@ namespace Projekt.Controllers
                 Wants = wantsList,
                 Email = myInfo.email
             };
-            //persons.InsertOne(me);
+
             persons.ReplaceOne(p => p.Email == me.Email,
                 me,
                 new UpdateOptions { IsUpsert = true });
-
-            //testiranje dohvata informacija o popularnosti s fejsa. Ovaj dio koda tu nikako ne pripada:
-            var muviz = db.GetCollection<BLL.Movie>("Muviz");
-            BLL.Movie testni = new BLL.Movie();
-            testni.IMDbId = "tt0120915";
-            BLL.MovieRepository.FBData(testni);
-            muviz.InsertOne(testni);
-
-
-
-
-            //return View(detailedMovieList);
-            return RedirectToAction("Index", "Home");
         }
-
-        
-
 
 
         public BLL.MovieDetails AddToDbIfNotExist(FBMovie movie)
