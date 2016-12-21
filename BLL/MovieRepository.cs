@@ -1,10 +1,8 @@
-﻿using OMDbSharp;
+﻿using Facebook;
+using OMDbSharp;
 using OSDBnet;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace BLL
@@ -92,6 +90,31 @@ namespace BLL
             }
         }
 
+        public static void FBData (Movie movie, bool refresh = false)
+        {
+            //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
+            //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            //var fb = new FacebookClient(access_token);
+            var fb = new FacebookClient();
+            dynamic result = fb.Get("oauth/access_token", new
+            {
+                client_id = "1279180495466644",
+                client_secret = "780860b63672ff262370699538722160",
+                grant_type = "client_credentials"
+            });
+            String imdbURL = "http://www.imdb.com/title/" + movie.IMDbId;
+            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+            Info = GetProperty(Info, imdbURL);
+            movie.Title = Info.og_object.title;
+            movie.FBLikes = Info.og_object.engagement.count;
+            movie.FBShares = Info.share.share_count;
+        }
+
+        public static object GetProperty(object target, string name)
+        {
+            var site = System.Runtime.CompilerServices.CallSite<Func<System.Runtime.CompilerServices.CallSite, object, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.GetMember(0, name, target.GetType(), new[] { Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create(0, null) }));
+            return site.Target(site, target);
+        }
 
     }
 }
