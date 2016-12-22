@@ -4,8 +4,6 @@ using OMDbSharp;
 using OSDBnet;
 using System;
 using System.Linq;
-using TMDbLib.Client;
-using TMDbLib.Objects.Movies;
 
 namespace BLL
 {
