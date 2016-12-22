@@ -70,6 +70,10 @@
       <HintPath>..\packages\TMDbLib.1.0.0\lib\net451\TMDbLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TVDBSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TVDBSharp.2.0.1\lib\TVDBSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

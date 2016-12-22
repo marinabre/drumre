@@ -11,7 +11,7 @@ namespace BLL
 {
     public class Baza
     {
-        public void spremiFilmove(List<Movie> newObjects)
+        public void saveMovies(List<Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
             IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
@@ -25,6 +25,22 @@ namespace BLL
 
             collection.ReplaceOne(p => p.Title == updatedMovie.IMDbId,
                         updatedMovie,
+                        new UpdateOptions { IsUpsert = true });
+        }
+        public void saveTVShows(List<TVShow> newObjects)
+        {
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+            collection.InsertMany(newObjects);
+            // await collection.InsertManyAsync(newObjects);
+        }
+        public void updateTVShow(TVShow updatedTVShow)
+        {
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+
+            collection.ReplaceOne(p => p.IMDbId == updatedTVShow.IMDbId,
+                        updatedTVShow,
                         new UpdateOptions { IsUpsert = true });
         }
 

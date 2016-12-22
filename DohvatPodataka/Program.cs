@@ -9,6 +9,7 @@ using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 using OMDbSharp;
 using OSDBnet;
+using TVDBSharp;
 
 namespace DohvatPodataka
 {
@@ -19,10 +20,13 @@ namespace DohvatPodataka
         static int Main(string[] args)
         {
             var prog = new Program();
-            Task.Run(async () =>
-            {
-                var movies = await prog.IMDB();
-            }).GetAwaiter().GetResult();
+            //Task.Run(async () =>
+            //{
+            //var movies = await prog.IMDB();
+            var tvShowa = prog.thetvdb("marina");
+           // }).GetAwaiter().GetResult();
+            Console.WriteLine(tvShowa.First().Id +" " + tvShowa.First().ImdbId + " "+ tvShowa.First().Name);
+            Console.ReadLine();
             return 0;
         }
 
@@ -45,7 +49,7 @@ namespace DohvatPodataka
                     }
                     catch
                     {
-                        baza.spremiFilmove(rez);
+                        baza.saveMovies(rez);
                         return rez;
                     }
 
@@ -78,7 +82,7 @@ namespace DohvatPodataka
                 }
                 if (rez != null)
                 {
-                    baza.spremiFilmove(rez);
+                    baza.saveMovies(rez);
                     rez = new List<BLL.Movie>();
                 }
 
@@ -87,6 +91,14 @@ namespace DohvatPodataka
         }
 
 
-
+        ////thetvdb.com API KEY: BDA5FCAB219B7E8E
+        public List<TVDBSharp.Models.Show> thetvdb(string name)
+        {
+            var tvdb = new TVDB("BDA5FCAB219B7E8E");
+            var results = tvdb.Search("tt0944947");
+          //  var shows = new List<BazaPodataka.TVShow>();
+            //tvdb.Search("", Int32.MaxValue);
+            return results;
+        }
     }
 }

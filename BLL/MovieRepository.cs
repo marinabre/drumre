@@ -4,7 +4,8 @@ using OMDbSharp;
 using OSDBnet;
 using System;
 using System.Linq;
-
+using TMDbLib.Client;
+using TMDbLib.Objects.Movies;
 
 namespace BLL
 {
@@ -124,6 +125,66 @@ namespace BLL
             var result = movies.Find(p => p.IMDbId == imdbID);
             return result.First();
             
+        }
+        public async System.Threading.Tasks.Task<Movie> GetMovieByTitleFromAPI(string title)
+        {
+            MovieRepository repo = new MovieRepository();
+            var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
+            var search = await IMDB.SearchMovieAsync(title);
+            var pom = await IMDB.GetMovieAsync(search.Results[0].Id, MovieMethods.Credits | MovieMethods.Videos | MovieMethods.Similar | MovieMethods.Reviews | MovieMethods.Keywords);
+
+            var newMovie = new BLL.Movie
+            {
+                IMDbId = pom.ImdbId,
+                Title = pom.Title,
+                Runtime = pom.Runtime,
+                Credits = pom.Credits,
+                Genres = pom.Genres,
+                Keywords = pom.Keywords,
+                Overview = pom.Overview,
+                Popularity = pom.Popularity,
+                PosterPath = pom.PosterPath,
+                ReleaseDate = pom.ReleaseDate,
+                Reviews = pom.Reviews,
+                Similar = pom.Similar,
+                Status = pom.Status,
+                Videos = pom.Videos,
+                VoteAverage = pom.VoteAverage,
+                VoteCount = pom.VoteCount
+            };
+            newMovie = repo.OMDbData(newMovie);
+            newMovie = repo.SubtitleData(newMovie);
+            return newMovie;
+
+        }
+        public async System.Threading.Tasks.Task<Movie> GetMovieByIdFromAPI(string id)
+        {
+            MovieRepository repo = new MovieRepository();
+            var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
+            var pom = await IMDB.GetMovieAsync(id, MovieMethods.Credits | MovieMethods.Videos | MovieMethods.Similar | MovieMethods.Reviews | MovieMethods.Keywords);
+
+            var newMovie = new BLL.Movie
+            {
+                IMDbId = pom.ImdbId,
+                Title = pom.Title,
+                Runtime = pom.Runtime,
+                Credits = pom.Credits,
+                Genres = pom.Genres,
+                Keywords = pom.Keywords,
+                Overview = pom.Overview,
+                Popularity = pom.Popularity,
+                PosterPath = pom.PosterPath,
+                ReleaseDate = pom.ReleaseDate,
+                Reviews = pom.Reviews,
+                Similar = pom.Similar,
+                Status = pom.Status,
+                Videos = pom.Videos,
+                VoteAverage = pom.VoteAverage,
+                VoteCount = pom.VoteCount
+            };
+            newMovie = repo.OMDbData(newMovie);
+            newMovie = repo.SubtitleData(newMovie);
+            return newMovie;
         }
 
     }
