@@ -11,7 +11,7 @@ namespace BLL
 {
     public class Baza
     {
-        public async void spremiFilmove(List<Movie> newObjects)
+        public void saveMovies(List<Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
             IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
@@ -27,24 +27,36 @@ namespace BLL
                         updatedMovie,
                         new UpdateOptions { IsUpsert = true });
         }
-        public async Task<List<TMDbLib.Objects.Movies.Movie>> dohvatiIzStareLokalne(int Id)
+        public void saveTVShows(List<TVShow> newObjects)
         {
-            var _client = new MongoClient();
-            var _database = _client.GetDatabase("Lab1-v3");
-            var filter = Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyGt("_id", Id) & Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyLt("_id", Id + 500);
-            var collection = _database.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
-            var result = await collection.Find(filter).ToListAsync();
-            return result;
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+            collection.InsertMany(newObjects);
+            // await collection.InsertManyAsync(newObjects);
+        }
+        public void updateTVShow(TVShow updatedTVShow)
+        {
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+
+            collection.ReplaceOne(p => p.IMDbId == updatedTVShow.IMDbId,
+                        updatedTVShow,
+                        new UpdateOptions { IsUpsert = true });
         }
 
 
 
-        //public List<TVShow> dohvatiEmisije(string name)
-        //{
-        //    var filter = Builders<TVShow>.Filter.Regex("Name", new BsonRegularExpression(name, "i"));
-        //    var emisije = _database.GetCollection<TVShow>("shows").Find(filter).ToList();
-        //    return emisije;
-        //}
+
+        public List<TVShow> GetTVShows(string showName, int numberOfResults, int skip = 0)
+        {
+            var db = MongoInstance.GetDatabase;
+            var collection = db.GetCollection<TVShow>("shows");
+            var filter = Builders<TVShow>.Filter.Where(x => x.Name == showName);
+            var emisije = collection.Find(filter).Limit(numberOfResults).Skip(skip).ToList();
+            //var filter = Builders<TVShow>.Filter.Regex("Name", new BsonRegularExpression(name, "i"));
+                        
+            return emisije;
+        }
         //public void unesiEmisije(List<TVShow> newObjects)
         //{
         //    var collection = _database.GetCollection<TVShow>("shows");

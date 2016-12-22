@@ -16,19 +16,25 @@ namespace DohvatPodataka
     public class Program
     {
         Baza baza = new Baza();
-        MovieRepository repo = new MovieRepository();
+        MovieRepository movieRepo = new MovieRepository();
+        ShowRepository showRepo = new ShowRepository();
         static int Main(string[] args)
         {
+            var num = 0;
             var prog = new Program();
             int movies = 0;
+            List<TVShow> shows = new List<TVShow>();
             Task.Run(async () =>
             {
                 movies = await prog.IMDB();
+                shows = await prog.IMDB_shows("mje");
 
             }).GetAwaiter().GetResult();
             Console.WriteLine("Povučeno je " + movies + "filmova\n");
+            Console.WriteLine(shows.Count);
             Console.ReadLine();
-            return 0;
+
+            return num;
         }
 
         public async Task<int> IMDB()
@@ -102,12 +108,18 @@ namespace DohvatPodataka
                     if (item.ImdbId != "" && item.ImdbId != null)
                     {
                          similar = await IMDB.GetMovieSimilarAsync(Int32.Parse(item.ImdbId.Substring(2)));
+                        baza.saveMovies(rez);
                          reviews = await IMDB.GetMovieReviewsAsync(Int32.Parse(item.ImdbId.Substring(2)));
                     }
 
                     var newMovie = new BLL.Movie
                     {
+                    if (pom.ImdbId != null && pom.ImdbId.Length > 0)
+                    {
+                        var newMovie = new BLL.Movie
+                        {
                         IMDbId = item.ImdbId,
+                            TMDbLibraryId = pom.Id,
                         Title = item.Title,
                         Runtime = item.Runtime,
                         Credits = item.Credits,
@@ -124,11 +136,11 @@ namespace DohvatPodataka
                         VoteAverage = item.VoteAverage,
                         VoteCount = item.VoteCount
                     };
-                    newMovie = repo.OMDbData(newMovie);
-                    newMovie = repo.SubtitleData(newMovie);
+                        newMovie = movieRepo.OMDbData(newMovie);
+                        newMovie = movieRepo.SubtitleData(newMovie);
                     rez.Add(newMovie);
                 }
-                baza.spremiFilmove(rez);
+                    baza.saveMovies(rez);
                 rez = new List<BLL.Movie>();
                 counter = i;
 
@@ -137,7 +149,63 @@ namespace DohvatPodataka
             return counter;
         }
 
+        public async Task<List<BLL.TVShow>> IMDB_shows(string mje)
+        {
+            var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
 
+            List<BLL.TVShow> rez = new List<BLL.TVShow>();
+                for (int i = 251; i <= 350; i++)
+                {
+                    TMDbLib.Objects.TvShows.TvShow pom = new TMDbLib.Objects.TvShows.TvShow();
+                    try
+                    {
+                        pom = await IMDB.GetTvShowAsync(i, TMDbLib.Objects.TvShows.TvShowMethods.Credits | TMDbLib.Objects.TvShows.TvShowMethods.Similar | TMDbLib.Objects.TvShows.TvShowMethods.Videos | TMDbLib.Objects.TvShows.TvShowMethods.ContentRatings | TMDbLib.Objects.TvShows.TvShowMethods.ExternalIds);
 
+                    }
+                    catch
+                    {
+                        baza.saveTVShows(rez);
+                        return rez;
+                    }
+
+                    if (pom.ExternalIds != null && pom.ExternalIds.ImdbId != null && pom.ExternalIds.ImdbId.Length > 0)
+                    {
+                        var newTVShow = new BLL.TVShow
+                        {
+                            Id = pom.Id,
+                            IMDbId = pom.ExternalIds.ImdbId,
+                            Name = pom.Name,
+                            NumberOfEpisodes = pom.NumberOfEpisodes,
+                            Credits = pom.Credits,
+                            Genres = pom.Genres,
+                            NumberOfSeasons = pom.NumberOfSeasons,
+                            Overview = pom.Overview,
+                            ContentRatings = pom.ContentRatings,
+                            PosterPath = pom.PosterPath,
+                            Similar = pom.Similar,
+                            Videos = pom.Videos,
+                            VoteAverage = pom.VoteAverage
+                        };
+
+                        newTVShow = showRepo.OMDbData(newTVShow);
+                        rez.Add(newTVShow);
+                    }
+                }
+                if (rez != null)
+                {
+                    baza.saveTVShows(rez);
+                    rez = new List<BLL.TVShow>();
+                }
+            return rez;
+        }
+        ////thetvdb.com API KEY: BDA5FCAB219B7E8E
+        //public List<TVDBSharp.Models.Show> thetvdb(string name)
+        //{
+        //    var tvdb = new TVDB("BDA5FCAB219B7E8E");
+        //    var results = tvdb.Search("tt0944947");
+        //  //  var shows = new List<BazaPodataka.TVShow>();
+        //    //tvdb.Search("", Int32.MaxValue);
+        //    return results;
+        //}
     }
 }
