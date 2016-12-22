@@ -39,6 +39,11 @@ namespace Projekt.Controllers
             }            
         }
 
+        public ActionResult Details(string imdbID)
+        {
+
+        }
+
         public ActionResult Search()
         {
             return View();
