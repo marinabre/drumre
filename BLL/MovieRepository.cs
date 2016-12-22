@@ -1,11 +1,11 @@
-﻿using OMDbSharp;
+﻿using Facebook;
+using MongoDB.Driver;
+using OMDbSharp;
 using OSDBnet;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using TMDbLib.Client;
+using TMDbLib.Objects.Movies;
 
 namespace BLL
 {
@@ -92,6 +92,100 @@ namespace BLL
             }
         }
 
+        public static void FBData (Movie movie, bool refresh = false)
+        {
+            //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
+            //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            //var fb = new FacebookClient(access_token);
+            var fb = new FacebookClient();
+            dynamic result = fb.Get("oauth/access_token", new
+            {
+                client_id = "1279180495466644",
+                client_secret = "780860b63672ff262370699538722160",
+                grant_type = "client_credentials"
+            });
+            String imdbURL = "http://www.imdb.com/title/" + movie.IMDbId;
+            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+            Info = GetProperty(Info, imdbURL);
+            movie.Title = Info.og_object.title;
+            movie.FBLikes = Info.og_object.engagement.count;
+            movie.FBShares = Info.share.share_count;
+        }
+
+        public static object GetProperty(object target, string name)
+        {
+            var site = System.Runtime.CompilerServices.CallSite<Func<System.Runtime.CompilerServices.CallSite, object, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.GetMember(0, name, target.GetType(), new[] { Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create(0, null) }));
+            return site.Target(site, target);
+        }
+
+        public static Movie GetMovieByID (string imdbID)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var result = movies.Find(p => p.IMDbId == imdbID);
+            return result.First();
+            
+        }
+        public async System.Threading.Tasks.Task<Movie> GetMovieByTitleFromAPI(string title)
+        {
+            MovieRepository repo = new MovieRepository();
+            var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
+            var search = await IMDB.SearchMovieAsync(title);
+            var pom = await IMDB.GetMovieAsync(search.Results[0].Id, MovieMethods.Credits | MovieMethods.Videos | MovieMethods.Similar | MovieMethods.Reviews | MovieMethods.Keywords);
+
+            var newMovie = new BLL.Movie
+            {
+                IMDbId = pom.ImdbId,
+                Title = pom.Title,
+                Runtime = pom.Runtime,
+                Credits = pom.Credits,
+                Genres = pom.Genres,
+                Keywords = pom.Keywords,
+                Overview = pom.Overview,
+                Popularity = pom.Popularity,
+                PosterPath = pom.PosterPath,
+                ReleaseDate = pom.ReleaseDate,
+                Reviews = pom.Reviews,
+                Similar = pom.Similar,
+                Status = pom.Status,
+                Videos = pom.Videos,
+                VoteAverage = pom.VoteAverage,
+                VoteCount = pom.VoteCount
+            };
+            newMovie = repo.OMDbData(newMovie);
+            newMovie = repo.SubtitleData(newMovie);
+            return newMovie;
+
+        }
+        public async System.Threading.Tasks.Task<Movie> GetMovieByIdFromAPI(string id)
+        {
+            MovieRepository repo = new MovieRepository();
+            var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
+            var pom = await IMDB.GetMovieAsync(id, MovieMethods.Credits | MovieMethods.Videos | MovieMethods.Similar | MovieMethods.Reviews | MovieMethods.Keywords);
+
+            var newMovie = new BLL.Movie
+            {
+                IMDbId = pom.ImdbId,
+                Title = pom.Title,
+                Runtime = pom.Runtime,
+                Credits = pom.Credits,
+                Genres = pom.Genres,
+                Keywords = pom.Keywords,
+                Overview = pom.Overview,
+                Popularity = pom.Popularity,
+                PosterPath = pom.PosterPath,
+                ReleaseDate = pom.ReleaseDate,
+                Reviews = pom.Reviews,
+                Similar = pom.Similar,
+                Status = pom.Status,
+                Videos = pom.Videos,
+                VoteAverage = pom.VoteAverage,
+                VoteCount = pom.VoteCount
+            };
+            newMovie = repo.OMDbData(newMovie);
+            newMovie = repo.SubtitleData(newMovie);
+            return newMovie;
+        }
 
     }
 }

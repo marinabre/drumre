@@ -462,14 +462,17 @@ namespace Projekt.Controllers
         [Authorize]
         public async Task<ActionResult> FacebookInfo()
         {
+            refreshUserData();
 
+            //return View(detailedMovieList);
+            return RedirectToAction("Index", "Home");
+        }
+
+        
+        public async void refreshUserData()
+        {
             //Open connection to database:
             var db = MongoInstance.GetDatabase;
-
-            var pack = new ConventionPack();
-            pack.Add(new IgnoreExtraElementsConvention(true));
-            ConventionRegistry.Register("ignore extra elements", pack, t => true);
-
             //Prepare database collections:
             var persons = db.GetCollection<Person>("Person");
 
@@ -512,11 +515,8 @@ namespace Projekt.Controllers
                     watchesList.Add(movie);
                     detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
-            } catch (RuntimeBinderException)
-            {
-                
             }
-
+            catch (RuntimeBinderException) { }
 
             //dohvat i spremanje kategorije Wants To Watch:
             try
@@ -532,10 +532,8 @@ namespace Projekt.Controllers
                     wantsList.Add(movie);
                     detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
-            } catch (RuntimeBinderException)
-            {
-                
             }
+            catch (RuntimeBinderException) { }
 
             Person me = new Person
             {
@@ -547,41 +545,12 @@ namespace Projekt.Controllers
                 Wants = wantsList,
                 Email = myInfo.email
             };
-            //persons.InsertOne(me);
+
             persons.ReplaceOne(p => p.Email == me.Email,
                 me,
                 new UpdateOptions { IsUpsert = true });
-
-            //testiranje dohvata informacija o popularnosti s fejsa. Ovaj dio koda tu nikako ne pripada:
-            var muviz = db.GetCollection<BLL.Movie>("Muviz");
-            BLL.Movie testni = new BLL.Movie();
-            refreshMovieInfoFromFB(testni, "http://www.imdb.com/title/tt0068646");
-            muviz.InsertOne(testni);
-
-
-
-
-            //return View(detailedMovieList);
-            return RedirectToAction("Index", "Home");
         }
 
-        public async void refreshMovieInfoFromFB(BLL.Movie Movie, string imdbURL)
-        {
-            var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
-            var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
-            var fb = new FacebookClient(access_token);
-            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
-            Info = GetProperty(Info, imdbURL);
-            Movie.Title = Info.og_object.title;
-            Movie.FBLikes = Info.og_object.engagement.count;
-            Movie.FBShares = Info.share.share_count;
-        }
-
-        public static object GetProperty(object target, string name)
-        {
-            var site = System.Runtime.CompilerServices.CallSite<Func<System.Runtime.CompilerServices.CallSite, object, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.GetMember(0, name, target.GetType(), new[] { Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create(0, null) }));
-            return site.Target(site, target);
-        }
 
         public BLL.MovieDetails AddToDbIfNotExist(FBMovie movie)
         {
@@ -670,6 +639,12 @@ namespace Projekt.Controllers
                 return RedirectToAction("Manage");
             }
             return RedirectToAction("Manage", new { Message = Projekt.Controllers.ManageController.ManageMessageId.Error });
+        }
+
+        public static object GetProperty(object target, string name)
+        {
+            var site = System.Runtime.CompilerServices.CallSite<Func<System.Runtime.CompilerServices.CallSite, object, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.GetMember(0, name, target.GetType(), new[] { Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create(0, null) }));
+            return site.Target(site, target);
         }
 
         #region Helpers

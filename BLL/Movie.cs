@@ -2,8 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.General;
 using OSDBnet;
@@ -16,6 +14,7 @@ namespace BLL
         [BsonIgnore]
         
         public ObjectId Id { get; set; }
+        public int TMDbLibraryId { get; set; }
         public String IMDbId { get; set; }
         public String Title { get; set; }
         public int? Runtime { get; set; }

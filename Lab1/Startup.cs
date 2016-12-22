@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using MongoDB.Driver;
 using Owin;
+using MongoDB.Bson.Serialization.Conventions;
 
 [assembly: OwinStartupAttribute(typeof(Projekt.Startup))]
 namespace Projekt
@@ -10,19 +11,10 @@ namespace Projekt
     {
         public void Configuration(IAppBuilder app)
         {
+            var pack = new ConventionPack();
+            pack.Add(new IgnoreExtraElementsConvention(true));
+            ConventionRegistry.Register("ignore extra elements", pack, t => true);
             ConfigureAuth(app);
-            //MongoClient client = new MongoClient();
-            //var db = client.GetDatabase("Projekt");
-            //var collection = db.GetCollection<Person>("Person");
-
-            //Person person = new Person
-            //{
-            //    Name = "Banana",
-            //    Surname = "Nas",
-            //    Birthday = System.DateTime.Now,
-            //};
-
-            //collection.InsertOne(person);
         }
     }
 }

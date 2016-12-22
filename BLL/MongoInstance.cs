@@ -39,8 +39,7 @@ namespace BLL
                 }
                 return db;
                 //return MongoServer.Create(ConfigurationManager.ConnectionStrings["Compose"].ConnectionString).GetDatabase("projekt");
-            }
-            
+            }  
         }
     }
 }
