@@ -99,7 +99,7 @@ namespace DohvatPodataka
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
 
             List<BLL.TVShow> rez = new List<BLL.TVShow>();
-                for (int i = 251; i <= 350; i++)
+                for (int i = 351; i <= 500; i++)
                 {
                     TMDbLib.Objects.TvShows.TvShow pom = new TMDbLib.Objects.TvShows.TvShow();
                     try
