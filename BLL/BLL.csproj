@@ -90,6 +90,8 @@
     <Compile Include="DummyHelpers\UserProvider.cs" />
     <Compile Include="DummyHelpers\Movie.cs" />
     <Compile Include="FBMovie.cs" />
+    <Compile Include="Match.cs" />
+    <Compile Include="MatchMaker.cs" />
     <Compile Include="MongoInstance.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieDetails.cs" />

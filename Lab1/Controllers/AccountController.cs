@@ -481,7 +481,7 @@ namespace Projekt.Controllers
             var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
             var fb = new FacebookClient(access_token);
             //Specify what info we are getting from Facebook:
-            dynamic myInfo = fb.Get("me?fields=id,email,gender,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch");
+            dynamic myInfo = fb.Get("me?fields=id,email,gender,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch,friends");
 
             //Process results:
             IList<BLL.FBMovie> movieList = new List<BLL.FBMovie>();
@@ -544,8 +544,15 @@ namespace Projekt.Controllers
                 Watches = watchesList,
                 Wants = wantsList,
                 Email = myInfo.email,
-                Gender = myInfo.gender
+                Gender = myInfo.gender,
+                Friends = new List<String>()
             };
+            me.Friends.Add("nitko");
+            foreach (dynamic friend in myInfo.friends.data)
+            {
+                me.Friends.Add("kljukica kvaki");
+            }
+
 
             persons.ReplaceOne(p => p.Email == me.Email,
                 me,
