@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class MovieSimilarity
+    public class MovieSimilarity
     {
-        Movie movieA;
-        Movie movieB;
-        decimal actorSimilarity;
-        decimal directorSimilarity;
-        decimal genreSimilarity;
+        public String movieA;
+        public String movieB;
+        public decimal actorSimilarity;
+        public decimal directorSimilarity;
+        public decimal genreSimilarity;
+
+        public MovieSimilarity() { }
+
+
+        public MovieSimilarity (Movie A, Movie B)
+        {
+            //
+        }
     }
 }

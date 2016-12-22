@@ -16,9 +16,9 @@ namespace BLL
             IList<Cast> castB = movieB.Credits.Cast;
 
             decimal intersection = castA.Select(a => a.Name).Intersect(castB.Select(b => b.Name)).Count();
-            decimal joined = castA.Count() + castB.Count();
+            //decimal joined = castA.Count() + castB.Count();
 
-            return 2 * intersection / joined;
+            return intersection;
         }
 
         public decimal calculateDirectorSimilarity(Movie movieA, Movie movieB)
@@ -27,9 +27,9 @@ namespace BLL
             IList<Crew> directorsB = movieB.Credits.Crew.Where(x => x.Job == "Director").ToList();
 
             decimal intersection = directorsA.Select(a => a.Name).Intersect(directorsB.Select(b => b.Name)).Count();
-            decimal joined = directorsA.Count() + directorsB.Count();
+            //decimal joined = directorsA.Count() + directorsB.Count();
 
-            return 2 * intersection / joined;
+            return intersection;
         }
 
         public decimal calculateGenreSimilarity(Movie movieA, Movie movieB)
@@ -43,12 +43,18 @@ namespace BLL
             return 2 * intersection / joined;
         }
 
-        //public MovieSimilarity getSimilarity (Movie movieA, Movie movieB)
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    var similar = db.GetCollection<MovieSimilarity>("Similar");
-        //    similar.FindAsync
-        //}
+
+
+        public MovieSimilarity getSimilarity(Movie movieA, Movie movieB)
+        {
+            MovieSimilarity result = new MovieSimilarity();
+            result.movieA = movieA.IMDbId;
+            result.movieB = movieB.IMDbId;
+            result.actorSimilarity = calculateActorSimilarity(movieA, movieB);
+            result.directorSimilarity = calculateDirectorSimilarity(movieA, movieB);
+            result.genreSimilarity = calculateGenreSimilarity(movieA, movieB);
+            return result;
+        }
 
     }
 }
