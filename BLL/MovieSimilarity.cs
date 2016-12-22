@@ -39,6 +39,23 @@ namespace BLL
             this.genreSimilarity = Recommender.calculateGenreSimilarity(A, B);
         }
 
+        public static Movie getFirst (Movie A, Movie B)
+        {
+            int idA = Int32.Parse(A.IMDbId.Substring(2));
+            int idB = Int32.Parse(B.IMDbId.Substring(2));
+
+            if (idA < idB) return A;
+            else return B;
+        }
+
+        public static Movie getSecond (Movie A, Movie B)
+        {
+            int idA = Int32.Parse(A.IMDbId.Substring(2));
+            int idB = Int32.Parse(B.IMDbId.Substring(2));
+
+            if (idA > idB) return A;
+            else return B;
+        }
 
     }
 }

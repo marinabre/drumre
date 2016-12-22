@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using TMDbLib.Objects.Movies;
 
 namespace BLL
 {
-    class Recommender
+    public class Recommender
     {
         public static decimal calculateActorSimilarity (Movie movieA, Movie movieB)
         {
@@ -43,12 +45,56 @@ namespace BLL
             return 2 * intersection / joined;
         }
 
-
-
-        public MovieSimilarity getSimilarity(Movie movieA, Movie movieB)
+        public static MovieSimilarity getSimilarity (Movie movieA, Movie movieB)
         {
-           return new MovieSimilarity(movieA, movieB);
+            var db = MongoInstance.GetDatabase;
+            var similar = db.GetCollection<MovieSimilarity>("similar");
+            var builder = Builders<MovieSimilarity>.Filter;
+            Movie first = MovieSimilarity.getFirst(movieA, movieB);
+            Movie second = MovieSimilarity.getSecond(movieA, movieB);
+            var filter = builder.Eq("movieA", first.IMDbId) | builder.Eq("movieB", second.IMDbId);
+            var result = similar.Find(filter);
+
+            //ako je u bazi:
+            if (result.Count() > 0)
+            {
+                return result.First();
+            }
+            else
+            {
+                //ako nije u bazi:
+                MovieSimilarity newSimilarity = new MovieSimilarity(movieA, movieB);
+                similar.InsertOne(newSimilarity);
+                return newSimilarity;
+            } 
         }
 
+        public static async Task getSimilar(String imdbID)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var similar = db.GetCollection<MovieSimilarity>("similar");
+            Movie movie = movies.Find(m => m.IMDbId == imdbID).First();
+
+            //var cursor = movies.FindAsync(new BsonDocument());
+            ////foreach (Movie m in )
+            ////{
+            ////    getSimilarity(movie, m);
+            ////}
+            //cursor.ForEachAsync 
+            //await cursor.ForEachAsync(movie => getSimilarity(movie, m));
+
+            using (var cursor = await movies.FindAsync(new BsonDocument()))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    var batch = cursor.Current;
+                    foreach (var m in batch)
+                    {
+                        getSimilarity(movie, m);
+                    }
+                }
+            }
+        }
     }
 }

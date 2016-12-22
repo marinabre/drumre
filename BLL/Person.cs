@@ -16,6 +16,7 @@ namespace BLL
         public String Name { get; set; }
         public String Surname { get; set; }
         public String Email { get; set; }
+        public String Gender { get; set; }
         public DateTime Birthday { get; set; }
         public IList<FBMovie> LikedMovies { get; set; }
         public IList<FBMovie> Watches { get; set; }
