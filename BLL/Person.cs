@@ -21,6 +21,6 @@ namespace BLL
         public IList<FBMovie> LikedMovies { get; set; }
         public IList<FBMovie> Watches { get; set; }
         public IList<FBMovie> Wants { get; set; }
-        public IList<Person> Friends { get; set; }
+        public IList<String> Friends { get; set; }
     }
 }
