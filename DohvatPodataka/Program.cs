@@ -23,10 +23,9 @@ namespace DohvatPodataka
             //Task.Run(async () =>
             //{
             //var movies = await prog.IMDB();
-            var tvShowa = prog.thetvdb("marina");
+
            // }).GetAwaiter().GetResult();
-            Console.WriteLine(tvShowa.First().Id +" " + tvShowa.First().ImdbId + " "+ tvShowa.First().Name);
-            Console.ReadLine();
+
             return 0;
         }
 
@@ -57,6 +56,7 @@ namespace DohvatPodataka
                     {
                         var newMovie = new BLL.Movie
                         {
+                            TMDbLibraryId = pom.Id,
                             IMDbId = pom.ImdbId,
                             Title = pom.Title,
                             Runtime = pom.Runtime,
@@ -92,13 +92,13 @@ namespace DohvatPodataka
 
 
         ////thetvdb.com API KEY: BDA5FCAB219B7E8E
-        public List<TVDBSharp.Models.Show> thetvdb(string name)
-        {
-            var tvdb = new TVDB("BDA5FCAB219B7E8E");
-            var results = tvdb.Search("tt0944947");
-          //  var shows = new List<BazaPodataka.TVShow>();
-            //tvdb.Search("", Int32.MaxValue);
-            return results;
-        }
+        //public List<TVDBSharp.Models.Show> thetvdb(string name)
+        //{
+        //    var tvdb = new TVDB("BDA5FCAB219B7E8E");
+        //    var results = tvdb.Search("tt0944947");
+        //  //  var shows = new List<BazaPodataka.TVShow>();
+        //    //tvdb.Search("", Int32.MaxValue);
+        //    return results;
+        //}
     }
 }

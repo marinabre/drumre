@@ -14,6 +14,7 @@ namespace BLL
         [BsonIgnore]
         
         public ObjectId Id { get; set; }
+        public int TMDbLibraryId { get; set; }
         public String IMDbId { get; set; }
         public String Title { get; set; }
         public int? Runtime { get; set; }
