@@ -17,7 +17,6 @@ namespace BLL
         public string Overview { get; set; }
         public string PosterPath { get; set; }
         public List<TMDbLib.Objects.General.Genre> Genres { get; set; }
-        public List<TMDbLib.Objects.Search.SearchTvSeason> Seasons { get; set; }
         public TMDbLib.Objects.General.ResultContainer<TMDbLib.Objects.TvShows.TvShow> Similar { get; set; }
         public TMDbLib.Objects.General.ResultContainer<TMDbLib.Objects.General.Video> Videos { get; set; }
         public double VoteAverage { get; set; }
@@ -39,8 +38,5 @@ namespace BLL
         public int TomatoUserMeter { get; set; }
         public decimal TomatoUserRating { get; set; }
         public int TomatoUserReviews { get; set; }
-
-
-        public Subtitle Subtitle { get; set; }
     }
 }

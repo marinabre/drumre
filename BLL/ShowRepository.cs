@@ -10,6 +10,8 @@ namespace BLL
 {
     public class ShowRepository
     {
+        //micanje iz baze propertya : db.getCollection('shows').update({}, {$unset: {ImePRopertya:1}} , {multi: true});
+
         Baza baza = new Baza();
         public TVShow OMDbData(TVShow tvShow, bool refresh = false)
         {
@@ -64,29 +66,6 @@ namespace BLL
             }
             catch { }
             return tvShow;
-        }
-
-        public TVShow SubtitleData(TVShow tvshow, bool refresh = false)
-        {
-            try
-            {
-                var osdb = Osdb.Login("eng", "FileBot");
-                var subtitles = osdb.SearchSubtitlesFromImdb("eng", tvshow.IMDbId.Substring(2));
-                if (subtitles.Count > 0)
-                {
-                    tvshow.Subtitle = subtitles.First();
-                    if (refresh)
-                    {
-                        baza.updateTVShow(tvshow);
-                    }
-
-                }
-                return tvshow;
-            }
-            catch (Exception e)
-            {
-                return tvshow;
-            }
         }
 
     }
