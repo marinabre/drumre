@@ -10,7 +10,7 @@ namespace BLL
 {
     class Recommender
     {
-        public decimal calculateActorSimilarity (Movie movieA, Movie movieB)
+        public static decimal calculateActorSimilarity (Movie movieA, Movie movieB)
         {
             IList<Cast> castA = movieA.Credits.Cast;
             IList<Cast> castB = movieB.Credits.Cast;
@@ -21,7 +21,7 @@ namespace BLL
             return intersection;
         }
 
-        public decimal calculateDirectorSimilarity(Movie movieA, Movie movieB)
+        public static decimal calculateDirectorSimilarity(Movie movieA, Movie movieB)
         {
             IList<Crew> directorsA = movieA.Credits.Crew.Where(x => x.Job == "Director").ToList();
             IList<Crew> directorsB = movieB.Credits.Crew.Where(x => x.Job == "Director").ToList();
@@ -32,7 +32,7 @@ namespace BLL
             return intersection;
         }
 
-        public decimal calculateGenreSimilarity(Movie movieA, Movie movieB)
+        public static decimal calculateGenreSimilarity(Movie movieA, Movie movieB)
         {
             IList<Genre> genresA = movieA.Genres;
             IList<Genre> genresB = movieB.Genres;
@@ -47,13 +47,7 @@ namespace BLL
 
         public MovieSimilarity getSimilarity(Movie movieA, Movie movieB)
         {
-            MovieSimilarity result = new MovieSimilarity();
-            result.movieA = movieA.IMDbId;
-            result.movieB = movieB.IMDbId;
-            result.actorSimilarity = calculateActorSimilarity(movieA, movieB);
-            result.directorSimilarity = calculateDirectorSimilarity(movieA, movieB);
-            result.genreSimilarity = calculateGenreSimilarity(movieA, movieB);
-            return result;
+           return new MovieSimilarity(movieA, movieB);
         }
 
     }
