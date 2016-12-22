@@ -20,12 +20,13 @@ namespace Projekt.Models
         public string Keywords { get; set; }
         public string Overview { get; set; }
         public double Popularity { get; set; }
+        [DisplayName("Release date")]
         public DateTime ReleaseDate { get; set; }
 
         public List<string> Reviews { get; set; }
         //public SearchContainer<TMDbLib.Objects.Search.SearchMovie> Similar { get; set; }
         public string Status { get; set; }
-        public ResultContainer<Video> Videos { get; set; }
+        //public ResultContainer<Video> Videos { get; set; }
         public double VoteAverage { get; set; }
         public int VoteCount { get; set; }
 
@@ -48,7 +49,10 @@ namespace Projekt.Models
         public decimal TomatoUserRating { get; set; }
         public int TomatoUserReviews { get; set; }
 
-        public Subtitle MovieSubtitle { get; set; } 
+        [DisplayName("Download link")]
+        public string SubtitleDownloadLink { get; set; }
+        [DisplayName("Page link")]
+        public string SubtitlePageLink { get; set; }        
         #endregion
 
         #region Methods
