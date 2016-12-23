@@ -44,49 +44,57 @@ namespace DohvatPodataka
             int counter = 0;
             List<BLL.Movie> rez = new List<BLL.Movie>();
             // 54001
-            for (int i = 31356; i <= 54001; i += 200)
+            for (int j = 39753; j <= 60000; j += 100)
             {
-                var oldMovies = await baza.dohvatiIzStareLokalne(i);
-                foreach (var item in oldMovies)
+                for (int i = j; i < j+100; i ++)
                 {
-                    SearchContainer<TMDbLib.Objects.Reviews.ReviewBase> reviews = null;
-                    SearchContainer<TMDbLib.Objects.Search.SearchMovie> similar = null;
-                    if (item.ImdbId != "" && item.ImdbId != null && item.ImdbId.Length > 0)
+                    TMDbLib.Objects.Movies.Movie pom = new TMDbLib.Objects.Movies.Movie();
+                    try
                     {
-                        similar = await IMDB.GetMovieSimilarAsync(Int32.Parse(item.ImdbId.Substring(2)));
-                        reviews = await IMDB.GetMovieReviewsAsync(Int32.Parse(item.ImdbId.Substring(2)));
-
-                        var newMovie = new BLL.Movie
+                        pom = await IMDB.GetMovieAsync(i, MovieMethods.Credits | MovieMethods.Similar | MovieMethods.Videos | MovieMethods.Reviews | MovieMethods.Keywords);
+                        if (pom.ImdbId != "" && pom.ImdbId != null && pom.ImdbId.Length > 0)
                         {
-                            IMDbId = item.ImdbId,
-                            Id = item.Id,
-                            Title = item.Title,
-                            Runtime = item.Runtime,
-                            Credits = item.Credits,
-                            Genres = item.Genres,
-                            Keywords = item.Keywords,
-                            Overview = item.Overview,
-                            Popularity = item.Popularity,
-                            PosterPath = item.PosterPath,
-                            ReleaseDate = item.ReleaseDate,
-                            Reviews = reviews,
-                            Similar = similar,
-                            Status = item.Status,
-                            Videos = item.Videos,
-                            VoteAverage = item.VoteAverage,
-                            VoteCount = item.VoteCount
-                        };
-                        newMovie = movieRepo.OMDbData(newMovie);
-                        newMovie = movieRepo.SubtitleData(newMovie);
-                        rez.Add(newMovie);
+                            var newMovie = new BLL.Movie
+                            {
+                                IMDbId = pom.ImdbId,
+                                Id = pom.Id,
+                                Title = pom.Title,
+                                Runtime = pom.Runtime,
+                                Credits = pom.Credits,
+                                Genres = pom.Genres,
+                                Keywords = pom.Keywords,
+                                Overview = pom.Overview,
+                                Popularity = pom.Popularity,
+                                PosterPath = pom.PosterPath,
+                                ReleaseDate = pom.ReleaseDate,
+                                Reviews = pom.Reviews,
+                                Similar = pom.Similar,
+                                Status = pom.Status,
+                                Videos = pom.Videos,
+                                VoteAverage = pom.VoteAverage,
+                                VoteCount = pom.VoteCount
+                            };
+                            newMovie = movieRepo.OMDbData(newMovie);
+                            newMovie = movieRepo.SubtitleData(newMovie);
+                            rez.Add(newMovie);
+                        }
                     }
+                    catch
+                    {
+                        if (rez != null && rez.Count > 0)
+                        {
+                            baza.saveMovies(rez);
+                            rez = new List<BLL.Movie>();
+                        }
+                    }                 
                 }
                 if (rez.Count > 0)
                 {
                     baza.saveMovies(rez);
+                    rez = new List<BLL.Movie>();
                 }
-                rez = new List<BLL.Movie>();
-                counter = i;
+               
+                counter = j;
             }
             return counter;
         }
