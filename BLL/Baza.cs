@@ -11,12 +11,12 @@ namespace BLL
 {
     public class Baza
     {
-        public void saveMovies(List<Movie> newObjects)
+        public async void saveMovies(List<Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
             IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
             //collection.InsertMany(newObjects);
-             await collection.InsertManyAsync(newObjects);
+            await collection.InsertManyAsync(newObjects);
         }
         public void updateMovie(Movie updatedMovie)
         {
@@ -44,8 +44,15 @@ namespace BLL
                         new UpdateOptions { IsUpsert = true });
         }
 
-
-
+        public async Task<List<TMDbLib.Objects.Movies.Movie>> dohvatiIzStareLokalne(int Id)
+        {
+            var _client = new MongoClient();
+            var _database = _client.GetDatabase("Lab1-v3");
+            var filter = Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyGte("_id", Id) & Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyLt("_id", Id + 200);
+            var collection = _database.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
+            var result = await collection.Find(filter).ToListAsync();
+            return result;
+        }
 
         public List<TVShow> GetTVShows(string showName, int numberOfResults, int skip = 0)
         {
