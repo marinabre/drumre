@@ -549,7 +549,6 @@ namespace Projekt.Controllers
                 
             };
 
-
             me.Friends = new List<String>();
             foreach (dynamic friend in myInfo.friends.data)
             {

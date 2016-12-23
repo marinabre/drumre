@@ -39,10 +39,22 @@ namespace Testovi
             Assert.AreNotEqual(0, sim.actorSimilarity);
         }
 
+        //[TestMethod]
+        //public async Task Apokalipsa()
+        //{
+        //    //await Recommender.getSimilar("tt0133093");
+        //}
+
         [TestMethod]
-        public async Task Apokalipsa()
+        public void MatchMaking()
         {
-            //await Recommender.getSimilar("tt0133093");
+            Person Ines = PersonRepository.GetPersonByName("Ines");
+            Person Marina = PersonRepository.GetPersonByName("Marina");
+            Assert.IsNotNull(Ines);
+            Assert.IsNotNull(Marina);
+            var db = MongoInstance.GetDatabase;
+            var matches = db.GetCollection<Match>("Match");
+            matches.InsertOne(new Match(Ines, Marina));
         }
     }
 }
