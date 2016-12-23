@@ -44,7 +44,7 @@ namespace DohvatPodataka
             int counter = 0;
             List<BLL.Movie> rez = new List<BLL.Movie>();
             // 54001
-            for (int i = 25356; i <= 54001; i += 200)
+            for (int i = 31356; i <= 54001; i += 200)
             {
                 var oldMovies = await baza.dohvatiIzStareLokalne(i);
                 foreach (var item in oldMovies)
