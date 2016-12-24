@@ -10,11 +10,11 @@ namespace BLL
 {
     public class Movie
     {
-        [BsonId]
-        [BsonIgnore]
+        //[BsonId]
+        //[BsonIgnore]
         
-        public ObjectId Id { get; set; }
-        public int TMDbLibraryId { get; set; }
+        public int Id { get; set; }
+       // public int TMDbLibraryId { get; set; }
         public String IMDbId { get; set; }
         public String Title { get; set; }
         public int? Runtime { get; set; }

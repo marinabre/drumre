@@ -91,7 +91,7 @@
     <Compile Include="DummyHelpers\Movie.cs" />
     <Compile Include="FBMovie.cs" />
     <Compile Include="Match.cs" />
-    <Compile Include="MatchMaker.cs" />
+    <Compile Include="PersonRepository.cs" />
     <Compile Include="MongoInstance.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieDetails.cs" />

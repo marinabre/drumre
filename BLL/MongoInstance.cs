@@ -21,7 +21,7 @@ namespace BLL
 
         private MongoInstance()
         {
-            var client = new MongoClient("mongodb://ana:anaana@aws-eu-central-1-portal.0.dblayer.com:15324,aws-eu-central-1-portal.1.dblayer.com:15324");
+            var client = new MongoClient(connectionString);
             db = client.GetDatabase("projekt");
         }
 
@@ -40,6 +40,15 @@ namespace BLL
                 return db;
                 //return MongoServer.Create(ConfigurationManager.ConnectionStrings["Compose"].ConnectionString).GetDatabase("projekt");
             }  
+        }
+        public static IMongoDatabase Reconnect
+        {
+            get
+            {
+                var client = new MongoClient(connectionString);
+                db = client.GetDatabase("projekt");
+                return db;
+            }
         }
     }
 }

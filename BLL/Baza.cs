@@ -11,18 +11,21 @@ namespace BLL
 {
     public class Baza
     {
-        const string connectionString = "mongodb://marina:marina@aws-eu-central-1-portal.0.dblayer.com:15324";
-        public IMongoDatabase db { get; set; }
-        public Baza()
-        {
-            db = MongoInstance.GetDatabase;
-        }
         public async void saveMovies(List<Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
-            IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
             //collection.InsertMany(newObjects);
-            await collection.InsertManyAsync(newObjects);
+            try
+            {
+                IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
+                await collection.InsertManyAsync(newObjects);
+            }
+            catch(MongoDB.Driver.MongoConnectionException e)
+            {
+                db = MongoInstance.Reconnect;
+                IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
+                await collection.InsertManyAsync(newObjects);
+            }
         }
         public void updateMovie(Movie updatedMovie)
         {
@@ -35,19 +38,17 @@ namespace BLL
         }
         public async void saveTVShows(List<TVShow> newObjects)
         {
-            var baza = new Baza();
-            baza.db = MongoInstance.GetDatabase;
+            var db = MongoInstance.GetDatabase;
             try
             {
                 IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
                 //collection.InsertMany(newObjects);
                 await collection.InsertManyAsync(newObjects);
-            }catch
+            }
+            catch (MongoDB.Driver.MongoConnectionException e)
             {
-                var client = new MongoClient("mongodb://ana:anaana@aws-eu-central-1-portal.0.dblayer.com:15324,aws-eu-central-1-portal.1.dblayer.com:15324");
-                baza.db = client.GetDatabase("projekt");
+                db = MongoInstance.Reconnect;
                 IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
-                //collection.InsertMany(newObjects);
                 await collection.InsertManyAsync(newObjects);
             }
         }
@@ -61,8 +62,15 @@ namespace BLL
                         new UpdateOptions { IsUpsert = true });
         }
 
-
-
+        public async Task<List<TMDbLib.Objects.Movies.Movie>> dohvatiIzStareLokalne(int Id)
+        {
+            var _client = new MongoClient();
+            var _database = _client.GetDatabase("Lab1-v3");
+            var filter = Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyGte("_id", Id) & Builders<TMDbLib.Objects.Movies.Movie>.Filter.AnyLt("_id", Id + 200);
+            var collection = _database.GetCollection<TMDbLib.Objects.Movies.Movie>("movies");
+            var result = await collection.Find(filter).ToListAsync();
+            return result;
+        }
 
         public List<TVShow> GetTVShows(string showName, int numberOfResults, int skip = 0)
         {

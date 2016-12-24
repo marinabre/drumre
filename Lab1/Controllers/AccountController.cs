@@ -537,6 +537,7 @@ namespace Projekt.Controllers
 
             Person me = new Person
             {
+                PersonID = myInfo.id,
                 Name = myInfo.first_name,
                 Surname = myInfo.last_name,
                 Birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
@@ -545,12 +546,14 @@ namespace Projekt.Controllers
                 Wants = wantsList,
                 Email = myInfo.email,
                 Gender = myInfo.gender,
-                Friends = new List<String>()
+                
             };
-            me.Friends.Add("nitko");
+
+            me.Friends = new List<String>();
             foreach (dynamic friend in myInfo.friends.data)
             {
-                me.Friends.Add("kljukica kvaki");
+                string f = friend.id;
+                me.Friends.Add(f);
             }
 
 

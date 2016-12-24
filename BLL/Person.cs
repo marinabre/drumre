@@ -13,6 +13,7 @@ namespace BLL
         [BsonId]
         [BsonIgnore]
         public ObjectId Id { get; set; }
+        public String PersonID { get; set; }
         public String Name { get; set; }
         public String Surname { get; set; }
         public String Email { get; set; }
@@ -21,6 +22,6 @@ namespace BLL
         public IList<FBMovie> LikedMovies { get; set; }
         public IList<FBMovie> Watches { get; set; }
         public IList<FBMovie> Wants { get; set; }
-        public IList<String> Friends { get; set; }
+        public IList<string> Friends { get; set; }
     }
 }
