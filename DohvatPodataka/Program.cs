@@ -44,7 +44,7 @@ namespace DohvatPodataka
             int counter = 0;
             List<BLL.Movie> rez = new List<BLL.Movie>();
             // 54001
-            for (int j = 39753; j <= 60000; j += 100)
+            for (int j = 64852; j <= 624852; j += 100)
             {
                 for (int i = j; i < j+100; i ++)
                 {

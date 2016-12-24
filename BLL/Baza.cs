@@ -16,7 +16,16 @@ namespace BLL
             var db = MongoInstance.GetDatabase;
             IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
             //collection.InsertMany(newObjects);
-            await collection.InsertManyAsync(newObjects);
+            try
+            {
+                await collection.InsertManyAsync(newObjects);
+            }
+            catch(MongoDB.Driver.MongoConnectionException e)
+            {
+                db = MongoInstance.Reconnect;
+                IMongoCollection<Movie> collection2 = db.GetCollection<Movie>("movies");
+                await collection.InsertManyAsync(newObjects);
+            }
         }
         public void updateMovie(Movie updatedMovie)
         {
