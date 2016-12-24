@@ -26,6 +26,7 @@ namespace DohvatPodataka
             Task.Run(async () =>
             {
                 shows = await prog.IMDB_shows("mje");
+                num = shows.Count();
             }).GetAwaiter().GetResult();
             Console.WriteLine(shows.Count);
             Console.ReadLine();
@@ -99,48 +100,55 @@ namespace DohvatPodataka
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
 
             List<BLL.TVShow> rez = new List<BLL.TVShow>();
-                for (int i = 351; i <= 500; i++)
+            for (int j = 66179; j < 80180; j += 100)
+            {
+                for (int i = j; i < j + 100; i++)
                 {
                     TMDbLib.Objects.TvShows.TvShow pom = new TMDbLib.Objects.TvShows.TvShow();
                     try
                     {
                         pom = await IMDB.GetTvShowAsync(i, TMDbLib.Objects.TvShows.TvShowMethods.Credits | TMDbLib.Objects.TvShows.TvShowMethods.Similar | TMDbLib.Objects.TvShows.TvShowMethods.Videos | TMDbLib.Objects.TvShows.TvShowMethods.ContentRatings | TMDbLib.Objects.TvShows.TvShowMethods.ExternalIds);
 
+                        if (pom.ExternalIds != null && pom.ExternalIds.ImdbId != null && pom.ExternalIds.ImdbId.Length > 0)
+                        {
+                            var newTVShow = new BLL.TVShow
+                            {
+                                Id = pom.Id,
+                                IMDbId = pom.ExternalIds.ImdbId,
+                                Name = pom.Name,
+                                NumberOfEpisodes = pom.NumberOfEpisodes,
+                                Credits = pom.Credits,
+                                Genres = pom.Genres,
+                                NumberOfSeasons = pom.NumberOfSeasons,
+                                Overview = pom.Overview,
+                                ContentRatings = pom.ContentRatings,
+                                PosterPath = pom.PosterPath,
+                                Similar = pom.Similar,
+                                Videos = pom.Videos,
+                                VoteAverage = pom.VoteAverage
+                            };
+
+                            newTVShow = showRepo.OMDbData(newTVShow);
+                            rez.Add(newTVShow);
+                        }
                     }
                     catch
                     {
-                        baza.saveTVShows(rez);
-                        return rez;
-                    }
-
-                    if (pom.ExternalIds != null && pom.ExternalIds.ImdbId != null && pom.ExternalIds.ImdbId.Length > 0)
-                    {
-                        var newTVShow = new BLL.TVShow
+                        if (rez != null && rez.Count > 0)
                         {
-                            Id = pom.Id,
-                            IMDbId = pom.ExternalIds.ImdbId,
-                            Name = pom.Name,
-                            NumberOfEpisodes = pom.NumberOfEpisodes,
-                            Credits = pom.Credits,
-                            Genres = pom.Genres,
-                            NumberOfSeasons = pom.NumberOfSeasons,
-                            Overview = pom.Overview,
-                            ContentRatings = pom.ContentRatings,
-                            PosterPath = pom.PosterPath,
-                            Similar = pom.Similar,
-                            Videos = pom.Videos,
-                            VoteAverage = pom.VoteAverage
-                        };
-
-                        newTVShow = showRepo.OMDbData(newTVShow);
-                        rez.Add(newTVShow);
+                            baza.saveTVShows(rez);
+                            rez = new List<BLL.TVShow>();
+                        }
                     }
+
+
                 }
-                if (rez != null)
+                if (rez != null && rez.Count > 0)
                 {
                     baza.saveTVShows(rez);
                     rez = new List<BLL.TVShow>();
                 }
+            }
             return rez;
         }
         ////thetvdb.com API KEY: BDA5FCAB219B7E8E

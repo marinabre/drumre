@@ -11,12 +11,18 @@ namespace BLL
 {
     public class Baza
     {
-        public void saveMovies(List<Movie> newObjects)
+        const string connectionString = "mongodb://marina:marina@aws-eu-central-1-portal.0.dblayer.com:15324";
+        public IMongoDatabase db { get; set; }
+        public Baza()
+        {
+            db = MongoInstance.GetDatabase;
+        }
+        public async void saveMovies(List<Movie> newObjects)
         {
             var db = MongoInstance.GetDatabase;
             IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
-            collection.InsertMany(newObjects);
-            // await collection.InsertManyAsync(newObjects);
+            //collection.InsertMany(newObjects);
+            await collection.InsertManyAsync(newObjects);
         }
         public void updateMovie(Movie updatedMovie)
         {
@@ -27,12 +33,23 @@ namespace BLL
                         updatedMovie,
                         new UpdateOptions { IsUpsert = true });
         }
-        public void saveTVShows(List<TVShow> newObjects)
+        public async void saveTVShows(List<TVShow> newObjects)
         {
-            var db = MongoInstance.GetDatabase;
-            IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
-            collection.InsertMany(newObjects);
-            // await collection.InsertManyAsync(newObjects);
+            var baza = new Baza();
+            baza.db = MongoInstance.GetDatabase;
+            try
+            {
+                IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+                //collection.InsertMany(newObjects);
+                await collection.InsertManyAsync(newObjects);
+            }catch
+            {
+                var client = new MongoClient("mongodb://ana:anaana@aws-eu-central-1-portal.0.dblayer.com:15324,aws-eu-central-1-portal.1.dblayer.com:15324");
+                baza.db = client.GetDatabase("projekt");
+                IMongoCollection<TVShow> collection = db.GetCollection<TVShow>("shows");
+                //collection.InsertMany(newObjects);
+                await collection.InsertManyAsync(newObjects);
+            }
         }
         public void updateTVShow(TVShow updatedTVShow)
         {
