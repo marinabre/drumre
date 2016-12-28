@@ -17,7 +17,7 @@ namespace BLL
         public IDictionary<String, int> FavouriteDirectors;
         [BsonDictionaryOptions(Representation = DictionaryRepresentation.ArrayOfArrays)]
         public IDictionary<Genre, int> FavouriteGenres;
-        public IList<Movie> likedMovies = new List<Movie>();
+        public IList<Movie> LikedMovies = new List<Movie>();
 
         public Profile(Person person)
         {
@@ -30,8 +30,8 @@ namespace BLL
             //    if (movie != null)
             //        likedMovies.Add(MovieRepository.GetMovieByTitle(fbMovie.Title));
             //}
-            var movies = MovieRepository.GetMoviesByFB(person.LikedMovies);
-            foreach (Movie movie in movies.Result)
+            LikedMovies = MovieRepository.GetMoviesByFB(person.LikedMovies).Result;
+            foreach (Movie movie in LikedMovies)
             {
                 if (movie.Credits.Cast.Count > 0)
                 {

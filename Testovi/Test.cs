@@ -61,7 +61,7 @@ namespace Testovi
             matches.InsertOne(new Match(Ines, Marina));
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void GenreSimilarityMatrix()
         {
             Movie matrix = MovieRepository.GetMovieByID("tt0133093");
@@ -83,7 +83,7 @@ namespace Testovi
             Assert.AreEqual(1, 1);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void ProfileBuild()
         {
             Person Ana = PersonRepository.GetPersonByName("Ana");
@@ -102,6 +102,19 @@ namespace Testovi
             Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
             var top = Ana.Profile.TopActors(5);
             Assert.AreEqual(1, top.Count);
+        }
+
+        [TestMethod]
+        public void MatchProfile()
+        {
+            var db = MongoInstance.GetDatabase;
+            var collection = db.GetCollection<Movie>("results");
+            Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
+            
+            IList<Movie> rec = Recommender.MatchProfile(Ana.Profile, 3, 5, 5);
+            foreach (Movie m in rec)
+                collection.InsertOne(m);
+            Assert.AreEqual(1, rec.Count);
         }
 
     }

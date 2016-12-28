@@ -154,7 +154,7 @@ namespace BLL
         }
 
 
-        public static void MatchProfile (Profile profile, int genre, int actor, int director)
+        public static IList<Movie> MatchProfile (Profile profile, int genre, int actor, int director)
         {
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
@@ -168,8 +168,7 @@ namespace BLL
             var directorsFilter = DirectorsFilter(directors);
 
             var filter = genreFilter & actorsFilter & directorsFilter;
-            movies.Find(filter);
-            
+            return movies.Find(filter).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
         }
     }
 }
