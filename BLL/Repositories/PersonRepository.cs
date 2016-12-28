@@ -28,6 +28,15 @@ namespace BLL
             else return null;
         }
 
+        public static Person GetPersonByName(string name, string collection)
+        {
+            var db = MongoInstance.GetDatabase;
+            var people = db.GetCollection<Person>(collection);
+            var result = people.Find(p => p.Name == name);
+            if (result.Count() > 0) return result.First();
+            else return null;
+        }
+
         public static IList<Person> FilterFriends(Person me, bool gender, int maxAgeDiff, int minFriends, int minMovies)
         {
             //gender - true ako je relevantno, false ako ignororamo gender
@@ -66,8 +75,5 @@ namespace BLL
             }
             return result;
         }
-
-
-
     }
 }

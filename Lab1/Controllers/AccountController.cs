@@ -462,14 +462,14 @@ namespace Projekt.Controllers
         [Authorize]
         public async Task<ActionResult> FacebookInfo()
         {
-            refreshUserData();
+            await refreshUserData();
 
             //return View(detailedMovieList);
             return RedirectToAction("Index", "Home");
         }
 
         
-        public async void refreshUserData()
+        public async Task refreshUserData()
         {
             //Open connection to database:
             var db = MongoInstance.GetDatabase;

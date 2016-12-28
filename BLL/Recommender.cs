@@ -69,32 +69,107 @@ namespace BLL
             } 
         }
 
-        public static async Task getSimilar(String imdbID)
+        public static IFindFluent<Movie,Movie> SimilarByGenres (IList<Genre> Genres)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection <Movie> ("movies");
+            var filter = GenresFilter(Genres);
+            if (filter != null)
+                return movies.Find(filter);  
+            return null;
+        }
+
+        public static IFindFluent<Movie, Movie> SimilarByActors(IList<String> Actors)
         {
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
-            var similar = db.GetCollection<MovieSimilarity>("similar");
-            Movie movie = movies.Find(m => m.IMDbId == imdbID).First();
+            var filter = ActorsFilter(Actors);
+            if (filter != null)
+                return movies.Find(filter);
+            return null;
+        }
 
-            //var cursor = movies.FindAsync(new BsonDocument());
-            ////foreach (Movie m in )
-            ////{
-            ////    getSimilarity(movie, m);
-            ////}
-            //cursor.ForEachAsync 
-            //await cursor.ForEachAsync(movie => getSimilarity(movie, m));
+        public static IFindFluent<Movie, Movie> SimilarByDirectors(IList<String> Directors)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var filter = DirectorsFilter(Directors);
+            if (filter != null)
+                return movies.Find(filter);
+            return null;
+        }
 
-            using (var cursor = await movies.FindAsync(new BsonDocument()))
+        public static FilterDefinition<Movie> GenresFilter(IList<Genre> Genres)
+        {
+            var builder = Builders<Movie>.Filter;
+            if (Genres.Count > 0)
             {
-                while (await cursor.MoveNextAsync())
+                var name = Genres.ElementAt(0).Name;
+                var filter = builder.ElemMatch(x => x.Genres, x => x.Name == name);
+
+                for (int i = 1; i < Genres.Count; i++)
                 {
-                    var batch = cursor.Current;
-                    foreach (var m in batch)
-                    {
-                        getSimilarity(movie, m);
-                    }
+                    var name2 = Genres.ElementAt(i).Name;
+                    filter = filter | builder.ElemMatch(x => x.Genres, x => x.Name == name2);
                 }
+                return filter;
             }
+            return null;
+        }
+
+        public static FilterDefinition<Movie> ActorsFilter(IList<String> Actors)
+        {
+            var builder = Builders<Movie>.Filter;
+            if (Actors.Count > 0)
+            {
+                var name = Actors.ElementAt(0);
+                var filter = builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name);
+
+                for (int i = 1; i < Actors.Count; i++)
+                {
+                    var name2 = Actors.ElementAt(i);
+                    filter = filter | builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name2);
+                }
+                return filter;
+            }
+            return null;
+        }
+
+        public static FilterDefinition<Movie> DirectorsFilter(IList<String> Directors)
+        {
+            var builder = Builders<Movie>.Filter;
+            if (Directors.Count > 0)
+            {
+                var name = Directors.ElementAt(0);
+                var filter = builder.ElemMatch(x => x.Credits.Crew, x => x.Name == name);
+
+                for (int i = 1; i < Directors.Count; i++)
+                {
+                    var name2 = Directors.ElementAt(i);
+                    filter = filter | builder.ElemMatch(x => x.Credits.Crew, x => x.Name == name2);
+                }
+                return filter;
+            }
+            return null;
+        }
+
+
+        public static void MatchProfile (Profile profile, int genre, int actor, int director)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+
+            var genres = profile.TopGenres(3);
+            var actors = profile.TopActors(5);
+            var directors = profile.TopDirectors(5);
+
+            var genreFilter = GenresFilter(genres);
+            var actorsFilter = ActorsFilter(actors);
+            var directorsFilter = DirectorsFilter(directors);
+
+            var filter = genreFilter & actorsFilter & directorsFilter;
+            movies.Find(filter);
+            
         }
     }
 }

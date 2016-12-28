@@ -3,6 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BLL;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using static BLL.Recommender;
+using MongoDB.Driver;
+using System.Linq;
 
 namespace Testovi
 {
@@ -56,5 +60,49 @@ namespace Testovi
             var matches = db.GetCollection<Match>("Match");
             matches.InsertOne(new Match(Ines, Marina));
         }
+
+        [TestMethod]
+        public void GenreSimilarityMatrix()
+        {
+            Movie matrix = MovieRepository.GetMovieByID("tt0133093");
+            //IList<Movie> similar = Recommender.SimilarByGenres(matrix, 100).Result;
+            var similar = Recommender.SimilarByGenres(matrix.Genres);
+            Assert.AreEqual(1, similar.Count());
+        }
+
+        [TestMethod]
+        public void ActorSimilarityMatrix()
+        {
+            IList < String > actors = new List<String>();
+            actors.Add("Keanu Reeves");
+            actors.Add("Sigourney Weaver");
+            actors.Add("Goran Visnjic");
+
+
+            var similar = Recommender.SimilarByActors(actors);
+            Assert.AreEqual(1, 1);
+        }
+
+        //[TestMethod]
+        public void ProfileBuild()
+        {
+            Person Ana = PersonRepository.GetPersonByName("Ana");
+            Ana.Profile = new Profile(Ana);
+            var db = MongoInstance.GetDatabase;
+            var persons = db.GetCollection<Person>("testPerson");
+            persons.ReplaceOne(p => p.Email == Ana.Email,
+                Ana,
+                new UpdateOptions { IsUpsert = true });
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void TopActors()
+        {
+            Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
+            var top = Ana.Profile.TopActors(5);
+            Assert.AreEqual(1, top.Count);
+        }
+
     }
 }
