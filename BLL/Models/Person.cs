@@ -2,9 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace BLL
 {
@@ -23,5 +20,6 @@ namespace BLL
         public IList<FBMovie> Watches { get; set; }
         public IList<FBMovie> Wants { get; set; }
         public IList<string> Friends { get; set; }
+        public Profile Profile { get; set; }
     }
 }
