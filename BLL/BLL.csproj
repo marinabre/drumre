@@ -89,7 +89,6 @@
     <Compile Include="DummyHelpers\ShowProvider.cs" />
     <Compile Include="DummyHelpers\UserProvider.cs" />
     <Compile Include="DummyHelpers\Movie.cs" />
-    <Compile Include="IRecommender.cs" />
     <Compile Include="Models\FBMovie.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Profile.cs" />

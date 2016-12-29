@@ -218,6 +218,5 @@ namespace BLL
             newMovie = repo.SubtitleData(newMovie);
             return newMovie;
         }
-
     }
 }

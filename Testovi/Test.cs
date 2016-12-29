@@ -19,6 +19,7 @@ namespace Testovi
             var pack = new ConventionPack();
             pack.Add(new IgnoreExtraElementsConvention(true));
             ConventionRegistry.Register("ignore extra elements", pack, t => true);
+            
         }
 
 
@@ -80,10 +81,11 @@ namespace Testovi
         //public void RecommendFromProfile()
         //{
         //    var db = MongoInstance.GetDatabase;
+        //    db.DropCollection("results");
         //    var collection = db.GetCollection<Movie>("results");
-        //    Person Ines = PersonRepository.GetPersonByName("Ines", "testPerson");
+        //    Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
 
-        //    IList<Movie> rec = Recommender.RecommendFromProfile(Ines.Profile, 3, 5, 5);
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
         //    foreach (Movie m in rec)
         //        collection.InsertOne(m);
         //    Assert.AreEqual(1, rec.Count);
@@ -102,18 +104,18 @@ namespace Testovi
         //    Assert.AreEqual(1, rec.Count);
         //}
 
-        [TestMethod]
-        public void RecommendFromEverybody()
-        {
-            var db = MongoInstance.GetDatabase;
-            var collection = db.GetCollection<Movie>("results");
-            Person Ines = PersonRepository.GetPersonByName("Ines");
+        //[TestMethod]
+        //public void RecommendFromEverybody()
+        //{
+        //    var db = MongoInstance.GetDatabase;
+        //    var collection = db.GetCollection<Movie>("results");
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
 
-            IList<Movie> rec = Recommender.RecommendFromEverybody(Ines, false, -1, 0, 0);
-            foreach (Movie m in rec)
-                collection.InsertOne(m);
-            Assert.AreEqual(1, rec.Count);
-        }
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromEverybody(Ines, false, -1, 0, 0);
+        //    foreach (Movie m in rec)
+        //        collection.InsertOne(m);
+        //    Assert.AreEqual(1, rec.Count);
+        //}
 
 
         //[TestMethod]
@@ -121,6 +123,13 @@ namespace Testovi
         //{
         //    PersonRepository.BuildAllProfiles();
         //}
+
+        [TestMethod]
+        public void MakeProfile()
+        {
+            Person Ana = PersonRepository.GetPersonByName("Ana");
+            var profile = new Profile(Ana);
+        }
 
     }
 }
