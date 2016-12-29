@@ -153,8 +153,7 @@ namespace BLL
             return null;
         }
 
-
-        public static IList<Movie> MatchProfile (Profile profile, int genre, int actor, int director)
+        public static IList<Movie> RecommendFromProfile (Profile profile, int genre, int actor, int director)
         {
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
@@ -169,6 +168,28 @@ namespace BLL
 
             var filter = genreFilter & actorsFilter & directorsFilter;
             return movies.Find(filter).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
+        }
+
+        public static IList<Movie> RecommendFromFriends (Person person, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
+        {
+            IList<Person> friends = PersonRepository.FilterFriends(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
+            IList<Movie> recommendation = new List<Movie>();
+            foreach (Person friend in friends)
+            {
+                recommendation = recommendation.Union(friend.Profile.LikedMovies).ToList();
+            }
+            return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
+        }
+
+        public static IList<Movie> RecommendFromEverybody (Person person, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
+        {
+            IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
+            IList<Movie> recommendation = new List<Movie>();
+            foreach (Person p in people)
+            {
+                recommendation = recommendation.Union(p.Profile.LikedMovies).ToList();
+            }
+            return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
         }
     }
 }

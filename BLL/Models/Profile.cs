@@ -24,12 +24,6 @@ namespace BLL
             FavouriteActors = new Dictionary<String, int>();
             FavouriteDirectors = new Dictionary<String, int>();
             FavouriteGenres = new Dictionary<Genre, int>();
-            //foreach (FBMovie fbMovie in person.LikedMovies)
-            //{
-            //    var movie = MovieRepository.GetMovieByTitle(fbMovie.Title);
-            //    if (movie != null)
-            //        likedMovies.Add(MovieRepository.GetMovieByTitle(fbMovie.Title));
-            //}
             LikedMovies = MovieRepository.GetMoviesByFB(person.LikedMovies).Result;
             foreach (Movie movie in LikedMovies)
             {
