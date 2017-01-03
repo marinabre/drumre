@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,18 +10,9 @@ using Microsoft.Owin.Security;
 using Projekt.Models;
 using Facebook;
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Owin;
-using Projekt.Controllers;
 using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
-using System.Configuration;
-using MongoDB.Bson;
-using Projekt.App_Start;
-using MongoDB.Bson.Serialization.Conventions;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using Microsoft.CSharp.RuntimeBinder;
 using BLL;
 
@@ -462,14 +452,14 @@ namespace Projekt.Controllers
         [Authorize]
         public async Task<ActionResult> FacebookInfo()
         {
-            refreshUserData();
+            await refreshUserData();
 
             //return View(detailedMovieList);
             return RedirectToAction("Index", "Home");
         }
 
         
-        public async void refreshUserData()
+        public async Task refreshUserData()
         {
             //Open connection to database:
             var db = MongoInstance.GetDatabase;
@@ -545,10 +535,9 @@ namespace Projekt.Controllers
                 Watches = watchesList,
                 Wants = wantsList,
                 Email = myInfo.email,
-                Gender = myInfo.gender,
-                
+                Gender = myInfo.gender,                
             };
-
+            
             me.Friends = new List<String>();
             foreach (dynamic friend in myInfo.friends.data)
             {
@@ -556,6 +545,8 @@ namespace Projekt.Controllers
                 me.Friends.Add(f);
             }
 
+            //buildanje profila prilikom svakog logina? Traje otprilike 15 sec...
+            //me.Profile = new Profile (me);
 
             persons.ReplaceOne(p => p.Email == me.Email,
                 me,

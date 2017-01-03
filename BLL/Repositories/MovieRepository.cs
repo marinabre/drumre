@@ -3,7 +3,9 @@ using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 
@@ -87,7 +89,7 @@ namespace BLL
                 return movie;
             }
             catch (Exception e)
-            {
+            {                
                 return movie;
             }
         }
@@ -123,9 +125,39 @@ namespace BLL
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
             var result = movies.Find(p => p.IMDbId == imdbID);
-            return result.First();
-            
+            return result.First();            
         }
+
+        public static Movie GetMovieByTitle(string title)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var result = movies.Find(p => p.Title == title);
+            if (result.Count() > 0)
+                return result.First();
+            return null;
+        }
+
+        public static async Task<IList<Movie>> GetMoviesByFB(IList<FBMovie> fbMovies)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var builder = Builders<Movie>.Filter;
+            if (fbMovies.Count > 0)
+            {
+                var name = fbMovies.ElementAt(0).Title;
+                var filter = builder.Eq("Title", name);
+
+                for (int i = 1; i < fbMovies.Count; i++)
+                {
+                    var name2 = fbMovies.ElementAt(i).Title;
+                    filter = filter | builder.Eq("Title", name2);
+                }
+                return await movies.Find(filter).ToListAsync();
+            }
+            return null;
+        }
+
         public async System.Threading.Tasks.Task<Movie> GetMovieByTitleFromAPI(string title)
         {
             MovieRepository repo = new MovieRepository();
@@ -186,6 +218,5 @@ namespace BLL
             newMovie = repo.SubtitleData(newMovie);
             return newMovie;
         }
-
     }
 }
