@@ -10,13 +10,14 @@ using System.Web.Mvc;
 using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 using BLL;
+using PagedList;
 
 namespace Projekt.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -31,7 +32,9 @@ namespace Projekt.Controllers
                     movies.Add(movie);
                 }
                 #endregion
-                return View("HomeLoggedIn", movies);
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                return View("HomeLoggedIn", movies.ToPagedList(pageNumber, pageSize));
             }
             else
             {
