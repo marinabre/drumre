@@ -29,7 +29,6 @@ namespace BLL
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
 
-
             var genres = profile.TopGenres(genre);
             var actors = profile.TopActors(actor);
             var directors = profile.TopDirectors(director);
@@ -165,7 +164,7 @@ namespace BLL
                 return newSimilarity;
             } 
         }
-        public static IFindFluent<Movie,Movie> SimilarByGenres (IList<Genre> Genres)
+        public static IFindFluent<Movie,Movie> SimilarByGenres (IList<String> Genres)
         {
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection <Movie> ("movies");
@@ -192,17 +191,17 @@ namespace BLL
                 return movies.Find(filter);
             return null;
         }
-        public static FilterDefinition<Movie> GenresFilter(IList<Genre> Genres)
+        public static FilterDefinition<Movie> GenresFilter(IList<String> Genres)
         {
             var builder = Builders<Movie>.Filter;
             if (Genres.Count > 0)
             {
-                var name = Genres.ElementAt(0).Name;
+                var name = Genres.ElementAt(0);
                 var filter = builder.ElemMatch(x => x.Genres, x => x.Name == name);
 
                 for (int i = 1; i < Genres.Count; i++)
                 {
-                    var name2 = Genres.ElementAt(i).Name;
+                    var name2 = Genres.ElementAt(i);
                     filter = filter | builder.ElemMatch(x => x.Genres, x => x.Name == name2);
                 }
                 return filter;

@@ -14,14 +14,14 @@ namespace BLL
         [BsonDictionaryOptions(Representation = DictionaryRepresentation.ArrayOfArrays)]
         public IDictionary<String, int> FavouriteDirectors;
         [BsonDictionaryOptions(Representation = DictionaryRepresentation.ArrayOfArrays)]
-        public IDictionary<Genre, int> FavouriteGenres;
+        public IDictionary<String, int> FavouriteGenres;
         public IList<Movie> LikedMovies = new List<Movie>();
 
         public Profile(Person person)
         {
             FavouriteActors = new Dictionary<String, int>();
             FavouriteDirectors = new Dictionary<String, int>();
-            FavouriteGenres = new Dictionary<Genre, int>();
+            FavouriteGenres = new Dictionary<String, int>();
             LikedMovies = MovieRepository.GetMoviesByFB(person.LikedMovies).Result;
             foreach (Movie movie in LikedMovies)
             {
@@ -54,10 +54,10 @@ namespace BLL
                 {
                     foreach (Genre genre in movie.Genres)
                     {
-                        if (FavouriteGenres.ContainsKey(genre))
-                            FavouriteGenres[genre]++;
+                        if (FavouriteGenres.ContainsKey(genre.Name))
+                            FavouriteGenres[genre.Name]++;
                         else
-                            FavouriteGenres.Add(genre, 1);
+                            FavouriteGenres.Add(genre.Name, 1);
                     }
                 }
             }           
@@ -66,7 +66,7 @@ namespace BLL
         {
             FavouriteActors = new Dictionary<String, int>();
             FavouriteDirectors = new Dictionary<String, int>();
-            FavouriteGenres = new Dictionary<Genre, int>();
+            FavouriteGenres = new Dictionary<String, int>();
 
             foreach (Movie movie in LikedMovies)
             {
@@ -99,10 +99,10 @@ namespace BLL
                 {
                     foreach (Genre genre in movie.Genres)
                     {
-                        if (FavouriteGenres.ContainsKey(genre))
-                            FavouriteGenres[genre]++;
+                        if (FavouriteGenres.ContainsKey(genre.Name))
+                            FavouriteGenres[genre.Name]++;
                         else
-                            FavouriteGenres.Add(genre, 1);
+                            FavouriteGenres.Add(genre.Name, 1);
                     }
                 }
             }
@@ -120,9 +120,9 @@ namespace BLL
             return FavouriteDirectors.OrderByDescending(pair => pair.Value).Take(limit)
                .ToDictionary(pair => pair.Key, pair => pair.Value).Keys.ToList();
         }
-        public List<Genre> TopGenres(int limit)
+        public List<String> TopGenres(int limit)
         {
-            if (limit == 0) return new List<Genre>();
+            if (limit == 0) return new List<String>();
             return FavouriteGenres.OrderByDescending(pair => pair.Value).Take(limit)
                .ToDictionary(pair => pair.Key, pair => pair.Value).Keys.ToList();
         }
