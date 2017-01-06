@@ -484,16 +484,23 @@ namespace Projekt.Controllers
             //IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
 
             //dohvat i spremanje kategorije Likes:
-            foreach (dynamic fbMovie in myInfo.movies.data)
+            try
             {
-                BLL.FBMovie movie = new BLL.FBMovie()
+                foreach (dynamic fbMovie in myInfo.movies.data)
                 {
-                    Title = fbMovie.name,
-                    Id = fbMovie.id
-                };
-                movieList.Add(movie);
-                //detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    BLL.FBMovie movie = new BLL.FBMovie()
+                    {
+                        Title = fbMovie.name,
+                        Id = fbMovie.id
+                    };
+                    movieList.Add(movie);
+                    //detailedMovieList.Add(AddToDbIfNotExist(movie));
+                }
+            } catch (RuntimeBinderException)
+            {
+
             }
+            
 
             //dohvat i spremanje kategorije Watched:
             try
