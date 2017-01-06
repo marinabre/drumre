@@ -9,6 +9,7 @@ using Projekt.Models;
 using Microsoft.Owin.Security.Facebook;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Projekt.App_Start;
 
 namespace Projekt
 {
@@ -61,7 +62,12 @@ namespace Projekt
             //   appId: "1279180495466644",
             //   appSecret: "780860b63672ff262370699538722160");
 
-            var options = new FacebookAuthenticationOptions();
+            var options = new FacebookAuthenticationOptions()
+            {
+                BackchannelHttpHandler = new FacebookBackChannelHandler(),
+                UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email"
+            };
+            
             options.Scope.Add("email");
             options.Scope.Add("user_about_me");
             options.Scope.Add("user_birthday");
@@ -75,6 +81,7 @@ namespace Projekt
                 OnAuthenticated = (context) =>
                 {
                     context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+                    context.Identity.AddClaim(new System.Security.Claims.Claim("UserEmail", context.Email));
                     return Task.FromResult(0);
                 }
             };

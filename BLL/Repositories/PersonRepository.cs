@@ -16,6 +16,22 @@ namespace BLL
             else return null;
         }
 
+        public static Person GetPersonWithProfileById(string id)
+        {
+            Person person;
+            var db = MongoInstance.GetDatabase;
+            var people = db.GetCollection<Person>("Person");
+            var result = people.Find(p => p.PersonID == id);
+            if (result.Count() > 0)
+            {
+                person = result.First();
+                if (person.Profile == null)
+                    person = BuildAndGetProfile(person);
+                return person;
+            }
+            else return null;
+        }
+
         public static Person GetPersonByName(string name)
         {
             var db = MongoInstance.GetDatabase;
@@ -97,5 +113,17 @@ namespace BLL
                 person,
                 new UpdateOptions { IsUpsert = true });
         }
+
+        public static Person BuildAndGetProfile(Person person)
+        {
+            var db = MongoInstance.GetDatabase;
+            var persons = db.GetCollection<Person>("Person");
+            person.Profile = new Profile(person);
+            persons.ReplaceOne(p => p.Email == person.Email,
+                person,
+                new UpdateOptions { IsUpsert = true });
+            return person;
+        }
+
     }
 }
