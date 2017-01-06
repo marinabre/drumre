@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using static BLL.Recommender;
 using MongoDB.Driver;
 using System.Linq;
+using BLL.Models;
 
 namespace Testovi
 {
@@ -56,18 +57,18 @@ namespace Testovi
         //    Assert.AreEqual(1, 1);
         //}
 
-        [TestMethod]
-        public void ProfileBuild()
-        {
-            Person person = PersonRepository.GetPersonByName("Ines");
-            person.Profile = new Profile(person);
-            var db = MongoInstance.GetDatabase;
-            var persons = db.GetCollection<Person>("testPerson");
-            persons.ReplaceOne(p => p.Email == person.Email,
-                person,
-                new UpdateOptions { IsUpsert = true });
-            Assert.AreEqual(1, 2);
-        }
+        //[TestMethod]
+        //public void ProfileBuild()
+        //{
+        //    Person person = PersonRepository.GetPersonByName("Ines");
+        //    person.Profile = new Profile(person);
+        //    var db = MongoInstance.GetDatabase;
+        //    var persons = db.GetCollection<Person>("testPerson");
+        //    persons.ReplaceOne(p => p.Email == person.Email,
+        //        person,
+        //        new UpdateOptions { IsUpsert = true });
+        //    Assert.AreEqual(1, 2);
+        //}
 
         //[TestMethod]
         //public void TopActors()
@@ -130,6 +131,29 @@ namespace Testovi
         //    Person Ana = PersonRepository.GetPersonByName("Ana");
         //    var profile = new Profile(Ana);
         //}
+
+        //[TestMethod]
+        //public void Filter()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //    IList<string> genres = new List<string>();
+        //    genres.Add("Action");
+        //    genres.Add("Drama");
+        //    Filter f = new Filter(genres);
+
+        //    var res = FilterResults(profile.LikedMovies, f);
+        //    Assert.AreEqual(0, res.Count);
+        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+
+        //}
+
+        [TestMethod]
+        public void GetPersonByMail()
+        {
+            Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
+            Assert.IsNotNull(Ana.Profile);
+        }
 
     }
 }

@@ -16,7 +16,7 @@ namespace BLL
             else return null;
         }
 
-        public static Person GetPersonWithProfileById(string id)
+        public static Person GetPersonById(string id, bool buildProfileIfNotExists)
         {
             Person person;
             var db = MongoInstance.GetDatabase;
@@ -25,7 +25,34 @@ namespace BLL
             if (result.Count() > 0)
             {
                 person = result.First();
-                if (person.Profile == null)
+                if (person.Profile == null && buildProfileIfNotExists)
+                    person = BuildAndGetProfile(person);
+                return person;
+            }
+            else return null;
+        }
+
+        //samo dohvati osobu:
+        public static Person GetPersonByEmail(string email)
+        {
+            var db = MongoInstance.GetDatabase;
+            var people = db.GetCollection<Person>("Person");
+            var result = people.Find(p => p.Email == email);
+            if (result.Count() > 0) return result.First();
+            else return null;
+        }
+
+        //dohvati osobu i izbuildaj joj profil ako ga nema (predaj true za checkProfile):
+        public static Person GetPersonByEmail(string email, bool buildProfileIfNotExists)
+        {
+            Person person;
+            var db = MongoInstance.GetDatabase;
+            var people = db.GetCollection<Person>("Person");
+            var result = people.Find(p => p.Email == email);
+            if (result.Count() > 0)
+            {
+                person = result.First();
+                if (person.Profile == null && buildProfileIfNotExists)
                     person = BuildAndGetProfile(person);
                 return person;
             }

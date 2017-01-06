@@ -11,11 +11,13 @@ namespace BLL.Models
         /// <summary>
         /// If empty, you receive "null"
         /// </summary>
-        public List<string> Genres { get; set; }
+        public IList<string> Genres { get; set; }
         /// <summary>
         /// If empty, you receive "null"
         /// </summary>
-        public List<string> Actors { get; set; }
+        public IList<string> Actors { get; set; }
+
+        public IList<string> Directors { get; set; }
 
         /// <summary>
         /// Also "null" if nothing; get the value using YearFrom.Value
@@ -38,5 +40,24 @@ namespace BLL.Models
 
         public int? FBLikesFrom { get; set; }
         public int? FBLikesTo { get; set; }
+
+        public Filter(IList<string> genres)
+        {
+            this.Genres = genres;
+            this.Actors = null;
+            this.Directors = null;
+            this.YearFrom = null;
+            this.YearTo = null;
+            this.IMDBRatingFrom = null;
+            this.IMDBRatingTo = null;
+            this.MetascoreRatingFrom = null;
+            this.MetascoreRatingTo = null;
+            this.FBSharesFrom = null;
+            this.FBSharesTo = null;
+            this.FBLikesFrom = null;
+            this.FBLikesTo = null;
+        }
     }
 }
+
+    
