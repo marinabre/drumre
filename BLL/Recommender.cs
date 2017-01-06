@@ -20,7 +20,8 @@ namespace BLL
         {
             if (person.Profile == null)
             {
-                person.Profile = new Profile(person);
+                //person.Profile = new Profile(person);
+                person = PersonRepository.BuildAndGetProfile(person);
             }
             return RecommendMoviesFromProfile(person.Profile, genre, actor, director);
         }
@@ -37,6 +38,9 @@ namespace BLL
             var genreFilter = GenresFilter(genres);
             var actorsFilter = ActorsFilter(actors);
             var directorsFilter = DirectorsFilter(directors);
+
+            if (genreFilter == Builders<Movie>.Filter.Empty & actorsFilter == Builders<Movie>.Filter.Empty & directorsFilter == Builders<Movie>.Filter.Empty)
+                return new List<Movie>();
 
             var filter = genreFilter & actorsFilter & directorsFilter;
             return movies.Find(filter).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
@@ -56,8 +60,13 @@ namespace BLL
         {
             IList<Person> friends = PersonRepository.FilterFriends(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
-            foreach (Person friend in friends)
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
+            foreach (Person p in friends)
             {
+                Person friend = p;
+                if (friend.Profile == null)
+                    friend = PersonRepository.BuildAndGetProfile(friend);
                 recommendation = recommendation.Union(friend.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
@@ -66,8 +75,11 @@ namespace BLL
         {
             IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
-            foreach (Person p in people)
+            foreach (Person somebody in people)
             {
+                Person p = somebody;
+                if (person.Profile == null)
+                    p = PersonRepository.BuildAndGetProfile(person);
                 recommendation = recommendation.Union(p.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
