@@ -138,6 +138,12 @@ namespace BLL
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
             if (filter.YearTo != null)
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo);
+
+            if (filter.RuntimeFrom != null)
+                result = result.Where(m => m.Runtime >= filter.RuntimeFrom);
+            if (filter.RuntimeTo != null)
+                result = result.Where(m => m.Runtime <= filter.RuntimeTo);
+
             if (filter.IMDBRatingFrom != null)
                 result = result.Where(m => m.VoteAverage >= filter.IMDBRatingFrom);
             if (filter.IMDBRatingTo != null)
