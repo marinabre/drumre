@@ -56,6 +56,11 @@ namespace Projekt.Controllers
             return View();
         }
 
+        public ActionResult Recommend()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -71,9 +76,6 @@ namespace Projekt.Controllers
             //return View(await IMDB2());
             return View();
 
-        }
-        
-
-
+        }        
     }
 }
