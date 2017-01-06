@@ -216,69 +216,83 @@ namespace BLL
                 Videos = pom.Videos,
                 VoteAverage = pom.VoteAverage,
                 VoteCount = pom.VoteCount
-            };
+            };           
             newMovie = repo.OMDbData(newMovie);
-            newMovie = repo.SubtitleData(newMovie);
+            newMovie = repo.SubtitleData(newMovie);            
             return newMovie;
         }
 
-        public static string GetYTURLForMovie(ResultContainer<Video> movieVideo)
+        public static string GetYTURLForMovie(Movie movie)
         {
             // http://www.youtube.com/embed/6vQgHBugHxA?autoplay=0
-            var youtubeService = new Google.Apis.YouTube.v3.YouTubeService(new BaseClientService.Initializer()
+            string url = "";
+            if (movie.Videos.Results.Count > 0)
             {
-                ApiKey = ConfigurationManager.AppSettings["APIKey"],
-                ApplicationName = "DruMreLab1"
-            });
-
-            var searchListRequest = youtubeService.Search.List("id, snippet");
-            searchListRequest.Q = movieVideo.Results[0].Name; // Replace with your search term.
-            searchListRequest.MaxResults = 1;
-
-            //you need to create the service object earlier
-            var request = youtubeService.Videos.List("statistics,snippet");
-
-            // Call the search.list method to retrieve results matching the specified query term.
-            var searchListResponse = searchListRequest.Execute();
-
-            List<string> videos = new List<string>();
-            //List<string> channels = new List<string>();
-            //List<string> playlists = new List<string>();
-
-            // Add each result to the appropriate list, and then display the lists of
-            // matching videos, channels, and playlists.
-            foreach (var searchResult in searchListResponse.Items)
-            {
-                switch (searchResult.Id.Kind)
+                foreach (var result in movie.Videos.Results)
                 {
-                    case "youtube#video":
-                        request.Id = searchResult.Id.VideoId;
-                        var response = request.Execute();
-                        foreach (var video in response.Items)
-                        {
-                            if (video.Statistics != null)
-                            {
-                                var count = video.Statistics.ViewCount;
-                            }
-                        }
-                        videos.Add("http://www.youtube.com/embed/" + searchResult.Id.VideoId + "?autoplay=0");
-                        break;
-
-                    case "youtube#channel":
-                        //channels.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.ChannelId));
-                        break;
-
-                    case "youtube#playlist":
-                        //playlists.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.PlaylistId));
-                        break;
+                    if (result.Site == "YouTube")
+                    {
+                        url = "http://www.youtube.com/embed/" + result.Key + "?autoplay=0";
+                    }
                 }
             }
+            if (url == "")
+            {
+                var youtubeService = new Google.Apis.YouTube.v3.YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = ConfigurationManager.AppSettings["APIKey"],
+                    ApplicationName = "DruMreLab1"
+                });
 
-            //Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
-            //Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
-            //Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));
+                var searchListRequest = youtubeService.Search.List("id, snippet");
+                searchListRequest.Q = movie.Title; // Replace with your search term.
+                searchListRequest.MaxResults = 1;
 
-            return videos[0];
+                //you need to create the service object earlier
+                var request = youtubeService.Videos.List("statistics,snippet");
+
+                // Call the search.list method to retrieve results matching the specified query term.
+                var searchListResponse = searchListRequest.Execute();
+
+                List<string> videos = new List<string>();
+                //List<string> channels = new List<string>();
+                //List<string> playlists = new List<string>();
+
+                // Add each result to the appropriate list, and then display the lists of
+                // matching videos, channels, and playlists.
+                foreach (var searchResult in searchListResponse.Items)
+                {
+                    switch (searchResult.Id.Kind)
+                    {
+                        case "youtube#video":
+                            request.Id = searchResult.Id.VideoId;
+                            var response = request.Execute();
+                            foreach (var video in response.Items)
+                            {
+                                if (video.Statistics != null)
+                                {
+                                    var count = video.Statistics.ViewCount;
+                                }
+                            }
+                            videos.Add("http://www.youtube.com/embed/" + searchResult.Id.VideoId + "?autoplay=0");
+                            break;
+
+                        case "youtube#channel":
+                            //channels.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.ChannelId));
+                            break;
+
+                        case "youtube#playlist":
+                            //playlists.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.PlaylistId));
+                            break;
+                    }
+
+                    //Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
+                    //Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
+                    //Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));
+                    return videos[0];
+                }
+            }
+            return url;                     
         }
     }
 }

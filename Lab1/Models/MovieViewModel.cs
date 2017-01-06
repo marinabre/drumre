@@ -76,7 +76,7 @@ namespace Projekt.Models
         {
             CastSimpleFromMovie(movie);
 
-            TrailerURL = BLL.MovieRepository.GetYTURLForMovie(movie.Videos);
+            TrailerURL = BLL.MovieRepository.GetYTURLForMovie(movie);
 
             if (movie.Runtime != null)
             {
@@ -92,10 +92,13 @@ namespace Projekt.Models
                 Genres += genre.Name + ", ";
             }
             Keywords = "";
-            foreach (var keyword in movie.Keywords.Keywords)
+            if (movie.Keywords != null)
             {
-                Keywords += keyword.Name + ", ";
-            }
+                foreach (var keyword in movie.Keywords.Keywords)
+                {
+                    Keywords += keyword.Name + ", ";
+                }
+            }            
             Overview = movie.Overview;
             Popularity = movie.Popularity;
             ReleaseDate = movie.ReleaseDate;
@@ -117,8 +120,11 @@ namespace Projekt.Models
             TomatoUserMeter = movie.TomatoUserMeter;
             TomatoUserRating = movie.TomatoUserRating;
 
-            SubtitleDownloadLink = movie.MovieSubtitle.SubTitleDownloadLink.ToString();
-            SubtitlePageLink = movie.MovieSubtitle.SubtitlePageLink.ToString();                
+            if (movie.MovieSubtitle != null)
+            {
+                SubtitleDownloadLink = movie.MovieSubtitle.SubTitleDownloadLink.ToString();
+                SubtitlePageLink = movie.MovieSubtitle.SubtitlePageLink.ToString();
+            }                        
     }
         #endregion
 

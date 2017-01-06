@@ -23,15 +23,16 @@ namespace Projekt.Models
 
         // no trouble
         public int Time { get; set; }
+        public int YearStart { get; set; }
+        public int YearEnd { get; set; }
         // otklen?
         public List<string> Genres { get; set; }
-        // Njegovi likeani filmovi
-        public List<string> Movies { get; set; }
         // otklen?
-        public List<string> Actors { get; set; }
-        // OK, ovo nije problem
-        public List<string> Friends { get; set; }
+        public List<string> Actors { get; set; }     
         // Ovo je, isti problem - otklen?
         public List<string> Directors { get; set; }
+
+        // Ratinzi (sva 3)
+        // Proslijeđujem nullove ak nešto ne bude dostupno
     }
 }
