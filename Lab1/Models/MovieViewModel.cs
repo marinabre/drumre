@@ -72,6 +72,14 @@ namespace Projekt.Models
             PosterURL = "http://image.tmdb.org/t/p/w185" + movie.PosterPath;
         }
 
+        public void CastSearchFromMovie(BLL.Movie movie)
+        {
+            CastSimpleFromMovie(movie);
+            VoteAverage = movie.VoteAverage;
+            Metascore = movie.Metascore;
+            TomatoRating = movie.TomatoRating;
+        }
+
         public void CastFromMovie(BLL.Movie movie)
         {
             CastSimpleFromMovie(movie);

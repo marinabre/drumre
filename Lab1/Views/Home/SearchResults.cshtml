@@ -1,0 +1,195 @@
+﻿@model IEnumerable<Projekt.Models.MovieViewModel>
+
+@{
+    ViewBag.Title = "SearchResults";
+}
+
+<h2>SearchResults</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PosterURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IMDBID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Runtime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keywords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Overview)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Popularity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoteAverage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VoteCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FBLikes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FBShares)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Language)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Awards)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metascore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoReviews)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoFresh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoRotten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoUserMeter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TomatoUserRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubtitleDownloadLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubtitlePageLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrailerURL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PosterURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMDBID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Runtime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keywords)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Overview)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Popularity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoteAverage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoteCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FBLikes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FBShares)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Language)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Awards)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Metascore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoReviews)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoFresh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoRotten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoUserMeter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TomatoUserRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubtitleDownloadLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubtitlePageLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrailerURL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

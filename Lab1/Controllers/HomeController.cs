@@ -105,7 +105,6 @@ namespace Projekt.Controllers
             filter.YearTo = YearTo;
 
             // Search comes here
-            //var movies = 
 
             return View("SearchResults", movies);            
         }
@@ -113,6 +112,12 @@ namespace Projekt.Controllers
         public ActionResult Recommend()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Recommend(int Genres, int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Movies, List<string> Friends)
+        {
+            return View("RecommendResults");
         }
 
         public ActionResult About()
