@@ -82,14 +82,34 @@ namespace BLL
                         
             return emisije;
         }
-        //public void unesiEmisije(List<TVShow> newObjects)
-        //{
-        //    var collection = _database.GetCollection<TVShow>("shows");
-        //    collection.InsertMany(newObjects);
-        //}
+        public Movie GetMovieByID(string imdbID, bool shortDetails = false)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            Movie result = new Movie();
+            if (shortDetails)
+            {
+                var project = Builders<Movie>.Projection.Slice((StringFieldDefinition<Movie>)("Credits.Cast"), 0, 5).Slice((StringFieldDefinition<Movie>)("Credits.Crew"), 0, 5);
+                //BsonDocument shortenDetails = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>("{ 'Credits.Cast': {$slice: 5 }, 'Credits.Crew': {$slice: 5 } }");
+                result = movies.Find(p => p.IMDbId == imdbID).Project<Movie>(project).First();
+                //db.getCollection('movies').find( {}, { "Credits.Cast": {$slice: 5 }, "Credits.Crew": {$slice: 5 } } );
+            }else
+            {
+                result = movies.Find(p => p.IMDbId == imdbID).First();
+            }
 
+            return result;
+        }
 
-
+        public Movie GetMovieByTitle(string title)
+        {
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var result = movies.Find(p => p.Title == title);
+            if (result.Count() > 0)
+                return result.First();
+            return null;
+        }
 
         //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
         //da ne pizdi zbog duplića
