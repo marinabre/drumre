@@ -320,6 +320,7 @@
     <Content Include="Views\Account\FacebookInfo.cshtml" />
     <Content Include="Views\Home\HomeLoggedIn.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,21 +17,26 @@ namespace Projekt.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, List<MovieViewModel> movies = null)
         {            
             if (User.Identity.IsAuthenticated)
-            {                
-                #region Getting recommended movies here
-                var movies = new List<MovieViewModel>();
-                var BLLmovies = BLL.DummyHelpers.MovieProvider.RecommendMovies();
-                foreach (var BLLmovie in BLLmovies)
+            {
+                var person = new Person();
+                if (movies == null)
                 {
-                    if (BLLmovie.Title == "") continue;
-                    var movie = new MovieViewModel();
-                    movie.CastSimpleFromMovie(BLLmovie);
-                    movies.Add(movie);
+                    movies = new List<MovieViewModel>();
+                    var BLLmovies = new List<BLL.Movie>();
+                    #region Getting recommended movies here
+                    BLLmovies = Recommender.Recommend(person).ToList();
+                    foreach (var BLLmovie in BLLmovies)
+                    {
+                        if (BLLmovie.Title == "") continue;
+                        var movie = new MovieViewModel();
+                        movie.CastSimpleFromMovie(BLLmovie);
+                        movies.Add(movie);
+                    }
+                    #endregion
                 }
-                #endregion
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
                 return View("HomeLoggedIn", movies.ToPagedList(pageNumber, pageSize));
@@ -53,7 +58,40 @@ namespace Projekt.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            var search = new SearchViewModel();
+            return View(search);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string Actors, int YearFrom, int YearTo, decimal IMDBRatingFrom, decimal IMDBRatingTo, decimal TomatoRatingFrom, decimal TomatoRatingTo, decimal MetascoreRatingFrom, decimal MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
+        {
+            var filter = new BLL.Models.Filter();
+            var movies = new List<MovieViewModel>();
+
+            filter.Actors = new List<string>();
+            string[] rawActors = Actors.Split(',');
+            foreach (string actor in rawActors)
+            {
+                actor.Trim();
+                filter.Actors.Add(actor);
+            }
+
+            filter.FBLikesFrom = FBLikesFrom;
+            filter.FBLikesTo = FBLikesTo;
+            filter.FBSharesFrom = FBSharesFrom;
+            filter.FBSharesTo = FBSharesTo;
+            filter.IMDBRatingFrom = IMDBRatingFrom;
+            filter.IMDBRatingTo = IMDBRatingTo;
+            filter.MetascoreRatingFrom = MetascoreRatingFrom;
+            filter.MetascoreRatingTo = MetascoreRatingTo;
+            filter.TomatoRatingFrom = TomatoRatingFrom;
+            filter.TomatoRatingTo = TomatoRatingTo;
+            filter.YearFrom = YearFrom;
+            filter.YearTo = YearTo;
+
+            // Search comes here
+
+            return RedirectToAction("Index", movies);
         }
 
         public ActionResult Recommend()
