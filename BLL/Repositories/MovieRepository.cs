@@ -97,7 +97,7 @@ namespace BLL
             }
         }
 
-        public static void FBData (Movie movie, bool refresh = false)
+        public void FBData (string IMDbId, bool refresh = false)
         {
             //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
             //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
@@ -109,13 +109,42 @@ namespace BLL
                 client_secret = "780860b63672ff262370699538722160",
                 grant_type = "client_credentials"
             });
-            String imdbURL = "http://www.imdb.com/title/" + movie.IMDbId;
-            dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
-            Info = GetProperty(Info, imdbURL);
-            movie.Title = Info.og_object.title;
-            movie.FBLikes = Info.og_object.engagement.count;
-            movie.FBShares = Info.share.share_count;
-        }
+            String imdbURL = "http://www.imdb.com/title/" + IMDbId;
+            //var parameters = new FacebookBatchParameter[10];
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    String imdbURL = "http://www.imdb.com/title/" + IMDbIds[i];
+            //    parameters[i] = new FacebookBatchParameter(HttpMethod.Get, "?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+            //}
+            try
+            {
+                //dynamic Info = fb.Batch(parameters);
+                //for (int i = 1; i < 11; i++)
+                //{
+                //    var FBLikes = Info[i].og_object.engagement.count;
+                //    var FBShares = Info[i].share.share_count;
+                //    baza.updateMovieFB(IMDbIds[i-1], FBShares, FBLikes);
+                //}
+                dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+                Info = GetProperty(Info, imdbURL);
+                //movie.Title = Info.og_object.title;
+                var FBLikes = Info.og_object.engagement.count;
+                var FBShares = Info.share.share_count;
+                baza.updateMovieFB(IMDbId, FBShares, FBLikes);
+
+            }
+            catch
+            {
+                System.Threading.Thread.Sleep(10000);
+                dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
+                Info = GetProperty(Info, imdbURL);
+                //movie.Title = Info.og_object.title;
+                var FBLikes = Info.og_object.engagement.count;
+                var FBShares = Info.share.share_count;
+                baza.updateMovieFB(IMDbId, FBShares, FBLikes);
+
+            }
+         }
 
         public static object GetProperty(object target, string name)
         {

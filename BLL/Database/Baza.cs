@@ -111,6 +111,51 @@ namespace BLL
             return null;
         }
 
+
+        public void updateMovieFB(string imdbId, long shares, long likes)
+        {
+            var db = MongoInstance.GetDatabase;
+            var filter = Builders<Movie>.Filter.Eq("IMDbId", imdbId);
+            var update = Builders<Movie>.Update
+                .Set("FBShares", shares).Set("FBLikes", likes);
+            try {
+                var collection = db.GetCollection<Movie>("movies");
+                collection.UpdateOneAsync(filter, update);
+            }
+            catch (MongoDB.Driver.MongoConnectionException)
+            {
+                db = MongoInstance.Reconnect;
+                var collection = db.GetCollection<Movie>("movies");
+                collection.UpdateOneAsync(filter, update);
+            }
+        }
+
+        public List<string> GetMoviesIMDbId(int skip, int limit)
+        {
+            var db = MongoInstance.GetDatabase;
+            IMongoCollection<Movie> collection = null;
+            List<BsonDocument> results = null;
+            try
+            {
+                collection = db.GetCollection<Movie>("movies");
+                results = collection.Find(Builders<Movie>.Filter.Empty).Project(Builders<Movie>.Projection.Include(m => m.IMDbId).Exclude(m => m.Id)).Skip(skip).Limit(limit).ToList();
+            }
+            catch (MongoDB.Driver.MongoConnectionException)
+            {
+                db = MongoInstance.Reconnect;
+                collection = db.GetCollection<Movie>("movies");
+                results = collection.Find(Builders<Movie>.Filter.Empty).Project(Builders<Movie>.Projection.Include(m => m.IMDbId).Exclude(m => m.Id)).Skip(skip).Limit(limit).ToList();
+            }
+            var imdbIds = new List<string>();
+           foreach (var item in results)
+            {
+                BsonValue value;
+                item.TryGetValue("IMDbId", out value);
+                imdbIds.Add(value.AsString);
+            }
+            return imdbIds;
+        }
+
         //ima više smisla kada se unose filmovi koji se pretražuju preko abecede
         //da ne pizdi zbog duplića
         // var models = new WriteModel<BsonDocument>[newObjects.Count];
