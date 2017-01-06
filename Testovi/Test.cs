@@ -59,7 +59,7 @@ namespace Testovi
         [TestMethod]
         public void ProfileBuild()
         {
-            Person person = PersonRepository.GetPersonByName("Ana");
+            Person person = PersonRepository.GetPersonByName("Ines");
             person.Profile = new Profile(person);
             var db = MongoInstance.GetDatabase;
             var persons = db.GetCollection<Person>("testPerson");
