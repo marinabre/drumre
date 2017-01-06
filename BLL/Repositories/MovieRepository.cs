@@ -294,5 +294,13 @@ namespace BLL
             }
             return url;                     
         }
+
+        public static List<string> GetAllGenres()
+        {
+            var db = MongoInstance.GetDatabase;
+            var genresColl = db.GetCollection<string>("genres");
+            var genres = genresColl.Find(p => p.Length == p.Length).ToList();
+            return genres;
+        }
     }
 }

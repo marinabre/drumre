@@ -17,26 +17,23 @@ namespace Projekt.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index(int? page, List<MovieViewModel> movies = null)
+        public ActionResult Index(int? page)
         {            
             if (User.Identity.IsAuthenticated)
             {
-                var person = new Person();
-                if (movies == null)
+                var person = PersonRepository.GetPersonByEmail(User.Identity.Name);
+                var movies = new List<MovieViewModel>();
+                var BLLmovies = new List<BLL.Movie>();
+                #region Getting recommended movies here
+                BLLmovies = Recommender.Recommend(person).ToList();
+                foreach (var BLLmovie in BLLmovies)
                 {
-                    movies = new List<MovieViewModel>();
-                    var BLLmovies = new List<BLL.Movie>();
-                    #region Getting recommended movies here
-                    BLLmovies = Recommender.Recommend(person).ToList();
-                    foreach (var BLLmovie in BLLmovies)
-                    {
-                        if (BLLmovie.Title == "") continue;
-                        var movie = new MovieViewModel();
-                        movie.CastSimpleFromMovie(BLLmovie);
-                        movies.Add(movie);
-                    }
-                    #endregion
+                    if (BLLmovie.Title == "") continue;
+                    var movie = new MovieViewModel();
+                    movie.CastSimpleFromMovie(BLLmovie);
+                    movies.Add(movie);
                 }
+                #endregion
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
                 return View("HomeLoggedIn", movies.ToPagedList(pageNumber, pageSize));
@@ -59,13 +56,22 @@ namespace Projekt.Controllers
         public ActionResult Search()
         {
             var search = new SearchViewModel();
+            ViewBag.genres = new List<SelectListItem>();
+            var genresFromDB = MovieRepository.GetAllGenres();
+            foreach (string genre in genresFromDB)
+            {
+                var selectListItem = new SelectListItem();
+                selectListItem.Text = genre;
+                selectListItem.Value = genre;
+                ViewBag.genres.Add(selectListItem);
+            }
             return View(search);
         }
 
         [HttpPost]
-        public ActionResult Search(string Actors, int YearFrom, int YearTo, decimal IMDBRatingFrom, decimal IMDBRatingTo, decimal TomatoRatingFrom, decimal TomatoRatingTo, decimal MetascoreRatingFrom, decimal MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
+        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, decimal IMDBRatingFrom, decimal IMDBRatingTo, decimal TomatoRatingFrom, decimal TomatoRatingTo, decimal MetascoreRatingFrom, decimal MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
         {
-            var filter = new BLL.Models.Filter();
+            var filter = new BLL.Models.Filter(Genres);
             var movies = new List<MovieViewModel>();
 
             filter.Actors = new List<string>();
@@ -74,6 +80,14 @@ namespace Projekt.Controllers
             {
                 actor.Trim();
                 filter.Actors.Add(actor);
+            }
+
+            filter.Directors = new List<string>();
+            string[] rawDirectors = Directors.Split(',');
+            foreach (string director in rawDirectors)
+            {
+                director.Trim();
+                filter.Directors.Add(director);
             }
 
             filter.FBLikesFrom = FBLikesFrom;
@@ -91,7 +105,7 @@ namespace Projekt.Controllers
 
             // Search comes here
 
-            return RedirectToAction("Index", movies);
+            return View();            
         }
 
         public ActionResult Recommend()
