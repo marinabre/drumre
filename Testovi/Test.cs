@@ -56,18 +56,18 @@ namespace Testovi
         //    Assert.AreEqual(1, 1);
         //}
 
-        //[TestMethod]
-        //public void ProfileBuild()
-        //{
-        //    Person Ines = PersonRepository.GetPersonByName("Ines");
-        //    Ines.Profile = new Profile(Ines);
-        //    var db = MongoInstance.GetDatabase;
-        //    var persons = db.GetCollection<Person>("testPerson");
-        //    persons.ReplaceOne(p => p.Email == Ines.Email,
-        //        Ines,
-        //        new UpdateOptions { IsUpsert = true });
-        //    Assert.AreEqual(1, 2);
-        //}
+        [TestMethod]
+        public void ProfileBuild()
+        {
+            Person person = PersonRepository.GetPersonByName("Ines");
+            person.Profile = new Profile(person);
+            var db = MongoInstance.GetDatabase;
+            var persons = db.GetCollection<Person>("testPerson");
+            persons.ReplaceOne(p => p.Email == person.Email,
+                person,
+                new UpdateOptions { IsUpsert = true });
+            Assert.AreEqual(1, 2);
+        }
 
         //[TestMethod]
         //public void TopActors()
@@ -124,12 +124,12 @@ namespace Testovi
         //    PersonRepository.BuildAllProfiles();
         //}
 
-        [TestMethod]
-        public void MakeProfile()
-        {
-            Person Ana = PersonRepository.GetPersonByName("Ana");
-            var profile = new Profile(Ana);
-        }
+        //[TestMethod]
+        //public void MakeProfile()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //}
 
     }
 }

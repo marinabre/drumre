@@ -481,7 +481,7 @@ namespace Projekt.Controllers
             IList<BLL.FBMovie> movieList = new List<BLL.FBMovie>();
             IList<BLL.FBMovie> watchesList = new List<BLL.FBMovie>();
             IList<BLL.FBMovie> wantsList = new List<BLL.FBMovie>();
-            IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
+            //IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
 
             //dohvat i spremanje kategorije Likes:
             foreach (dynamic fbMovie in myInfo.movies.data)
@@ -492,7 +492,7 @@ namespace Projekt.Controllers
                     Id = fbMovie.id
                 };
                 movieList.Add(movie);
-                detailedMovieList.Add(AddToDbIfNotExist(movie));
+                //detailedMovieList.Add(AddToDbIfNotExist(movie));
             }
 
             //dohvat i spremanje kategorije Watched:
@@ -507,7 +507,7 @@ namespace Projekt.Controllers
                         Id = fbMovie.data.movie.id
                     };
                     watchesList.Add(movie);
-                    detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    //detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
             }
             catch (RuntimeBinderException) { }
@@ -524,7 +524,7 @@ namespace Projekt.Controllers
                         Id = fbMovie.data.movie.id
                     };
                     wantsList.Add(movie);
-                    detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    //detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
             }
             catch (RuntimeBinderException) { }
