@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
+using BLL.Models;
 
 namespace BLL
 {
@@ -109,6 +110,27 @@ namespace BLL
         {
             return Recommend(person, true, true, true);
         }
+
+        public static IList<Movie> FilterResultsOR (IList<Movie> movies, Filter filter)
+        {
+            IList<Movie> result = new List<Movie>(movies);
+            foreach (Movie movie in movies)
+            {
+                if (filter.Genres != null)
+                {
+                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
+                    return result;
+                }
+                if (filter.Actors != null)
+                {
+                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
+                    return result;
+                }
+
+            }
+            return null;
+        }
+
 
         #region helpers
         public static decimal calculateActorSimilarity (Movie movieA, Movie movieB)
