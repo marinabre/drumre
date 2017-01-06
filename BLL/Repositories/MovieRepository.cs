@@ -97,7 +97,7 @@ namespace BLL
             }
         }
 
-        public static void FBData (Movie movie, bool refresh = false)
+        public static Movie FBData (Movie movie)
         {
             //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());
             //var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
@@ -112,9 +112,10 @@ namespace BLL
             String imdbURL = "http://www.imdb.com/title/" + movie.IMDbId;
             dynamic Info = fb.Get("?fields=og_object{ likes.limit(0).summary(true), engagement, title, id, image }, share &ids=" + imdbURL);
             Info = GetProperty(Info, imdbURL);
-            movie.Title = Info.og_object.title;
+            //movie.Title = Info.og_object.title;
             movie.FBLikes = Info.og_object.engagement.count;
             movie.FBShares = Info.share.share_count;
+            return movie;
         }
 
         public static object GetProperty(object target, string name)

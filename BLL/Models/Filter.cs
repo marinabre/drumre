@@ -57,6 +57,29 @@ namespace BLL.Models
             this.FBLikesFrom = null;
             this.FBLikesTo = null;
         }
+
+        public Filter()
+        {
+            this.Genres = null;
+            this.Actors = null;
+            this.Directors = null;
+            this.YearFrom = null;
+            this.YearTo = null;
+            this.IMDBRatingFrom = null;
+            this.IMDBRatingTo = null;
+            this.MetascoreRatingFrom = null;
+            this.MetascoreRatingTo = null;
+            this.FBSharesFrom = null;
+            this.FBSharesTo = null;
+            this.FBLikesFrom = null;
+            this.FBLikesTo = null;
+        }
+
+        public bool isEmpty()
+        {
+            if (this == new Filter()) return true;
+            return false;
+        }
     }
 }
 

@@ -111,25 +111,28 @@ namespace BLL
             return Recommend(person, true, true, true);
         }
 
-        public static IList<Movie> FilterResultsOR (IList<Movie> movies, Filter filter)
-        {
-            IList<Movie> result = new List<Movie>(movies);
-            foreach (Movie movie in movies)
-            {
-                if (filter.Genres != null)
-                {
-                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
-                    return result;
-                }
-                if (filter.Actors != null)
-                {
-                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
-                    return result;
-                }
+        //public static IList<Movie> FilterResults (IList<Movie> movies, Filter filter)
+        //{
+        //    if (filter.isEmpty()) return movies;
+        //    IEnumerable<Movie> result = movies;
 
-            }
-            return null;
-        }
+        //    if (filter.Genres != null)
+        //        result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
+        //    if (filter.Actors != null)
+        //        result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
+        //    if (filter.Directors != null)
+        //        result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+        //    if (filter.YearFrom != null)
+        //        result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
+        //    //if (filter.YearTo != null)
+        //    //    result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo;
+        //    //if (filter.IMDBRatingFrom != null)
+        //    //    result = result.Where(m => m.im.HasValue == true).Where(m => m.ReleaseDate.Value.Year <= filter.YearF);
+        //    if (filter.YearTo != null)
+        //        result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
+
+        //    return result.ToList();
+        //}
 
 
         #region helpers
