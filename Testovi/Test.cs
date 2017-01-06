@@ -36,14 +36,14 @@ namespace Testovi
         //    matches.InsertOne(new Match(Ines, Marina));
         //}
 
-        [TestMethod]
-        public void Matrix()
-        {
-            MovieRepository m= new MovieRepository();
-            Movie matrix = m.GetMovieByID("tt0133093");
-            MovieRepository.FBData(matrix, false);
-            Assert.AreEqual(0, matrix.FBShares);
-        }
+        //[TestMethod]
+        //public void Matrix()
+        //{
+        //    MovieRepository m= new MovieRepository();
+        //    Movie matrix = m.GetMovieByID("tt0133093");
+        //    MovieRepository.FBData(matrix);
+        //    Assert.AreEqual(0, matrix.FBShares);
+        //}
 
         //[TestMethod]
         //public void ActorSimilarityMatrix()
@@ -156,24 +156,24 @@ namespace Testovi
         //}
 
 
-        //[TestMethod]
-        //public void TestNullYear()
-        //{
-        //    Person Ana = PersonRepository.GetPersonByName("Ana");
-        //    var profile = new Profile(Ana);
-        //    IList<string> genres = new List<string>();
+        [TestMethod]
+        public void TestNullYear()
+        {
+            Person Ana = PersonRepository.GetPersonByName("Ana");
+            var profile = new Profile(Ana);
+            IList<string> genres = new List<string>();
 
-        //    profile.LikedMovies[7].ReleaseDate = null;
+            genres.Add("Action");
+            //genres.Add("Drama");
+            Filter f = new Filter(genres);
+            f.YearFrom = 1999;
+            f.IMDBRatingFrom = 7;
 
-        //    genres.Add("Action");
-        //    Filter f = new Filter(genres);
-        //    f.YearFrom = 2001;
+            var res = FilterResults(profile.LikedMovies, f);
+            Assert.AreEqual(0, res.Count);
+            //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
 
-        //    var res = FilterResults(profile.LikedMovies, f);
-        //    Assert.AreEqual(0, res.Count);
-        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
-
-        //}
+        }
 
     }
 }
