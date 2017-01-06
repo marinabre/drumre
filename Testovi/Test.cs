@@ -36,13 +36,13 @@ namespace Testovi
         //    matches.InsertOne(new Match(Ines, Marina));
         //}
 
-        ////[TestMethod]
-        //public void GenreSimilarityMatrix()
+        //[TestMethod]
+        //public void Matrix()
         //{
-        //    Movie matrix = MovieRepository.GetMovieByID("tt0133093");
-        //    //IList<Movie> similar = Recommender.SimilarByGenres(matrix, 100).Result;
-        //    var similar = Recommender.SimilarByGenres(matrix.Genres);
-        //    Assert.AreEqual(1, similar.Count());
+        //    MovieRepository m= new MovieRepository();
+        //    Movie matrix = m.GetMovieByID("tt0133093");
+        //    MovieRepository.FBData(matrix);
+        //    Assert.AreEqual(0, matrix.FBShares);
         //}
 
         //[TestMethod]
@@ -78,19 +78,22 @@ namespace Testovi
         //    Assert.AreEqual(1, top.Count);
         //}
 
-        //[TestMethod]
-        //public void RecommendFromProfile()
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    db.DropCollection("results");
-        //    var collection = db.GetCollection<Movie>("results");
-        //    Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
+        [TestMethod]
+        public void RecommendFromProfile()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //db.DropCollection("results");
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ana = PersonRepository.GetPersonByName("Tena");
 
-        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
-        //    foreach (Movie m in rec)
-        //        collection.InsertOne(m);
-        //    Assert.AreEqual(1, rec.Count);
-        //}
+            Ana.Profile.FavouriteActors.Add("Keanu Reeves", 1);
+            
+
+            IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreEqual(1, rec.Count);
+        }
 
         //[TestMethod]
         //public void RecommendFromFriends()
@@ -148,12 +151,32 @@ namespace Testovi
 
         //}
 
-        [TestMethod]
-        public void GetPersonByMail()
-        {
-            Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
-            Assert.IsNotNull(Ana.Profile);
-        }
+        //[TestMethod]
+        //public void GetPersonByMail()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
+        //    Assert.IsNotNull(Ana.Profile);
+        //}
+
+
+        //[TestMethod]
+        //public void TestNullYear()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //    IList<string> genres = new List<string>();
+
+        //    genres.Add("Action");
+        //    //genres.Add("Drama");
+        //    Filter f = new Filter(genres);
+        //    f.YearFrom = 1999;
+        //    f.IMDBRatingFrom = 7;
+
+        //    var res = FilterResults(profile.LikedMovies, f);
+        //    Assert.AreEqual(0, res.Count);
+        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+
+        //}
 
     }
 }

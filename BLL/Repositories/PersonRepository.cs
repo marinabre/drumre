@@ -149,6 +149,7 @@ namespace BLL
                 new UpdateOptions { IsUpsert = true });
         }
 
+
         public static Person BuildAndGetProfile(Person person)
         {
             var db = MongoInstance.GetDatabase;

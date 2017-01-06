@@ -26,14 +26,17 @@ namespace BLL.Models
         public int? YearFrom { get; set; }
         public int? YearTo { get; set; }
 
-        public decimal? IMDBRatingFrom { get; set; }
-        public decimal? IMDBRatingTo { get; set; }
+        public int? RuntimeFrom { get; set; }
+        public int? RuntimeTo { get; set; }
 
-        public decimal? MetascoreRatingFrom { get; set; }
-        public decimal? MetascoreRatingTo { get; set; }
+        public double? IMDBRatingFrom { get; set; }
+        public double? IMDBRatingTo { get; set; }
 
-        public decimal? TomatoRatingFrom { get; set; }
-        public decimal? TomatoRatingTo { get; set; }
+        public int? MetascoreRatingFrom { get; set; }
+        public int? MetascoreRatingTo { get; set; }
+
+        public int? TomatoRatingFrom { get; set; }
+        public int? TomatoRatingTo { get; set; }
 
         public int? FBSharesFrom { get; set; }
         public int? FBSharesTo { get; set; }
@@ -56,6 +59,29 @@ namespace BLL.Models
             this.FBSharesTo = null;
             this.FBLikesFrom = null;
             this.FBLikesTo = null;
+        }
+
+        public Filter()
+        {
+            this.Genres = null;
+            this.Actors = null;
+            this.Directors = null;
+            this.YearFrom = null;
+            this.YearTo = null;
+            this.IMDBRatingFrom = null;
+            this.IMDBRatingTo = null;
+            this.MetascoreRatingFrom = null;
+            this.MetascoreRatingTo = null;
+            this.FBSharesFrom = null;
+            this.FBSharesTo = null;
+            this.FBLikesFrom = null;
+            this.FBLikesTo = null;
+        }
+
+        public bool isEmpty()
+        {
+            if (this == new Filter()) return true;
+            return false;
         }
     }
 }

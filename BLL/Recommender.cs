@@ -20,7 +20,8 @@ namespace BLL
         {
             if (person.Profile == null)
             {
-                person.Profile = new Profile(person);
+                //person.Profile = new Profile(person);
+                person = PersonRepository.BuildAndGetProfile(person);
             }
             return RecommendMoviesFromProfile(person.Profile, genre, actor, director);
         }
@@ -37,6 +38,9 @@ namespace BLL
             var genreFilter = GenresFilter(genres);
             var actorsFilter = ActorsFilter(actors);
             var directorsFilter = DirectorsFilter(directors);
+
+            if (genreFilter == Builders<Movie>.Filter.Empty & actorsFilter == Builders<Movie>.Filter.Empty & directorsFilter == Builders<Movie>.Filter.Empty)
+                return new List<Movie>();
 
             var filter = genreFilter & actorsFilter & directorsFilter;
             return movies.Find(filter).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
@@ -56,8 +60,13 @@ namespace BLL
         {
             IList<Person> friends = PersonRepository.FilterFriends(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
-            foreach (Person friend in friends)
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
+            foreach (Person p in friends)
             {
+                Person friend = p;
+                if (friend.Profile == null)
+                    friend = PersonRepository.BuildAndGetProfile(friend);
                 recommendation = recommendation.Union(friend.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
@@ -66,8 +75,11 @@ namespace BLL
         {
             IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
-            foreach (Person p in people)
+            foreach (Person somebody in people)
             {
+                Person p = somebody;
+                if (person.Profile == null)
+                    p = PersonRepository.BuildAndGetProfile(person);
                 recommendation = recommendation.Union(p.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
@@ -111,24 +123,45 @@ namespace BLL
             return Recommend(person, true, true, true);
         }
 
-        public static IList<Movie> FilterResultsOR (IList<Movie> movies, Filter filter)
+        public static IList<Movie> FilterResults(IList<Movie> movies, Filter filter)
         {
-            IList<Movie> result = new List<Movie>(movies);
-            foreach (Movie movie in movies)
-            {
-                if (filter.Genres != null)
-                {
-                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
-                    return result;
-                }
-                if (filter.Actors != null)
-                {
-                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name))).ToList();
-                    return result;
-                }
+            if (filter.isEmpty()) return movies;
+            IEnumerable<Movie> result = movies;
 
-            }
-            return null;
+            if (filter.Genres != null)
+                result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
+            if (filter.Actors != null)
+                result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
+            if (filter.Directors != null)
+                result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+            if (filter.YearFrom != null)
+                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
+            if (filter.YearTo != null)
+                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo);
+
+            if (filter.RuntimeFrom != null)
+                result = result.Where(m => m.Runtime >= filter.RuntimeFrom);
+            if (filter.RuntimeTo != null)
+                result = result.Where(m => m.Runtime <= filter.RuntimeTo);
+
+            if (filter.IMDBRatingFrom != null)
+                result = result.Where(m => m.VoteAverage >= filter.IMDBRatingFrom);
+            if (filter.IMDBRatingTo != null)
+                result = result.Where(m => m.VoteAverage <= filter.IMDBRatingTo);
+            if (filter.MetascoreRatingFrom != null)
+                result = result.Where(m => m.Metascore >= filter.MetascoreRatingFrom);
+            if (filter.MetascoreRatingTo != null)
+                result = result.Where(m => m.Metascore <= filter.MetascoreRatingTo);
+            if (filter.FBSharesFrom != null)
+                result = result.Where(m => m.FBShares >= filter.FBSharesFrom);
+            if (filter.FBSharesTo != null)
+                result = result.Where(m => m.FBShares <= filter.FBSharesTo);
+            if (filter.FBLikesFrom != null)
+                result = result.Where(m => m.FBLikes >= filter.FBLikesFrom);
+            if (filter.FBLikesTo != null)
+                result = result.Where(m => m.FBLikes <= filter.FBLikesTo);
+
+            return result.ToList();
         }
 
 
