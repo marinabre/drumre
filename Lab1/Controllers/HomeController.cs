@@ -18,9 +18,9 @@ namespace Projekt.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index(int? page)
-        {
+        {            
             if (User.Identity.IsAuthenticated)
-            {
+            {                
                 #region Getting recommended movies here
                 var movies = new List<MovieViewModel>();
                 var BLLmovies = BLL.DummyHelpers.MovieProvider.RecommendMovies();
