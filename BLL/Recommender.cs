@@ -111,28 +111,40 @@ namespace BLL
             return Recommend(person, true, true, true);
         }
 
-        //public static IList<Movie> FilterResults (IList<Movie> movies, Filter filter)
-        //{
-        //    if (filter.isEmpty()) return movies;
-        //    IEnumerable<Movie> result = movies;
+        public static IList<Movie> FilterResults(IList<Movie> movies, Filter filter)
+        {
+            if (filter.isEmpty()) return movies;
+            IEnumerable<Movie> result = movies;
 
-        //    if (filter.Genres != null)
-        //        result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
-        //    if (filter.Actors != null)
-        //        result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
-        //    if (filter.Directors != null)
-        //        result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
-        //    if (filter.YearFrom != null)
-        //        result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
-        //    //if (filter.YearTo != null)
-        //    //    result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo;
-        //    //if (filter.IMDBRatingFrom != null)
-        //    //    result = result.Where(m => m.im.HasValue == true).Where(m => m.ReleaseDate.Value.Year <= filter.YearF);
-        //    if (filter.YearTo != null)
-        //        result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
+            if (filter.Genres != null)
+                result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
+            if (filter.Actors != null)
+                result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
+            if (filter.Directors != null)
+                result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+            if (filter.YearFrom != null)
+                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
+            if (filter.YearTo != null)
+                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo);
+            if (filter.IMDBRatingFrom != null)
+                result = result.Where(m => m.VoteAverage >= filter.IMDBRatingFrom);
+            if (filter.IMDBRatingTo != null)
+                result = result.Where(m => m.VoteAverage <= filter.IMDBRatingTo);
+            if (filter.MetascoreRatingFrom != null)
+                result = result.Where(m => m.Metascore >= filter.MetascoreRatingFrom);
+            if (filter.MetascoreRatingTo != null)
+                result = result.Where(m => m.Metascore <= filter.MetascoreRatingTo);
+            if (filter.FBSharesFrom != null)
+                result = result.Where(m => m.FBShares >= filter.FBSharesFrom);
+            if (filter.FBSharesTo != null)
+                result = result.Where(m => m.FBShares <= filter.FBSharesTo);
+            if (filter.FBLikesFrom != null)
+                result = result.Where(m => m.FBLikes >= filter.FBLikesFrom);
+            if (filter.FBLikesTo != null)
+                result = result.Where(m => m.FBLikes <= filter.FBLikesTo);
 
-        //    return result.ToList();
-        //}
+            return result.ToList();
+        }
 
 
         #region helpers
