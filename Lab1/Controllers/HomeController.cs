@@ -105,8 +105,9 @@ namespace Projekt.Controllers
             filter.YearTo = YearTo;
 
             // Search comes here
+            //var movies = 
 
-            return View();            
+            return View("SearchResults", movies);            
         }
 
         public ActionResult Recommend()
