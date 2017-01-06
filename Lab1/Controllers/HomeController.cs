@@ -28,7 +28,7 @@ namespace Projekt.Controllers
                 {
                     if (BLLmovie.Title == "") continue;
                     var movie = new MovieViewModel();
-                    movie.CastFromMovie(BLLmovie);
+                    movie.CastSimpleFromMovie(BLLmovie);
                     movies.Add(movie);
                 }
                 #endregion
@@ -44,7 +44,11 @@ namespace Projekt.Controllers
 
         public ActionResult Details(string imdbID)
         {
-            return View();
+            var movie = new MovieViewModel();
+            var movieFromDB = new BLL.Movie();
+            movieFromDB = MovieRepository.GetMovieByID(imdbID);
+            movie.CastFromMovie(movieFromDB);
+            return View(movie);
         }
 
         public ActionResult Search()
