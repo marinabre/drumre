@@ -8,9 +8,9 @@ using OSDBnet;
 
 namespace BLL
 {
+    [BsonIgnoreExtraElements]
     public class Movie
     {
-        //[BsonId]
         //[BsonIgnore]
         
         public int Id { get; set; }

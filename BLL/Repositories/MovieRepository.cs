@@ -120,22 +120,18 @@ namespace BLL
             return site.Target(site, target);
         }
 
-        public static Movie GetMovieByID (string imdbID)
+        public Movie GetMovieByID (string imdbID)
         {
-            var db = MongoInstance.GetDatabase;
-            var movies = db.GetCollection<Movie>("movies");
-            var result = movies.Find(p => p.IMDbId == imdbID);
-            return result.First();            
+            return baza.GetMovieByID(imdbID);
+        }
+        public Movie GetMovieByIDShortDetails(string imdbID)
+        {
+            return baza.GetMovieByID(imdbID, true);
         }
 
-        public static Movie GetMovieByTitle(string title)
+        public Movie GetMovieByTitle(string title)
         {
-            var db = MongoInstance.GetDatabase;
-            var movies = db.GetCollection<Movie>("movies");
-            var result = movies.Find(p => p.Title == title);
-            if (result.Count() > 0)
-                return result.First();
-            return null;
+            return baza.GetMovieByTitle(title);
         }
 
         public static async Task<IList<Movie>> GetMoviesByFB(IList<FBMovie> fbMovies)
@@ -158,7 +154,7 @@ namespace BLL
             return null;
         }
 
-        public async System.Threading.Tasks.Task<Movie> GetMovieByTitleFromAPI(string title)
+        public async Task<Movie> GetMovieByTitleFromAPI(string title)
         {
             MovieRepository repo = new MovieRepository();
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
@@ -189,7 +185,7 @@ namespace BLL
             return newMovie;
 
         }
-        public async System.Threading.Tasks.Task<Movie> GetMovieByIdFromAPI(string id)
+        public async Task<Movie> GetMovieByIdFromAPI(string id)
         {
             MovieRepository repo = new MovieRepository();
             var IMDB = new TMDbClient("2c54085e8a7f520650d65cb78a48555a");
