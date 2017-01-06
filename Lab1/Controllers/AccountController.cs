@@ -390,7 +390,11 @@ namespace Projekt.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
+                //await refreshUserData();
+                //var person = new Person();
+                //person = PersonRepository.GetPersonById(info.Login.ProviderKey);
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //PersonRepository.BuildProfile(person);
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
