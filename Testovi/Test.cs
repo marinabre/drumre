@@ -36,14 +36,14 @@ namespace Testovi
         //    matches.InsertOne(new Match(Ines, Marina));
         //}
 
-        ////[TestMethod]
-        //public void GenreSimilarityMatrix()
-        //{
-        //    Movie matrix = MovieRepository.GetMovieByID("tt0133093");
-        //    //IList<Movie> similar = Recommender.SimilarByGenres(matrix, 100).Result;
-        //    var similar = Recommender.SimilarByGenres(matrix.Genres);
-        //    Assert.AreEqual(1, similar.Count());
-        //}
+        [TestMethod]
+        public void Matrix()
+        {
+            MovieRepository m= new MovieRepository();
+            Movie matrix = m.GetMovieByID("tt0133093");
+            MovieRepository.FBData(matrix, false);
+            Assert.AreEqual(0, matrix.FBShares);
+        }
 
         //[TestMethod]
         //public void ActorSimilarityMatrix()
@@ -148,12 +148,32 @@ namespace Testovi
 
         //}
 
-        [TestMethod]
-        public void GetPersonByMail()
-        {
-            Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
-            Assert.IsNotNull(Ana.Profile);
-        }
+        //[TestMethod]
+        //public void GetPersonByMail()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
+        //    Assert.IsNotNull(Ana.Profile);
+        //}
+
+
+        //[TestMethod]
+        //public void TestNullYear()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //    IList<string> genres = new List<string>();
+
+        //    profile.LikedMovies[7].ReleaseDate = null;
+
+        //    genres.Add("Action");
+        //    Filter f = new Filter(genres);
+        //    f.YearFrom = 2001;
+
+        //    var res = FilterResults(profile.LikedMovies, f);
+        //    Assert.AreEqual(0, res.Count);
+        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+
+        //}
 
     }
 }
