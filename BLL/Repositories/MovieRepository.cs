@@ -99,6 +99,38 @@ namespace BLL
             }
         }
 
+        public static Uri GetSubtitleDownloadLink(String IMDbId)
+        {
+            try
+            {
+                var osdb = Osdb.Login("eng", "FileBot");
+                var subtitles = osdb.SearchSubtitlesFromImdb("eng", IMDbId.Substring(2));
+                if (subtitles.Count > 0)
+                    return subtitles.First().SubTitleDownloadLink;
+                return null;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public static Uri GetSubtitlePageLink(String IMDbId)
+        {
+            try
+            {
+                var osdb = Osdb.Login("eng", "FileBot");
+                var subtitles = osdb.SearchSubtitlesFromImdb("eng", IMDbId.Substring(2));
+                if (subtitles.Count > 0)
+                    return subtitles.First().SubtitlePageLink;
+                return null;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public void FBData (string IMDbId, bool refresh = false)
         {
             //var claimsforUser = await UserManager.GetClaimsAsync(User.Identity.GetUserId());

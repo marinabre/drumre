@@ -241,17 +241,28 @@ namespace Testovi
         //    PersonRepository.meh();
         //}
 
+        //[TestMethod]
+        //public void deleteProfile()
+        //{
+        //    Person p = PersonRepository.GetPersonByName("Ines");
+        //    PersonRepository.DeleteProfile(p);
+        //    p = PersonRepository.GetPersonByName("Ana");
+        //    PersonRepository.DeleteProfile(p);
+        //    p = PersonRepository.GetPersonByName("Tena");
+        //    PersonRepository.DeleteProfile(p);
+        //    p = PersonRepository.GetPersonByName("Marina");
+        //    PersonRepository.DeleteProfile(p);
+        //}
+
         [TestMethod]
-        public void deleteProfile()
+        public void getSubtitleLinks()
         {
-            Person p = PersonRepository.GetPersonByName("Ines");
-            PersonRepository.DeleteProfile(p);
-            p = PersonRepository.GetPersonByName("Ana");
-            PersonRepository.DeleteProfile(p);
-            p = PersonRepository.GetPersonByName("Tena");
-            PersonRepository.DeleteProfile(p);
-            p = PersonRepository.GetPersonByName("Marina");
-            PersonRepository.DeleteProfile(p);
+            Uri download = MovieRepository.GetSubtitleDownloadLink("tt0133093");
+            Uri page = MovieRepository.GetSubtitlePageLink("tt0133093");
+
+            Assert.IsNotNull(download);
+            Assert.IsNotNull(page);
+
         }
 
     }
