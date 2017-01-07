@@ -72,39 +72,162 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, double IMDBRatingFrom, double IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
+        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, double IMDBRatingFrom, double IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo, int RuntimeFrom, int RuntimeTo)
         {
+            if (Genres == null)
+            {
+                Genres = new List<string>();
+            }
             var filter = new BLL.Models.Filter(Genres);
             var movies = new List<MovieViewModel>();
 
             filter.Actors = new List<string>();
-            string[] rawActors = Actors.Split(',');
-            foreach (string actor in rawActors)
+            if (Actors != null && Actors.Length > 0)
             {
-                actor.Trim();
-                filter.Actors.Add(actor);
+                string[] rawActors = Actors.Split(',');
+                foreach (string actor in rawActors)
+                {
+                    actor.Trim();
+                    filter.Actors.Add(actor);
+                }
             }
 
-            filter.Directors = new List<string>();
-            string[] rawDirectors = Directors.Split(',');
-            foreach (string director in rawDirectors)
+            if (Directors != null && Directors.Length > 0)
             {
-                director.Trim();
-                filter.Directors.Add(director);
+                filter.Directors = new List<string>();
+                string[] rawDirectors = Directors.Split(',');
+                foreach (string director in rawDirectors)
+                {
+                    director.Trim();
+                    filter.Directors.Add(director);
+                }
             }
 
-            filter.FBLikesFrom = FBLikesFrom;
-            filter.FBLikesTo = FBLikesTo;
-            filter.FBSharesFrom = FBSharesFrom;
-            filter.FBSharesTo = FBSharesTo;
-            filter.IMDBRatingFrom = IMDBRatingFrom;
-            filter.IMDBRatingTo = IMDBRatingTo;
-            filter.MetascoreRatingFrom = MetascoreRatingFrom;
-            filter.MetascoreRatingTo = MetascoreRatingTo;
-            filter.TomatoRatingFrom = TomatoRatingFrom;
-            filter.TomatoRatingTo = TomatoRatingTo;
-            filter.YearFrom = YearFrom;
-            filter.YearTo = YearTo;
+            if (RuntimeFrom == -1)
+            {
+                filter.RuntimeFrom = null;
+            }
+            else
+            {
+                filter.RuntimeFrom = RuntimeFrom;
+            }
+
+            if (RuntimeTo == -1)
+            {
+                filter.RuntimeTo = null;
+            }
+            else
+            {
+                filter.RuntimeTo = RuntimeTo;
+            }
+
+            if (FBLikesFrom == -1)
+            {
+                filter.FBLikesFrom = null;
+            }
+            else
+            {
+                filter.FBLikesFrom = FBLikesFrom;
+            }
+
+            if (FBLikesTo == -1)
+            {
+                filter.FBLikesTo = null;
+            }
+            else
+            {
+                filter.FBLikesTo = FBLikesTo;
+            }
+
+            if (FBSharesFrom == -1)
+            {
+                filter.FBSharesFrom = null;
+            }
+            else
+            {
+                filter.FBSharesFrom = FBSharesFrom;
+            }
+
+            if (FBSharesTo == -1)
+            {
+                filter.FBSharesTo = null;
+            }
+            else
+            {
+                filter.FBSharesTo = FBSharesTo;
+            }
+
+            if (IMDBRatingFrom == -1)
+            {
+                filter.IMDBRatingFrom = null;
+            }
+            else
+            {
+                filter.IMDBRatingFrom = IMDBRatingFrom;
+            }
+
+            if (IMDBRatingTo == -1)
+            {
+                filter.IMDBRatingTo = null;
+            }
+            else
+            {
+                filter.IMDBRatingTo = IMDBRatingTo;
+            }
+
+            if (MetascoreRatingFrom == -1)
+            {
+                filter.MetascoreRatingFrom = null;
+            }
+            else
+            {
+                filter.MetascoreRatingFrom = MetascoreRatingFrom;
+            }
+
+            if (MetascoreRatingTo == -1)
+            {
+                filter.MetascoreRatingTo = null;
+            }
+            else
+            {
+                filter.MetascoreRatingTo = MetascoreRatingTo;
+            }
+
+            if (TomatoRatingFrom == -1)
+            {
+                filter.TomatoRatingFrom = null;
+            }
+            else
+            {
+                filter.TomatoRatingFrom = TomatoRatingFrom;
+            }
+
+            if (TomatoRatingTo == -1)
+            {
+                filter.TomatoRatingTo = null;
+            }
+            else
+            {
+                filter.TomatoRatingTo = TomatoRatingTo;
+            }
+
+            if (YearFrom == -1)
+            {
+                filter.YearFrom = null;
+            }
+            else
+            {
+                filter.YearFrom = YearFrom;
+            }
+
+            if (YearTo == -1)
+            {
+                filter.YearTo = null;
+            }
+            else
+            {
+                filter.YearTo = YearTo;
+            }
 
             // Search comes here
             List<BLL.Movie> moviesFromDB = Recommender.FilterResults(null, filter).ToList();

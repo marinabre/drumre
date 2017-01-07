@@ -4,6 +4,10 @@
     ViewBag.Title = "Search";
 }
 
+<!-- Include the plugin's CSS and JS: -->
+<script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" type="text/css" />
+
 <h2>Search</h2>
 
 
@@ -40,102 +44,143 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.Genres, genresToChoose)
+                <!--<script type="text/javascript">
+                    $('#example-multiple-selected').multiselect();
+                </script>
+                <!-- Note the missing multiple attribute! 
+                <select id="example-multiple-selected" multiple="multiple">
+                    <option value="1">Option 1</option>
+                    <option value="2" selected="selected">Option 2</option>
+                    <!-- Option 3 will be selected in advance ... 
+                    <option value="3" selected="selected">Option 3</option>
+                    <option value="4">Option 4</option>
+                    <option value="5">Option 5</option>
+                    <option value="6">Option 6</option>
+                </select>-->
+                @Html.DropDownList("Genres", genresToChoose, htmlAttributes: new { multiple = "multiple" })
             </div>
         </div>
 
         <div class="form-group">
-            <h4>Year</h4>
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.YearFrom, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.YearFrom, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Runtime</h4>
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.RuntimeFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.RuntimeFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.RuntimeTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.RuntimeTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+        </div>
+
+
+        <div class="form-group">            
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Year</h4>
+            </div>
+                        
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.YearFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.YearFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
             
-            <div class="col-md-10">
-                @Html.LabelFor(model => model.YearTo, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.YearTo, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.YearTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.YearTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">IMDB Rating</h4>
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.IMDBRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.IMDBRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.IMDBRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.IMDBRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IMDBRatingFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IMDBRatingFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IMDBRatingFrom, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Metascore Rating</h4>
             </div>
-        </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MetascoreRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.MetascoreRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MetascoreRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.MetascoreRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+        </div>      
+        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Tomato Rating</h4>
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.TomatoRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.TomatoRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.TomatoRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.TomatoRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+        </div>         
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IMDBRatingTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IMDBRatingTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IMDBRatingTo, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Facebook Shares</h4>
             </div>
-        </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.FBSharesFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.FBSharesFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.FBSharesTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.FBSharesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+            </div>
+        </div> 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MetascoreRatingFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MetascoreRatingFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MetascoreRatingFrom, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-md-1"></div>
+                <h4 class="col-md-3">Facebook Likes</h4>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MetascoreRatingTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MetascoreRatingTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MetascoreRatingTo, "", new { @class = "text-danger" })
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.FBLikesFrom, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.FBLikesFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TomatoRatingFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TomatoRatingFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TomatoRatingFrom, "", new { @class = "text-danger" })
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.FBLikesTo, htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.EditorFor(model => model.FBLikesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TomatoRatingTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TomatoRatingTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TomatoRatingTo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FBSharesFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FBSharesFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FBSharesFrom, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FBSharesTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FBSharesTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FBSharesTo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FBLikesFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FBLikesFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FBLikesFrom, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FBLikesTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FBLikesTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FBLikesTo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        </div> 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
