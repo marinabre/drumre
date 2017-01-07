@@ -38,58 +38,59 @@
 </div>
 <div>
     <h5>Other Facebook info</h5>
-    <!--Liked movies-->
-    @Html.DisplayNameFor(model => model.LikedMovies)
-    @foreach (var item in Model.LikedMovies)
-    {
-        <div class="col-md-2">
-            <div class="thumbnail">
-                <a href="/Home/Details?imdbID=@item.IMDBID">
-                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
-                    <div class="caption">
-                        <p>@item.Title</p>
-                    </div>
-                </a>
+    <div class="row">
+        <!--Liked movies-->
+        @Html.DisplayNameFor(model => model.LikedMovies)
+        @foreach (var item in Model.LikedMovies)
+        {
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <a href="/Home/Details?imdbID=@item.IMDBID">
+                        <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                        <div class="caption">
+                            <p>@item.Title</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    }
-
-
-    <!--Watches-->
-    @Html.DisplayNameFor(model => model.Watches)
-    @foreach (var item in Model.Watches)
-    {
-        <div class="col-md-2">
-            <div class="thumbnail">
-                <a href="/Home/Details?imdbID=@item.IMDBID">
-                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
-                    <div class="caption">
-                        <p>@item.Title</p>
-                    </div>
-                </a>
+        }
+    </div>
+    
+    <div class="row">
+        <!--Watches-->
+        @Html.DisplayNameFor(model => model.Watches)
+        @foreach (var item in Model.Watches)
+        {
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <a href="/Home/Details?imdbID=@item.IMDBID">
+                        <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                        <div class="caption">
+                            <p>@item.Title</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    }
-
-    <!--Wants-->
-    @Html.DisplayNameFor(model => model.Wants)
-    @foreach (var item in Model.Wants)
-    {
-        <div class="col-md-2">
-            <div class="thumbnail">
-                <a href="/Home/Details?imdbID=@item.IMDBID">
-                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
-                    <div class="caption">
-                        <p>@item.Title</p>
-                    </div>
-                </a>
+        }
+    </div>
+    
+    <div class="row">
+        <!--Wants-->
+        @Html.DisplayNameFor(model => model.Wants)
+        @foreach (var item in Model.Wants)
+        {
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <a href="/Home/Details?imdbID=@item.IMDBID">
+                        <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                        <div class="caption">
+                            <p>@item.Title</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    }
-
-    <!--Friends-->
-    @Html.DisplayNameFor(model => model.Friends)
-
+        }
+    </div>   
 </div>
 <div>
     <h5>Profile</h5>
@@ -97,9 +98,30 @@
         These here are calculated based on your facebook info.
     </p>
     <!--Fav Actors-->
+    @Html.DisplayNameFor(model => model.FavActors)
+    <ul>
+        @foreach (string item in Model.FavActors)
+        {
+            <li>@item</li>
+        }
+    </ul>
+    
     <!--Genres-->
+    @Html.DisplayNameFor(model => model.FavGenres)
+    <ul>
+        @foreach (string item in Model.FavGenres)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
     <!--Directors-->
+    @Html.DisplayNameFor(model => model.FavDirectors)
+    <ul>
+        @foreach (string item in Model.FavDirectors)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
 </div>
-<p>    
-    @Html.ActionLink("Back to List", "Index")
-</p>

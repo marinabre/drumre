@@ -28,8 +28,6 @@ namespace Projekt.Models
         public List<SimpleMovieViewModel> Watches { get; set; }
         // Wants
         public List<SimpleMovieViewModel> Wants { get; set; }
-        // Friends
-        public List<string> Friends { get; set; }
 
         // Fav Actors
         [DisplayName("Favourite Actors")]
@@ -51,28 +49,48 @@ namespace Projekt.Models
             Birthday = person.Birthday;
 
             LikedMovies = new List<SimpleMovieViewModel>();
-            foreach (var movie in person.LikedMovies)
+            foreach (var movie in person.Profile.LikedMovies)
             {
                 var movieView = new SimpleMovieViewModel();
                 movieView.CastSimpleFromMovie(movie);
                 LikedMovies.Add(movieView);
             }
 
+            var movieRepo = new BLL.MovieRepository();
+
             Watches = new List<SimpleMovieViewModel>();
-            foreach (var movie in person.Watches)
+            if (person.Watches.Count > 0)
             {
-                var movieView = new SimpleMovieViewModel();
-                movieView.CastSimpleFromMovie(movie);
-                Watches.Add(movieView);
-            }
+                var watches = movieRepo.GetMoviesByFB(person.Watches);
+                foreach (var movie in watches)
+                {
+
+                    var movieView = new SimpleMovieViewModel();
+                    movieView.CastSimpleFromMovie(movie);
+                    Watches.Add(movieView);
+                }
+            }            
 
             Wants = new List<SimpleMovieViewModel>();
-            foreach (var movie in person.Wants)
+            if (person.Wants.Count > 0)
             {
-                var movieView = new SimpleMovieViewModel();
-                movieView.CastSimpleFromMovie(movie);
-                Wants.Add(movieView);
+                var wants = movieRepo.GetMoviesByFB(person.Wants);
+                foreach (var movie in wants)
+                {
+                    var movieView = new SimpleMovieViewModel();
+                    movieView.CastSimpleFromMovie(movie);
+                    Wants.Add(movieView);
+                }
             }
+            
+            // FavActors
+            FavActors = person.Profile.TopActors(5);
+
+            // FavDirectors
+            FavDirectors = person.Profile.TopDirectors(5);
+
+            // FavGenres
+            FavGenres = person.Profile.TopGenres(5);
         }
     }
 }
