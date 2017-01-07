@@ -78,48 +78,58 @@ namespace Testovi
         //    Assert.AreEqual(1, top.Count);
         //}
 
-        //[TestMethod]
-        //public void RecommendFromProfile()
-        //{
-        //    //var db = MongoInstance.GetDatabase;
-        //    //db.DropCollection("results");
-        //    //var collection = db.GetCollection<Movie>("results");
-        //    Person Ana = PersonRepository.GetPersonByName("Tena");
+        [TestMethod]
+        public void RecommendFromProfile()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //db.DropCollection("results");
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ines = PersonRepository.GetPersonByName("Ines");
 
-        //    Ana.Profile.FavouriteActors.Add("Keanu Reeves", 1);
+            IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ines.Profile, 4, 5, 10);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreNotEqual(0, rec.Count);
+        }
 
+        [TestMethod]
+        public void RecommendFromFriends()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ines = PersonRepository.GetPersonByName("Ines");
 
-        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
-        //    //foreach (Movie m in rec)
-        //    //    collection.InsertOne(m);
-        //    Assert.AreEqual(1, rec.Count);
-        //}
+            IList<Movie> rec = Recommender.RecommendMoviesFromFriends(Ines, false, -1, 0, 0);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreNotEqual(0, rec.Count);
+        }
 
-        //[TestMethod]
-        //public void RecommendFromFriends()
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    var collection = db.GetCollection<Movie>("results");
-        //    Person Ines = PersonRepository.GetPersonByName("Ines");
+        [TestMethod]
+        public void RecommendFromEverybody()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ines = PersonRepository.GetPersonByName("Ines");
 
-        //    IList<Movie> rec = Recommender.RecommendFromFriends(Ines, false, -1, 0, 0);
-        //    foreach (Movie m in rec)
-        //        collection.InsertOne(m);
-        //    Assert.AreEqual(1, rec.Count);
-        //}
+            IList<Movie> rec = Recommender.RecommendMoviesFromEverybody(Ines, false, -1, 0, 0);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreNotEqual(0, rec.Count);
+        }
 
-        //[TestMethod]
-        //public void RecommendFromEverybody()
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    var collection = db.GetCollection<Movie>("results");
-        //    Person Ines = PersonRepository.GetPersonByName("Ines");
+        [TestMethod]
+        public void RecommendusMinimus()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ines = PersonRepository.GetPersonByName("Ines");
 
-        //    IList<Movie> rec = Recommender.RecommendMoviesFromEverybody(Ines, false, -1, 0, 0);
-        //    foreach (Movie m in rec)
-        //        collection.InsertOne(m);
-        //    Assert.AreEqual(1, rec.Count);
-        //}
+            IList<Movie> rec = Recommender.Recommend(Ines);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreNotEqual(0, rec.Count);
+        }
 
 
         //[TestMethod]
@@ -254,16 +264,16 @@ namespace Testovi
         //    PersonRepository.DeleteProfile(p);
         //}
 
-        [TestMethod]
-        public void getSubtitleLinks()
-        {
-            Uri download = MovieRepository.GetSubtitleDownloadLink("tt0133093");
-            Uri page = MovieRepository.GetSubtitlePageLink("tt0133093");
+        //[TestMethod]
+        //public void getSubtitleLinks()
+        //{
+        //    Uri download = MovieRepository.GetSubtitleDownloadLink("tt0133093");
+        //    Uri page = MovieRepository.GetSubtitlePageLink("tt0133093");
 
-            Assert.IsNotNull(download);
-            Assert.IsNotNull(page);
+        //    Assert.IsNotNull(download);
+        //    Assert.IsNotNull(page);
 
-        }
+        //}
 
     }
 }
