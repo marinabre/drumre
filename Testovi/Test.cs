@@ -57,18 +57,18 @@ namespace Testovi
         //    Assert.AreEqual(1, 1);
         //}
 
-        //[TestMethod]
-        //public void ProfileBuild()
-        //{
-        //    Person person = PersonRepository.GetPersonByName("Ines");
-        //    person.Profile = new Profile(person);
-        //    var db = MongoInstance.GetDatabase;
-        //    var persons = db.GetCollection<Person>("testPerson");
-        //    persons.ReplaceOne(p => p.Email == person.Email,
-        //        person,
-        //        new UpdateOptions { IsUpsert = true });
-        //    Assert.AreEqual(1, 2);
-        //}
+        [TestMethod]
+        public void ProfileBuild()
+        {
+            Person person = PersonRepository.GetPersonByName("Ines");
+            person.Profile = new Profile(person);
+            var db = MongoInstance.GetDatabase;
+            var persons = db.GetCollection<Person>("testPerson");
+            persons.ReplaceOne(p => p.Email == person.Email,
+                person,
+                new UpdateOptions { IsUpsert = true });
+            Assert.AreEqual(1, 2);
+        }
 
         //[TestMethod]
         //public void TopActors()
@@ -176,6 +176,13 @@ namespace Testovi
         //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
 
         //}
+
+        [TestMethod]
+        public void BuildInesProfiles()
+        {
+            Person Ines = PersonRepository.GetPersonByName("Ines");
+            PersonRepository.BuildProfile(Ines);
+        }
 
         [TestMethod]
         public void TestNullYear()
