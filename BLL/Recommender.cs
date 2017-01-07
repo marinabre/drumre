@@ -137,26 +137,37 @@ namespace BLL
                 result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
             if (filter.Directors != null)
                 result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+
             if (filter.YearFrom != null)
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
             if (filter.YearTo != null)
-                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo);
+                result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year <= filter.YearTo);
+
             if (filter.RuntimeFrom != null)
                 result = result.Where(m => m.Runtime >= filter.RuntimeFrom);
             if (filter.RuntimeTo != null)
                 result = result.Where(m => m.Runtime <= filter.RuntimeTo);
+
             if (filter.IMDBRatingFrom != null)
                 result = result.Where(m => m.VoteAverage >= filter.IMDBRatingFrom);
             if (filter.IMDBRatingTo != null)
                 result = result.Where(m => m.VoteAverage <= filter.IMDBRatingTo);
+
             if (filter.MetascoreRatingFrom != null)
                 result = result.Where(m => m.Metascore >= filter.MetascoreRatingFrom);
             if (filter.MetascoreRatingTo != null)
                 result = result.Where(m => m.Metascore <= filter.MetascoreRatingTo);
+
+            if (filter.TomatoRatingFrom != null)
+                result = result.Where(m => m.TomatoRating >= filter.TomatoRatingFrom);
+            if (filter.TomatoRatingTo != null)
+                result = result.Where(m => m.TomatoRating <= filter.TomatoRatingTo);
+
             if (filter.FBSharesFrom != null)
                 result = result.Where(m => m.FBShares >= filter.FBSharesFrom);
             if (filter.FBSharesTo != null)
                 result = result.Where(m => m.FBShares <= filter.FBSharesTo);
+
             if (filter.FBLikesFrom != null)
                 result = result.Where(m => m.FBLikes >= filter.FBLikesFrom);
             if (filter.FBLikesTo != null)
@@ -167,6 +178,7 @@ namespace BLL
 
 
         #region helpers
+        [Obsolete]
         public static decimal calculateActorSimilarity (Movie movieA, Movie movieB)
         {
             IList<Cast> castA = movieA.Credits.Cast;
@@ -177,6 +189,7 @@ namespace BLL
 
             return intersection;
         }
+        [Obsolete]
         public static decimal calculateDirectorSimilarity(Movie movieA, Movie movieB)
         {
             IList<Crew> directorsA = movieA.Credits.Crew.Where(x => x.Job == "Director").ToList();
@@ -187,6 +200,7 @@ namespace BLL
 
             return intersection;
         }
+        [Obsolete]
         public static decimal calculateGenreSimilarity(Movie movieA, Movie movieB)
         {
             IList<Genre> genresA = movieA.Genres;
@@ -197,6 +211,7 @@ namespace BLL
 
             return 2 * intersection / joined;
         }
+        [Obsolete]
         public static MovieSimilarity getSimilarity (Movie movieA, Movie movieB)
         {
             var db = MongoInstance.GetDatabase;
@@ -220,6 +235,7 @@ namespace BLL
                 return newSimilarity;
             } 
         }
+        [Obsolete]
         public static IFindFluent<Movie,Movie> SimilarByGenres (IList<String> Genres)
         {
             var db = MongoInstance.GetDatabase;
@@ -229,6 +245,7 @@ namespace BLL
                 return movies.Find(filter);  
             return null;
         }
+        [Obsolete]
         public static IFindFluent<Movie, Movie> SimilarByActors(IList<String> Actors)
         {
             var db = MongoInstance.GetDatabase;
@@ -238,6 +255,7 @@ namespace BLL
                 return movies.Find(filter);
             return null;
         }
+        [Obsolete]
         public static IFindFluent<Movie, Movie> SimilarByDirectors(IList<String> Directors)
         {
             var db = MongoInstance.GetDatabase;
@@ -254,6 +272,7 @@ namespace BLL
             {
                 var name = Genres.ElementAt(0);
                 var filter = builder.ElemMatch(x => x.Genres, x => x.Name == name);
+
 
                 for (int i = 1; i < Genres.Count; i++)
                 {
