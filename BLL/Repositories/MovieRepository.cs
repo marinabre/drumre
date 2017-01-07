@@ -168,7 +168,7 @@ namespace BLL
             return baza.GetMovieByTitle(title);
         }
 
-        public static async Task<IList<Movie>> GetMoviesByFB(IList<FBMovie> fbMovies)
+        public IList<Movie> GetMoviesByFB(IList<FBMovie> fbMovies)
         {
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
@@ -183,7 +183,7 @@ namespace BLL
                     var name2 = fbMovies.ElementAt(i).Title;
                     filter = filter | builder.Eq("Title", name2);
                 }
-                return await movies.Find(filter).ToListAsync();
+                return movies.Find(filter).ToList();
             }
             return null;
         }

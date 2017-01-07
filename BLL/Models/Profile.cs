@@ -19,10 +19,11 @@ namespace BLL
 
         public Profile(Person person)
         {
+            var repo = new MovieRepository();
             FavouriteActors = new Dictionary<String, int>();
             FavouriteDirectors = new Dictionary<String, int>();
             FavouriteGenres = new Dictionary<String, int>();
-            LikedMovies = MovieRepository.GetMoviesByFB(person.LikedMovies).Result;
+            LikedMovies = repo.GetMoviesByFB(person.LikedMovies);
             foreach (Movie movie in LikedMovies)
             {
                 if (movie.Credits.Cast.Count > 0)
