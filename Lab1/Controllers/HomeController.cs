@@ -11,6 +11,7 @@ using TMDbLib.Client;
 using TMDbLib.Objects.Movies;
 using BLL;
 using PagedList;
+using BLL.DummyHelpers;
 
 namespace Projekt.Controllers
 {
@@ -21,11 +22,12 @@ namespace Projekt.Controllers
         {            
             if (User.Identity.IsAuthenticated)
             {
-                var person = PersonRepository.GetPersonByEmail(User.Identity.Name);
+                var person = PersonRepository.GetPersonByEmail(User.Identity.Name);                
                 var movies = new List<MovieViewModel>();
                 var BLLmovies = new List<BLL.Movie>();
                 #region Getting recommended movies here
-                BLLmovies = Recommender.Recommend(person).ToList();
+                //BLLmovies = Recommender.Recommend(person).ToList();
+                BLLmovies = MovieProvider.RecommendMovies();
                 foreach (var BLLmovie in BLLmovies)
                 {
                     if (BLLmovie.Title == "") continue;
@@ -70,7 +72,7 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, decimal IMDBRatingFrom, decimal IMDBRatingTo, decimal TomatoRatingFrom, decimal TomatoRatingTo, decimal MetascoreRatingFrom, decimal MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
+        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, double IMDBRatingFrom, double IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo)
         {
             var filter = new BLL.Models.Filter(Genres);
             var movies = new List<MovieViewModel>();
@@ -105,6 +107,13 @@ namespace Projekt.Controllers
             filter.YearTo = YearTo;
 
             // Search comes here
+            List<BLL.Movie> moviesFromDB = Recommender.FilterResults(null, filter).ToList();
+            foreach (var movieFromDB in moviesFromDB)
+            {
+                var movie = new MovieViewModel();
+                movie.CastSearchFromMovie(movieFromDB);
+                movies.Add(movie);
+            }
 
             return View("SearchResults", movies);            
         }

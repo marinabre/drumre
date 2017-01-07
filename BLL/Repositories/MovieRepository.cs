@@ -1,5 +1,6 @@
 ﻿using Facebook;
 using Google.Apis.Services;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using OMDbSharp;
 using OSDBnet;
@@ -295,9 +296,15 @@ namespace BLL
         public static List<string> GetAllGenres()
         {
             var db = MongoInstance.GetDatabase;
-            var genresColl = db.GetCollection<string>("genres");
-            var genres = genresColl.Find(p => p.Length == p.Length).ToList();
-            return genres;
+            var genresColl = db.GetCollection<BsonDocument>("genres");
+            var filter = new BsonDocument();
+            var genres = genresColl.Find(filter).Limit(50).ToList();
+            var result = new List<string>();
+            foreach (var genre in genres)
+            {
+                result.Add(genre["Name"].ToString());
+            }
+            return result;
         }
     }
 }

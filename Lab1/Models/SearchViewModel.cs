@@ -21,19 +21,19 @@ namespace Projekt.Models
         public int? YearTo { get; set; }
 
         [DisplayName("From")]
-        public decimal? IMDBRatingFrom { get; set; }
+        public double? IMDBRatingFrom { get; set; }
         [DisplayName("To")]
-        public decimal? IMDBRatingTo { get; set; }
+        public double? IMDBRatingTo { get; set; }
 
         [DisplayName("From")]
-        public decimal? MetascoreRatingFrom { get; set; }
+        public int? MetascoreRatingFrom { get; set; }
         [DisplayName("To")]
-        public decimal? MetascoreRatingTo { get; set; }
+        public int? MetascoreRatingTo { get; set; }
 
         [DisplayName("From")]
-        public decimal? TomatoRatingFrom { get; set; }
+        public int? TomatoRatingFrom { get; set; }
         [DisplayName("To")]
-        public decimal? TomatoRatingTo { get; set; }
+        public int? TomatoRatingTo { get; set; }
 
         [DisplayName("From")]
         public int? FBSharesFrom { get; set; }
