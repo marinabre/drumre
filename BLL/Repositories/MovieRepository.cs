@@ -1,4 +1,5 @@
-﻿using Facebook;
+﻿using BLL.Models;
+using Facebook;
 using Google.Apis.Services;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -334,5 +335,26 @@ namespace BLL
             }
             return result;
         }
+
+        //public static List<Movie> SearchFilter(Filter f)
+        //{
+        //    var db = MongoInstance.GetDatabase;
+        //    var movies = db.GetCollection<Movie>("movies");
+        //    var builder = Builders<Movie>.Filter;
+        //    var filter = builder.
+        //    var filter = builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name);
+        //    if (Actors.Count > 0)
+        //    {
+        //        var name = Actors.ElementAt(0);
+        //        var filter = builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name);
+
+        //        for (int i = 1; i < Actors.Count; i++)
+        //        {
+        //            var name2 = Actors.ElementAt(i);
+        //            filter = filter | builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name2);
+        //        }
+        //        return filter;
+        //    }
+        //}
     }
 }

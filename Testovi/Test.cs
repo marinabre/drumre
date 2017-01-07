@@ -78,22 +78,22 @@ namespace Testovi
         //    Assert.AreEqual(1, top.Count);
         //}
 
-        [TestMethod]
-        public void RecommendFromProfile()
-        {
-            //var db = MongoInstance.GetDatabase;
-            //db.DropCollection("results");
-            //var collection = db.GetCollection<Movie>("results");
-            Person Ana = PersonRepository.GetPersonByName("Tena");
+        //[TestMethod]
+        //public void RecommendFromProfile()
+        //{
+        //    //var db = MongoInstance.GetDatabase;
+        //    //db.DropCollection("results");
+        //    //var collection = db.GetCollection<Movie>("results");
+        //    Person Ana = PersonRepository.GetPersonByName("Tena");
 
-            Ana.Profile.FavouriteActors.Add("Keanu Reeves", 1);
-            
+        //    Ana.Profile.FavouriteActors.Add("Keanu Reeves", 1);
 
-            IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
-            //foreach (Movie m in rec)
-            //    collection.InsertOne(m);
-            Assert.AreEqual(1, rec.Count);
-        }
+
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
+        //    //foreach (Movie m in rec)
+        //    //    collection.InsertOne(m);
+        //    Assert.AreEqual(1, rec.Count);
+        //}
 
         //[TestMethod]
         //public void RecommendFromFriends()
@@ -151,8 +151,7 @@ namespace Testovi
 
         //}
 
-        //[TestMethod]
-        //public void GetPersonByMail()
+        //[TestMethod]        //public void GetPersonByMail()
         //{
         //    Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
         //    Assert.IsNotNull(Ana.Profile);
@@ -177,6 +176,26 @@ namespace Testovi
         //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
 
         //}
+
+        [TestMethod]
+        public void TestNullYear()
+        {
+            Person Ana = PersonRepository.GetPersonByName("Ana");
+            var profile = new Profile(Ana);
+            IList<string> actors = new List<string>();
+
+            actors.Add("Keanu Reeves");
+            //genres.Add("Drama");
+            Filter f = new Filter();
+            f.Actors = actors;
+            //f.YearFrom = 1999;
+            //f.IMDBRatingFrom = 7;
+
+            var res = FilterResults(new List<Movie> (), f);
+            Assert.AreEqual(0, res.Count);
+            //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+
+        }
 
     }
 }

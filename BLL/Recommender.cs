@@ -125,6 +125,9 @@ namespace BLL
 
         public static IList<Movie> FilterResults(IList<Movie> movies, Filter filter)
         {
+
+            if (movies == null) return new List<Movie>();
+            if (filter == null) return movies;
             if (filter.isEmpty()) return movies;
             IEnumerable<Movie> result = movies;
 
@@ -138,12 +141,10 @@ namespace BLL
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
             if (filter.YearTo != null)
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearTo);
-
             if (filter.RuntimeFrom != null)
                 result = result.Where(m => m.Runtime >= filter.RuntimeFrom);
             if (filter.RuntimeTo != null)
                 result = result.Where(m => m.Runtime <= filter.RuntimeTo);
-
             if (filter.IMDBRatingFrom != null)
                 result = result.Where(m => m.VoteAverage >= filter.IMDBRatingFrom);
             if (filter.IMDBRatingTo != null)
