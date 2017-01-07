@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Projekt.Models;
+using BLL;
 
 namespace Projekt.Controllers
 {
@@ -73,6 +74,12 @@ namespace Projekt.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+        public ActionResult UserDetails()
+        {
+            var person = PersonRepository.GetPersonByEmail(User.Identity.Name);
+            return View();
         }
 
         //

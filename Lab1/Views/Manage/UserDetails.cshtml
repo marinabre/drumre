@@ -1,0 +1,105 @@
+﻿@model Projekt.Models.UserViewModel
+
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<h2>UserDetails</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthday)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <h5>Other Facebook info</h5>
+    <!--Liked movies-->
+    @Html.DisplayNameFor(model => model.LikedMovies)
+    @foreach (var item in Model.LikedMovies)
+    {
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <a href="/Home/Details?imdbID=@item.IMDBID">
+                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                    <div class="caption">
+                        <p>@item.Title</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+
+    <!--Watches-->
+    @Html.DisplayNameFor(model => model.Watches)
+    @foreach (var item in Model.Watches)
+    {
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <a href="/Home/Details?imdbID=@item.IMDBID">
+                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                    <div class="caption">
+                        <p>@item.Title</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+    <!--Wants-->
+    @Html.DisplayNameFor(model => model.Wants)
+    @foreach (var item in Model.Wants)
+    {
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <a href="/Home/Details?imdbID=@item.IMDBID">
+                    <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                    <div class="caption">
+                        <p>@item.Title</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+
+    <!--Friends-->
+    @Html.DisplayNameFor(model => model.Friends)
+
+</div>
+<div>
+    <h5>Profile</h5>
+    <p class="text-info">
+        These here are calculated based on your facebook info.
+    </p>
+    <!--Fav Actors-->
+    <!--Genres-->
+    <!--Directors-->
+</div>
+<p>    
+    @Html.ActionLink("Back to List", "Index")
+</p>
