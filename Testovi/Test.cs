@@ -129,6 +129,13 @@ namespace Testovi
         //}
 
         //[TestMethod]
+        //public void BuildInesProfiles()
+        //{
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
+        //    PersonRepository.BuildProfile(Ines);
+        //}
+
+        //[TestMethod]
         //public void MakeProfile()
         //{
         //    Person Ana = PersonRepository.GetPersonByName("Ana");
@@ -151,9 +158,10 @@ namespace Testovi
 
         //}
 
-        //[TestMethod]        //public void GetPersonByMail()
+        //[TestMethod]
+        //public void GetPersonByMail()
         //{
-        //    Person Ana = PersonRepository.GetPersonByEmail("pijanist@gmail.com", true);
+        //    Person Ana = PersonRepository.GetPersonByEmail("žlabr", true);
         //    Assert.IsNotNull(Ana.Profile);
         //}
 
@@ -177,25 +185,54 @@ namespace Testovi
 
         //}
 
+        //[TestMethod]
+        //public void TestNullYear()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //    IList<string> actors = new List<string>();
+
+        //    actors.Add("Keanu Reeves");
+        //    //genres.Add("Drama");
+        //    Filter f = new Filter();
+        //    f.Actors = actors;
+        //    //f.YearFrom = 1999;
+        //    //f.IMDBRatingFrom = 7;
+
+        //    var res = FilterResults(new List<Movie> (), f);
+        //    Assert.AreEqual(0, res.Count);
+        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+
+        //}
+
+        //[TestMethod]
+        //public void SearchEmpty()
+        //{
+        //    var res = MovieRepository.SearchFilter(null);
+        //    Assert.AreEqual(0, res.Count);
+        //}
+
         [TestMethod]
-        public void TestNullYear()
+        public void Search()
         {
-            Person Ana = PersonRepository.GetPersonByName("Ana");
-            var profile = new Profile(Ana);
-            IList<string> actors = new List<string>();
+            //isprobajte ovdi sve:
+            Filter filter = new Filter();
+            filter.Actors = new List<String>();
+            filter.Actors.Add("Keanu Reeves");
+            filter.Actors.Add("Al Pacino");
+            //filter.YearFrom = 2011;
+            //filter.IMDBRatingFrom = 9;
 
-            actors.Add("Keanu Reeves");
-            //genres.Add("Drama");
-            Filter f = new Filter();
-            f.Actors = actors;
-            //f.YearFrom = 1999;
-            //f.IMDBRatingFrom = 7;
 
-            var res = FilterResults(new List<Movie> (), f);
-            Assert.AreEqual(0, res.Count);
-            //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
-
+            var res = MovieRepository.SearchFilter(filter);
+            Assert.AreEqual(0, res.Count());
         }
+
+        //[TestMethod]
+        //public void meh()
+        //{
+        //    PersonRepository.meh();
+        //}
 
     }
 }

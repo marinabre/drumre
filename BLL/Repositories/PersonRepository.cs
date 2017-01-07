@@ -15,6 +15,11 @@ namespace BLL
             if (result.Count() > 0) return result.First();
             else return null;
         }
+
+        public  void meh()
+        {
+
+        }
         public static List<Person> GetPeople()
         {
             var db = MongoInstance.GetDatabase;

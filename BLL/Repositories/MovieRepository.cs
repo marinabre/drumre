@@ -336,25 +336,91 @@ namespace BLL
             return result;
         }
 
-        //public static List<Movie> SearchFilter(Filter f)
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    var movies = db.GetCollection<Movie>("movies");
-        //    var builder = Builders<Movie>.Filter;
-        //    var filter = builder.
-        //    var filter = builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name);
-        //    if (Actors.Count > 0)
-        //    {
-        //        var name = Actors.ElementAt(0);
-        //        var filter = builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name);
+        public static List<Movie> SearchFilter(Filter filter)
+        {
+            if (filter == null) filter = new Filter();
+            var db = MongoInstance.GetDatabase;
+            var movies = db.GetCollection<Movie>("movies");
+            var builder = Builders<Movie>.Filter;
 
-        //        for (int i = 1; i < Actors.Count; i++)
-        //        {
-        //            var name2 = Actors.ElementAt(i);
-        //            filter = filter | builder.ElemMatch(x => x.Credits.Cast, x => x.Name == name2);
-        //        }
-        //        return filter;
-        //    }
-        //}
+            FilterDefinition<Movie> genreF = builder.Empty;
+            FilterDefinition<Movie> actorsF = builder.Empty;
+            FilterDefinition<Movie> directorsF = builder.Empty;
+            FilterDefinition<Movie> yearFromF = builder.Empty;
+            FilterDefinition<Movie> yearToF = builder.Empty;
+            FilterDefinition<Movie> runtimeFromF = builder.Empty;
+            FilterDefinition<Movie> runtimeToF = builder.Empty;
+            FilterDefinition<Movie> imdbRatingFromF = builder.Empty;
+            FilterDefinition<Movie> imdbRatingToF = builder.Empty;
+            FilterDefinition<Movie> metascoreRatingFromF = builder.Empty;
+            FilterDefinition<Movie> metascoreRatingToF = builder.Empty;
+            FilterDefinition<Movie> tomatoRatingFromF = builder.Empty;
+            FilterDefinition<Movie> tomatoRatingToF = builder.Empty;
+            FilterDefinition<Movie> fbSharesFromF = builder.Empty;
+            FilterDefinition<Movie> fbSharesToF = builder.Empty;
+            FilterDefinition<Movie> fbLikesFromF = builder.Empty;
+            FilterDefinition<Movie> fbLikesToF = builder.Empty;
+
+            //IList<FilterDefinition<Movie>> dbFilters = new List<FilterDefinition<Movie>>();
+            //dbFilters.Add(genreF = builder.Empty, );
+
+
+            //za genre, actor i director bi mogle filter fje iz Recommendera?
+
+            if (filter.Genres != null)
+                genreF = Recommender.GenresFilter(filter.Genres);
+            if (filter.Actors != null)
+                actorsF = Recommender.ActorsFilter(filter.Actors);
+            if (filter.Directors != null)
+                directorsF = Recommender.DirectorsFilter(filter.Directors);
+
+
+            if (filter.YearFrom != null)
+                //yearFromF = builder.Where(x => x.ReleaseDate.Value.Year >= filter.YearFrom);
+                yearFromF = builder.Gt("ReleaseDate", new DateTime(filter.YearFrom.Value, 1, 1));
+            if (filter.YearTo != null)
+                yearToF = builder.Lt("ReleaseDate", new DateTime(filter.YearTo.Value, 1, 1));
+
+            if (filter.RuntimeFrom != null)
+                runtimeFromF = builder.Gt("Runtime", filter.RuntimeFrom);
+            if (filter.RuntimeTo != null)
+                runtimeToF = builder.Lt("Runtime", filter.RuntimeTo);
+
+            if (filter.IMDBRatingFrom != null)
+                imdbRatingFromF = builder.Gt("VoteAverage", filter.IMDBRatingFrom);
+            if (filter.IMDBRatingTo != null)
+                imdbRatingToF = builder.Lt("VoteAverage", filter.IMDBRatingTo);
+
+            if (filter.MetascoreRatingFrom != null)
+                metascoreRatingFromF = builder.Gt("Metascore", filter.MetascoreRatingFrom);
+            if (filter.MetascoreRatingTo != null)
+                metascoreRatingToF = builder.Lt("Metascore", filter.MetascoreRatingTo);
+
+            if (filter.TomatoRatingFrom != null)
+                tomatoRatingFromF = builder.Gt("TomatoRating", filter.TomatoRatingFrom);
+            if (filter.TomatoRatingTo != null)
+                tomatoRatingToF = builder.Lt("TomatoRating", filter.TomatoRatingFrom);
+
+            if (filter.FBSharesFrom != null)
+                fbSharesFromF = builder.Gt("FBShares", filter.FBSharesFrom);
+            if (filter.FBSharesTo != null)
+                fbSharesToF = builder.Lt("FBShares", filter.FBSharesFrom);
+
+            if (filter.FBLikesFrom != null)
+                fbLikesFromF = builder.Gt("FBLikes", filter.FBLikesFrom);
+            if (filter.FBLikesTo != null)
+                fbLikesToF = builder.Lt("FBLikes", filter.FBLikesTo);
+
+            FilterDefinition<Movie> MainFilter = genreF & actorsF & directorsF
+                                                 & yearFromF & yearToF
+                                                 & runtimeFromF & runtimeToF
+                                                 & imdbRatingFromF & imdbRatingToF
+                                                 & metascoreRatingFromF & metascoreRatingToF
+                                                 & tomatoRatingFromF & tomatoRatingToF
+                                                 & fbSharesFromF & fbSharesToF
+                                                 & fbLikesFromF & fbLikesToF;
+            return movies.Find(MainFilter).Limit(150).ToList();
+
+        }
     }
 }
