@@ -22,12 +22,12 @@ namespace Projekt.Controllers
         {            
             if (User.Identity.IsAuthenticated)
             {
-                var person = PersonRepository.GetPersonByEmail(User.Identity.Name);                
+                var person = PersonRepository.GetPersonByEmail(User.Identity.Name, true);                
                 var movies = new List<MovieViewModel>();
                 var BLLmovies = new List<BLL.Movie>();
                 #region Getting recommended movies here
-                //BLLmovies = Recommender.Recommend(person).ToList();
-                BLLmovies = MovieProvider.RecommendMovies();
+                BLLmovies = Recommender.Recommend(person).ToList();
+                //BLLmovies = MovieProvider.RecommendMovies();
                 foreach (var BLLmovie in BLLmovies)
                 {
                     if (BLLmovie.Title == "") continue;
