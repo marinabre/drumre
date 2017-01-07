@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DohvatPodataka", "DohvatPod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testovi", "Testovi\Testovi.csproj", "{0D4E6EDB-9369-4C7D-AB88-38F2035072BA}"
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "sekvencijalni", "sekvencijalni\sekvencijalni.modelproj", "{8E57CD69-FD23-41D1-B854-59ABCEB77FED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0D4E6EDB-9369-4C7D-AB88-38F2035072BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D4E6EDB-9369-4C7D-AB88-38F2035072BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D4E6EDB-9369-4C7D-AB88-38F2035072BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E57CD69-FD23-41D1-B854-59ABCEB77FED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E57CD69-FD23-41D1-B854-59ABCEB77FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E57CD69-FD23-41D1-B854-59ABCEB77FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E57CD69-FD23-41D1-B854-59ABCEB77FED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
