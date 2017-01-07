@@ -79,7 +79,9 @@ namespace Projekt.Controllers
         public ActionResult UserDetails()
         {
             var person = PersonRepository.GetPersonByEmail(User.Identity.Name);
-            return View();
+            var user = new UserViewModel();
+            user.CastPersonToUser(person);
+            return View(user);
         }
 
         //
