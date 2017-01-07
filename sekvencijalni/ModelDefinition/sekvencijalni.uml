@@ -1,0 +1,1436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="2ef2f53a-a967-4dca-bf8a-866513a0ea7f"
+  name="sekvencijalni" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction
+        Id="301710e5-d5a8-4940-af1a-b2719367ea49"
+        name="Sequence1"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <behaviorExecutionSpecification
+            Id="352b9c83-4435-468c-a16c-5ae5e6ffb72a"
+            name="BehaviorExecutionSpecification1">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="62587fd7-543b-42e0-911e-9010e463a63b"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="04d69729-7711-40ca-affb-f864d05731e7"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="aeb33326-0b80-4b4f-8911-7676b663209b"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="da771035-3b0e-479f-9c02-bcee47df481d"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="415508e3-cf33-4318-8d7e-d4e412b292bc"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="b22d790b-6658-46f5-8731-df5ab52f2392"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="2ddbcb0f-bb04-404b-8416-78c23d891609"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="8de81a13-c6e0-4eea-9817-ee47c33e3b5c"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="04d69729-7711-40ca-affb-f864d05731e7"
+            name="ExecutionOccurrenceSpecification1">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="b8ed178b-ff37-4793-bfc8-8c8825219730"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="11e46ce1-bf29-4621-8e3e-818890501799"
+            name="MessageOccurrenceSpecification1">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="aeb33326-0b80-4b4f-8911-7676b663209b"
+            name="MessageOccurrenceSpecification2">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="b5deed55-ffb8-48a5-8d9c-73f92b72b989"
+            name="BehaviorExecutionSpecification2">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+                LastKnownName="Facebook"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="335c66ef-ebdf-486a-9890-26e906739080"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="73a2d715-e722-4a0a-b7b5-d3a5914a3b62"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="b867e793-dfc7-4f79-89ac-9e8f8a53189b"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="9ca5074f-7470-46b0-ac27-50c61fcec045"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="73a2d715-e722-4a0a-b7b5-d3a5914a3b62"
+            name="ExecutionOccurrenceSpecification3">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="f92ba937-c696-4adb-a19b-b14b68e41f11"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+                LastKnownName="Facebook"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="da771035-3b0e-479f-9c02-bcee47df481d"
+            name="MessageOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b867e793-dfc7-4f79-89ac-9e8f8a53189b"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+                LastKnownName="Facebook"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="415508e3-cf33-4318-8d7e-d4e412b292bc"
+            name="MessageOccurrenceSpecification8">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9ca5074f-7470-46b0-ac27-50c61fcec045"
+            name="MessageOccurrenceSpecification7">
+            <covered>
+              <lifelineMoniker
+                Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+                LastKnownName="Facebook"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="335c66ef-ebdf-486a-9890-26e906739080"
+            name="ExecutionOccurrenceSpecification4">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="c6b37858-dda7-4780-9e27-4fa62d393422"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+                LastKnownName="Facebook"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="ab47c306-ab74-440a-9f8f-15881d205566"
+            name="BehaviorExecutionSpecification3">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="3e1228d2-262f-462f-81a9-a614d240bd4d"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="15880be9-3cb1-4939-bb85-0c79b599634e"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="f5494f8d-2783-4cf2-be97-3fb407c43a93"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="92364ce3-142c-4808-a5eb-7813a92350f9"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="15880be9-3cb1-4939-bb85-0c79b599634e"
+            name="ExecutionOccurrenceSpecification5">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="7bd80bed-e7c4-4c6e-a35e-2194e25a9509"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f5494f8d-2783-4cf2-be97-3fb407c43a93"
+            name="MessageOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b22d790b-6658-46f5-8731-df5ab52f2392"
+            name="MessageOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2ddbcb0f-bb04-404b-8416-78c23d891609"
+            name="MessageOccurrenceSpecification12">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="92364ce3-142c-4808-a5eb-7813a92350f9"
+            name="MessageOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="3e1228d2-262f-462f-81a9-a614d240bd4d"
+            name="ExecutionOccurrenceSpecification6">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="fc27acf4-1818-473a-aa92-cbad6481cc72"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8de81a13-c6e0-4eea-9817-ee47c33e3b5c"
+            name="MessageOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="558cead2-a399-40d6-87f6-0b1ca90388dd"
+            name="MessageOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="62587fd7-543b-42e0-911e-9010e463a63b"
+            name="ExecutionOccurrenceSpecification2">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="c47c34a3-4f51-4726-84cb-bcf7e7b346b9"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="3c7b1e6e-1428-4055-8a60-c2e43dd086f8"
+            name="BehaviorExecutionSpecification4">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="d40f1dc2-c6b9-44aa-a0f3-1bdcd904d7ac"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="b18fba9c-a852-4fa0-abb0-a99e364206b3"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="653cbb6a-bf28-4773-9844-f6a9d9b74c35"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="73fef711-acc1-4e18-b11c-5b64b6e72530"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="9014fb00-12c6-4489-861f-b8371b036cd4"
+                LastKnownName="MessageOccurrenceSpecification22"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="8521785a-d8e6-4aa5-a322-95b68eec52b4"
+                LastKnownName="MessageOccurrenceSpecification23"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="63a50e67-12a9-4d3c-aac5-88b157cb8736"
+                LastKnownName="MessageOccurrenceSpecification26"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="8a4e7576-ce7d-4f51-9999-7bac33fb7c18"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="b18fba9c-a852-4fa0-abb0-a99e364206b3"
+            name="ExecutionOccurrenceSpecification7">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="441f8623-6c43-48d6-b50d-8c2815bb6271"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="653cbb6a-bf28-4773-9844-f6a9d9b74c35"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="09fe55fd-fe9e-41ab-9326-0530c4c28165"
+            name="MessageOccurrenceSpecification13">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="51425a67-6487-45b0-9a2e-4692b532b583"
+            name="BehaviorExecutionSpecification6">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="b5330950-8619-44f4-b50f-3af69eebf71f"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="ae92a709-071c-47de-a7ee-e71370a6219d"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="12d83e74-a37a-4544-add0-172877758b8c"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="677c8e1d-faee-4734-8651-e7b864526a51"
+                LastKnownName="MessageOccurrenceSpecification21"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="ae92a709-071c-47de-a7ee-e71370a6219d"
+            name="ExecutionOccurrenceSpecification11">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="a3a78287-56b3-4df9-9f06-cc2b1fa4e979"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="12d83e74-a37a-4544-add0-172877758b8c"
+            name="MessageOccurrenceSpecification20">
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="73fef711-acc1-4e18-b11c-5b64b6e72530"
+            name="MessageOccurrenceSpecification19">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9014fb00-12c6-4489-861f-b8371b036cd4"
+            name="MessageOccurrenceSpecification22">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="677c8e1d-faee-4734-8651-e7b864526a51"
+            name="MessageOccurrenceSpecification21">
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="b5330950-8619-44f4-b50f-3af69eebf71f"
+            name="ExecutionOccurrenceSpecification12">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="d216182f-d148-4585-a109-eb8039b3f994"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+                LastKnownName="Mongo baza"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="0ec2a810-f9d0-4eed-b925-36471cbed791"
+            name="BehaviorExecutionSpecification7">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+                LastKnownName="Youtube"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="1d91937e-160f-4814-8bff-c3323f7feac3"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="2d29c193-bb37-4cbd-b3fb-ce12cad7ae81"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="674b3721-f6c6-466f-aedd-eaeebb500935"
+                LastKnownName="MessageOccurrenceSpecification24"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="38ec25d1-f89e-44b9-b99d-9753e9991278"
+                LastKnownName="MessageOccurrenceSpecification25"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="2d29c193-bb37-4cbd-b3fb-ce12cad7ae81"
+            name="ExecutionOccurrenceSpecification13">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="6932dc4b-17eb-460b-be8a-7edec22dcbc7"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+                LastKnownName="Youtube"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8521785a-d8e6-4aa5-a322-95b68eec52b4"
+            name="MessageOccurrenceSpecification23">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="674b3721-f6c6-466f-aedd-eaeebb500935"
+            name="MessageOccurrenceSpecification24">
+            <covered>
+              <lifelineMoniker
+                Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+                LastKnownName="Youtube"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="38ec25d1-f89e-44b9-b99d-9753e9991278"
+            name="MessageOccurrenceSpecification25">
+            <covered>
+              <lifelineMoniker
+                Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+                LastKnownName="Youtube"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="63a50e67-12a9-4d3c-aac5-88b157cb8736"
+            name="MessageOccurrenceSpecification26">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="1d91937e-160f-4814-8bff-c3323f7feac3"
+            name="ExecutionOccurrenceSpecification14">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="4bea2774-f700-430a-b226-4d975de4ce21"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+                LastKnownName="Youtube"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="90b70253-c15f-45aa-b5fe-23e4272cb141"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8a4e7576-ce7d-4f51-9999-7bac33fb7c18"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="d40f1dc2-c6b9-44aa-a0f3-1bdcd904d7ac"
+            name="ExecutionOccurrenceSpecification8">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="2b54a092-d37d-4459-abcd-e58ba2f7679d"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="bdc462f2-9746-4e3d-b922-34fe1ee016d1"
+            name="BehaviorExecutionSpecification9">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="9ad83951-a75b-4b84-9357-0a6ccd0882f7"
+                LastKnownName="ExecutionOccurrenceSpecification18"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="2fd42c96-f523-49b5-b590-4be32774e089"
+                LastKnownName="ExecutionOccurrenceSpecification17"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="f40c8c62-ac02-4786-b96b-95882755bb74"
+                LastKnownName="MessageOccurrenceSpecification32"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="a69d9ff1-b2ff-4f0c-aa06-fc8d0bf22a28"
+                LastKnownName="MessageOccurrenceSpecification35"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="f59da2d8-3669-47da-bfa4-88a4ee4832a5"
+                LastKnownName="MessageOccurrenceSpecification33"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="2fd42c96-f523-49b5-b590-4be32774e089"
+            name="ExecutionOccurrenceSpecification17">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="52a2507f-f727-484f-8a18-2758bcd978b7"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b627d92e-f1d9-416c-bd5e-7fe61648861b"
+            name="MessageOccurrenceSpecification31">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f40c8c62-ac02-4786-b96b-95882755bb74"
+            name="MessageOccurrenceSpecification32">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="a5493e34-004b-438b-9319-46961b5fc2f4"
+            name="BehaviorExecutionSpecification10">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="b07fa096-3141-40ce-abd9-491dfc1c2347"
+                LastKnownName="OSDB"
+                LastKnownLocation="sekvencijalni.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="3d96cddc-a990-47ea-a0b6-51ce3c1b189e"
+                LastKnownName="ExecutionOccurrenceSpecification20"
+                LastKnownLocation="sekvencijalni.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="d519d03a-fa8d-4dfd-a4ef-32e9494c7478"
+                LastKnownName="ExecutionOccurrenceSpecification19"
+                LastKnownLocation="sekvencijalni.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="2678e260-8cdc-4573-80d8-ca66ce4a6074"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="sekvencijalni.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="d519d03a-fa8d-4dfd-a4ef-32e9494c7478"
+            name="ExecutionOccurrenceSpecification19">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="b1d02380-5c96-49aa-8bf2-571671b41483"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="b07fa096-3141-40ce-abd9-491dfc1c2347"
+                LastKnownName="OSDB"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="a69d9ff1-b2ff-4f0c-aa06-fc8d0bf22a28"
+            name="MessageOccurrenceSpecification35">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="2678e260-8cdc-4573-80d8-ca66ce4a6074"
+            name="MessageOccurrenceSpecification36">
+            <covered>
+              <lifelineMoniker
+                Id="b07fa096-3141-40ce-abd9-491dfc1c2347"
+                LastKnownName="OSDB"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f59da2d8-3669-47da-bfa4-88a4ee4832a5"
+            name="MessageOccurrenceSpecification33">
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6dc2a044-0d7f-4ce6-9a19-3aa883cdfd2f"
+            name="MessageOccurrenceSpecification34">
+            <covered>
+              <lifelineMoniker
+                Id="450d29e9-0044-41f4-876a-f62783699510"
+                LastKnownName="Korisnik"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="9ad83951-a75b-4b84-9357-0a6ccd0882f7"
+            name="ExecutionOccurrenceSpecification18">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="5126cf58-d4dd-4ba2-9c9f-3123fc0e6399"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+                LastKnownName="CocoaDuck"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="3d96cddc-a990-47ea-a0b6-51ce3c1b189e"
+            name="ExecutionOccurrenceSpecification20">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="09f1da55-4d58-4c42-a8e6-7bf9bee18761"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="sekvencijalni.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="b07fa096-3141-40ce-abd9-491dfc1c2347"
+                LastKnownName="OSDB"
+                LastKnownLocation="sekvencijalni.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="450d29e9-0044-41f4-876a-f62783699510"
+            name="Korisnik"
+            isActor="false"
+            lifelineDisplayName="Korisnik">
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="11e46ce1-bf29-4621-8e3e-818890501799"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="558cead2-a399-40d6-87f6-0b1ca90388dd"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="09fe55fd-fe9e-41ab-9326-0530c4c28165"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="90b70253-c15f-45aa-b5fe-23e4272cb141"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="b627d92e-f1d9-416c-bd5e-7fe61648861b"
+                LastKnownName="MessageOccurrenceSpecification31"
+                LastKnownLocation="sekvencijalni.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="6dc2a044-0d7f-4ce6-9a19-3aa883cdfd2f"
+                LastKnownName="MessageOccurrenceSpecification34"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="e217c551-71af-477c-b61f-f77c2bddc1f5"
+            name="CocoaDuck"
+            isActor="false"
+            lifelineDisplayName="CocoaDuck">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="04d69729-7711-40ca-affb-f864d05731e7"
+                LastKnownName="ExecutionOccurrenceSpecification1"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="62587fd7-543b-42e0-911e-9010e463a63b"
+                LastKnownName="ExecutionOccurrenceSpecification2"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="b18fba9c-a852-4fa0-abb0-a99e364206b3"
+                LastKnownName="ExecutionOccurrenceSpecification7"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="d40f1dc2-c6b9-44aa-a0f3-1bdcd904d7ac"
+                LastKnownName="ExecutionOccurrenceSpecification8"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="2fd42c96-f523-49b5-b590-4be32774e089"
+                LastKnownName="ExecutionOccurrenceSpecification17"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="9ad83951-a75b-4b84-9357-0a6ccd0882f7"
+                LastKnownName="ExecutionOccurrenceSpecification18"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="ca6bef79-f3a0-4ba0-88ad-e08793e2f540"
+            name="Facebook"
+            isActor="false"
+            lifelineDisplayName="Facebook">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="73a2d715-e722-4a0a-b7b5-d3a5914a3b62"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="335c66ef-ebdf-486a-9890-26e906739080"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="032dbad1-d4ae-4c23-ab88-e78054be3db0"
+            name="Mongo baza"
+            isActor="false"
+            lifelineDisplayName="Mongo baza">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="15880be9-3cb1-4939-bb85-0c79b599634e"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="3e1228d2-262f-462f-81a9-a614d240bd4d"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="ae92a709-071c-47de-a7ee-e71370a6219d"
+                LastKnownName="ExecutionOccurrenceSpecification11"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="b5330950-8619-44f4-b50f-3af69eebf71f"
+                LastKnownName="ExecutionOccurrenceSpecification12"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="c8bfbfd1-089d-4f61-82c2-1dcd055f26e7"
+            name="Youtube"
+            isActor="false"
+            lifelineDisplayName="Youtube">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="2d29c193-bb37-4cbd-b3fb-ce12cad7ae81"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="1d91937e-160f-4814-8bff-c3323f7feac3"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="b07fa096-3141-40ce-abd9-491dfc1c2347"
+            name="OSDB"
+            isActor="false"
+            lifelineDisplayName="OSDB">
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker
+                Id="d519d03a-fa8d-4dfd-a4ef-32e9494c7478"
+                LastKnownName="ExecutionOccurrenceSpecification19"
+                LastKnownLocation="sekvencijalni.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="3d96cddc-a990-47ea-a0b6-51ce3c1b189e"
+                LastKnownName="ExecutionOccurrenceSpecification20"
+                LastKnownLocation="sekvencijalni.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="c02eaf72-d74c-4675-aba6-998cecc20526"
+            name="Prijava na sustav"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="11e46ce1-bf29-4621-8e3e-818890501799"
+                LastKnownName="MessageOccurrenceSpecification1"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="aeb33326-0b80-4b4f-8911-7676b663209b"
+                LastKnownName="MessageOccurrenceSpecification2"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="ed4ebb7e-7113-4ae6-b684-c4c7fbe6d5cf"
+            name="Dozvole za facebook podatke "
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="da771035-3b0e-479f-9c02-bcee47df481d"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b867e793-dfc7-4f79-89ac-9e8f8a53189b"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="a5b4d68b-a705-4d89-a35d-6356597fac3e"
+            name="Facebook podaci"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9ca5074f-7470-46b0-ac27-50c61fcec045"
+                LastKnownName="MessageOccurrenceSpecification7"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="415508e3-cf33-4318-8d7e-d4e412b292bc"
+                LastKnownName="MessageOccurrenceSpecification8"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="b3fca924-0da8-460c-a3f8-b918e37b14c5"
+            name="Spremanje/ažuriranje postojećih podataka, izračunavanje preporuke"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b22d790b-6658-46f5-8731-df5ab52f2392"
+                LastKnownName="MessageOccurrenceSpecification9"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f5494f8d-2783-4cf2-be97-3fb407c43a93"
+                LastKnownName="MessageOccurrenceSpecification10"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="cc90729d-f036-40a4-87f8-0ca9b408a86a"
+            name="Preporučeni filmovi"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="92364ce3-142c-4808-a5eb-7813a92350f9"
+                LastKnownName="MessageOccurrenceSpecification11"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="2ddbcb0f-bb04-404b-8416-78c23d891609"
+                LastKnownName="MessageOccurrenceSpecification12"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="d44c4f93-624b-4621-b168-5b6f0e628d61"
+            name="Preporučeni filmovi za korisnika"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8de81a13-c6e0-4eea-9817-ee47c33e3b5c"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="558cead2-a399-40d6-87f6-0b1ca90388dd"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="5bff8c4b-7c5d-459c-ab11-552c366c7926"
+            name="Odabir filma za pregled"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="09fe55fd-fe9e-41ab-9326-0530c4c28165"
+                LastKnownName="MessageOccurrenceSpecification13"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="653cbb6a-bf28-4773-9844-f6a9d9b74c35"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="9a54a115-2c2e-4531-933a-1bc322d529d1"
+            name="Dohvat filma"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="73fef711-acc1-4e18-b11c-5b64b6e72530"
+                LastKnownName="MessageOccurrenceSpecification19"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="12d83e74-a37a-4544-add0-172877758b8c"
+                LastKnownName="MessageOccurrenceSpecification20"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="ffd018ef-8a38-4b5b-a98e-6a19775e3da3"
+            name="Film"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="677c8e1d-faee-4734-8651-e7b864526a51"
+                LastKnownName="MessageOccurrenceSpecification21"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9014fb00-12c6-4489-861f-b8371b036cd4"
+                LastKnownName="MessageOccurrenceSpecification22"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="71225109-c8e0-4371-a480-da2e4961b450"
+            name="Dohvat trailera za film"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8521785a-d8e6-4aa5-a322-95b68eec52b4"
+                LastKnownName="MessageOccurrenceSpecification23"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="674b3721-f6c6-466f-aedd-eaeebb500935"
+                LastKnownName="MessageOccurrenceSpecification24"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="d5012c7c-735c-4f35-b5b4-8c16cd1ab64a"
+            name="Trailer"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="38ec25d1-f89e-44b9-b99d-9753e9991278"
+                LastKnownName="MessageOccurrenceSpecification25"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="63a50e67-12a9-4d3c-aac5-88b157cb8736"
+                LastKnownName="MessageOccurrenceSpecification26"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="6e2f4d91-847a-4057-85e9-4b8966610c4a"
+            name="Podaci o filmu i trailer"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8a4e7576-ce7d-4f51-9999-7bac33fb7c18"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="90b70253-c15f-45aa-b5fe-23e4272cb141"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="42759583-96c8-4a69-be13-251ef465b701"
+            name="Dohvat titlova za odabrani film"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b627d92e-f1d9-416c-bd5e-7fe61648861b"
+                LastKnownName="MessageOccurrenceSpecification31"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f40c8c62-ac02-4786-b96b-95882755bb74"
+                LastKnownName="MessageOccurrenceSpecification32"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="3b3002f9-0418-490b-a31f-f88224de806a"
+            name="Dohvat linka za download"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="a69d9ff1-b2ff-4f0c-aa06-fc8d0bf22a28"
+                LastKnownName="MessageOccurrenceSpecification35"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="2678e260-8cdc-4573-80d8-ca66ce4a6074"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="09009813-fbfa-4c57-9e63-01238a9258d5"
+            name="Link za download titlova"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f59da2d8-3669-47da-bfa4-88a4ee4832a5"
+                LastKnownName="MessageOccurrenceSpecification33"
+                LastKnownLocation="sekvencijalni.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="6dc2a044-0d7f-4ce6-9a19-3aa883cdfd2f"
+                LastKnownName="MessageOccurrenceSpecification34"
+                LastKnownLocation="sekvencijalni.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="b8ed178b-ff37-4793-bfc8-8c8825219730"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="c47c34a3-4f51-4726-84cb-bcf7e7b346b9"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="f92ba937-c696-4adb-a19b-b14b68e41f11"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="c6b37858-dda7-4780-9e27-4fa62d393422"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="7bd80bed-e7c4-4c6e-a35e-2194e25a9509"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="fc27acf4-1818-473a-aa92-cbad6481cc72"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="441f8623-6c43-48d6-b50d-8c2815bb6271"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="2b54a092-d37d-4459-abcd-e58ba2f7679d"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="a3a78287-56b3-4df9-9f06-cc2b1fa4e979"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="d216182f-d148-4585-a109-eb8039b3f994"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="6932dc4b-17eb-460b-be8a-7edec22dcbc7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="4bea2774-f700-430a-b226-4d975de4ce21"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="52a2507f-f727-484f-8a18-2758bcd978b7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="5126cf58-d4dd-4ba2-9c9f-3123fc0e6399"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="b1d02380-5c96-49aa-8bf2-571671b41483"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="09f1da55-4d58-4c42-a8e6-7bf9bee18761"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
