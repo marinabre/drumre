@@ -97,16 +97,16 @@ namespace BLL
         }
 
         //Kombiniranje preporuka:
-        //Prva funkcija uzima sve parametre u obzir - Recomendus Maximus
-        //Druga funkcija uzima u obzir samo koje vrste preporuka se koriste; ostale vrijednosti budu default (4,5,10,false,-1,0,0)
+        //Prva funkcija uzima sve parametre u obzir, ali isti uvjeti vrijede za frendove i community- Recomendus Maximus
+        //Druga funkcija uzima u obzir samo koje vrste preporuka se koriste; ostale vrijednosti budu default (4,5,10,false,-1,0,0), isti uvjeti vrijede za friends i everybody
         //Treća funkcija je najseksi - to je u pravilu druga funkcija sa (true, true, true) - Recomendus Minimus
+        //Četvrta funkcija je GODLIKE - posebno postavlja za frendače, a posebno za comunity uvjete
         public static IList<Movie> Recommend(Person person, bool profile, bool friends, bool everybody, int genre, int actor, int director, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
             IList<Movie> recommendation = new List<Movie>();
             if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile, genre, actor, director)).ToList();
 
-            //nemoj dohvaćat od frendača ako ćeš od svih ljudi, jer frendači ionak spadaju pod sve ljude:
-            if (friends && !everybody) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();
+            if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();
             if (everybody) recommendation = recommendation.Union(RecommendMoviesFromEverybody(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();
             return recommendation;
         }
@@ -115,15 +115,28 @@ namespace BLL
             IList<Movie> recommendation = new List<Movie>();
             if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile)).ToList();
 
-            //nemoj dohvaćat od frendača ako ćeš od svih ljudi, jer frendači ionak spadaju pod sve ljude:
-            if (friends && !everybody) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, false, -1, 0, 0)).ToList();
-            if (everybody) recommendation = recommendation.Union(RecommendMoviesFromEverybody(person, false, -1, 0, 0)).ToList();
+            if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, false, -1, 0, 0)).ToList();
+            if (everybody) recommendation = recommendation.Union(RecommendMoviesFromEverybody(person, false, -1, 0, 1)).ToList();
             return recommendation;
         }
         public static IList<Movie> Recommend(Person person)
         {
             return Recommend(person, true, true, true);
         }
+
+        //Recommender GODLIKE - uzima sve parametre, ide točno po redu kak smo nacrtali na papiru(prvo frendaći, a onda svi); naravno predaš boolove jel se uopće koristi koja pretraga
+        public static IList<Movie> Recommend(Person person, bool profile, bool friends, bool everybody, int genre, int actor, int director,
+            bool FsameGender, int FmaxAgeDiff, int FminFriends, int FminMovies, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
+        {
+            IList<Movie> recommendation = new List<Movie>();
+            if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile, genre, actor, director)).ToList();
+
+            if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, FsameGender, FmaxAgeDiff, FminFriends, FminMovies)).ToList();
+            if (everybody) recommendation = recommendation.Union(RecommendMoviesFromEverybody(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();
+            return recommendation;
+        }
+
+
 
         public static IList<Movie> FilterResults(IList<Movie> movies, Filter filter)
         {

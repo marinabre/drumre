@@ -542,18 +542,20 @@ namespace Projekt.Controllers
             }
             catch (RuntimeBinderException) { }
 
-            Person me = new Person
-            {
-                PersonID = myInfo.id,
-                Name = myInfo.first_name,
-                Surname = myInfo.last_name,
-                Birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
-                LikedMovies = movieList,
-                Watches = watchesList,
-                Wants = wantsList,
-                Email = myInfo.email,
-                Gender = myInfo.gender,                
-            };
+            //Person me = new Person
+            //{
+            //    PersonID = myInfo.id,
+            //    Name = myInfo.first_name,
+            //    Surname = myInfo.last_name,
+            //    Birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+            //    LikedMovies = movieList,
+            //    Watches = watchesList,
+            //    Wants = wantsList,
+            //    Email = myInfo.email,
+            //    Gender = myInfo.gender,                
+            //};
+            Person me = new Person(myInfo.id, myInfo.first_name, myInfo.last_name, myInfo.gender, DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+                movieList, watchesList, wantsList);
             
             me.Friends = new List<String>();
             foreach (dynamic friend in friendsFB.data)

@@ -98,6 +98,7 @@ namespace BLL
             foreach (string id in me.Friends)
             {
                 Person friend = GetPersonById(id);
+                if (friend == null) continue;
                 Match match = new Match(me, friend);
                 if (gender != false && match.sameGender == false) continue;
                 if (maxAgeDiff != -1 && match.ageDiff > maxAgeDiff) continue;
