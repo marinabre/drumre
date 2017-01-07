@@ -57,18 +57,18 @@ namespace Testovi
         //    Assert.AreEqual(1, 1);
         //}
 
-        [TestMethod]
-        public void ProfileBuild()
-        {
-            Person person = PersonRepository.GetPersonByName("Marina");
-            person.Profile = new Profile(person);
-            var db = MongoInstance.GetDatabase;
-            var persons = db.GetCollection<Person>("testPerson");
-            persons.ReplaceOne(p => p.Email == person.Email,
-                person,
-                new UpdateOptions { IsUpsert = true });
-            Assert.AreEqual(1, 2);
-        }
+        //[TestMethod]
+        //public void ProfileBuild()
+        //{
+        //    Person person = PersonRepository.GetPersonByName("Marina");
+        //    person.Profile = new Profile(person);
+        //    var db = MongoInstance.GetDatabase;
+        //    var persons = db.GetCollection<Person>("testPerson");
+        //    persons.ReplaceOne(p => p.Email == person.Email,
+        //        person,
+        //        new UpdateOptions { IsUpsert = true });
+        //    Assert.AreEqual(1, 2);
+        //}
 
         //[TestMethod]
         //public void TopActors()
@@ -185,12 +185,12 @@ namespace Testovi
 
         //}
 
-        [TestMethod]
-        public void BuildInesProfiles()
-        {
-            Person Ines = PersonRepository.GetPersonByName("Ines");
-            PersonRepository.BuildProfile(Ines);
-        }
+        //[TestMethod]
+        //public void BuildInesProfiles()
+        //{
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
+        //    PersonRepository.BuildProfile(Ines);
+        //}
 
         //[TestMethod]
         //public void TestNullYear()
@@ -219,27 +219,36 @@ namespace Testovi
         //    Assert.AreEqual(0, res.Count);
         //}
 
-        [TestMethod]
-        public void Search()
-        {
-            //isprobajte ovdi sve:
-            Filter filter = new Filter();
-            filter.Actors = new List<String>();
-            filter.Actors.Add("Keanu Reeves");
-            filter.Actors.Add("Al Pacino");
-            //filter.YearFrom = 2011;
-            //filter.IMDBRatingFrom = 9;
+        //[TestMethod]
+        //public void Search()
+        //{
+        //    //isprobajte ovdi sve:
+        //    Filter filter = new Filter();
+        //    filter.Actors = new List<String>();
+        //    filter.Actors.Add("Keanu Reeves");
+        //    filter.Actors.Add("Al Pacino");
+        //    //filter.YearFrom = 2011;
+        //    //filter.IMDBRatingFrom = 9;
 
 
-            var res = MovieRepository.SearchFilter(filter);
-            Assert.AreEqual(0, res.Count());
-        }
+        //    var res = MovieRepository.SearchFilter(filter);
+        //    Assert.AreEqual(0, res.Count());
+        //}
 
         //[TestMethod]
         //public void meh()
         //{
         //    PersonRepository.meh();
         //}
+
+        [TestMethod]
+        public void deleteProfile()
+        {
+            Person p = PersonRepository.GetPersonByName("Ines");
+            PersonRepository.DeleteProfile(p);
+            p = PersonRepository.GetPersonByName("Ana");
+            PersonRepository.DeleteProfile(p);
+        }
 
     }
 }

@@ -65,8 +65,8 @@ namespace BLL
             foreach (Person p in friends)
             {
                 Person friend = p;
-                if (friend.Profile == null)
-                    friend = PersonRepository.BuildAndGetProfile(friend);
+                if (p.Profile == null)
+                    friend = PersonRepository.BuildAndGetProfile(p);
                 recommendation = recommendation.Union(friend.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
@@ -75,11 +75,14 @@ namespace BLL
         {
             IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
             foreach (Person somebody in people)
             {
                 Person p = somebody;
-                if (person.Profile == null)
-                    p = PersonRepository.BuildAndGetProfile(person);
+
+                if (somebody.Profile == null)
+                    p = PersonRepository.BuildAndGetProfile(somebody);
                 recommendation = recommendation.Union(p.Profile.LikedMovies).ToList();
             }
             return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();

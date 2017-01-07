@@ -22,5 +22,28 @@ namespace BLL
         public IList<FBMovie> Wants { get; set; }
         public IList<string> Friends { get; set; }
         public Profile Profile { get; set; }
+
+        public Person() { }
+
+        public Person (Person p)
+        {
+            this.Profile = Profile;
+            this.PersonID = p.PersonID;
+            this.Name = p.Name;
+            this.Surname = p.Surname;
+            this.Email = p.Email;
+            this.Gender = p.Gender;
+            this.Birthday = p.Birthday;
+            this.LikedMovies = new List<FBMovie>(p.LikedMovies);
+            this.Watches = new List<FBMovie>(p.Watches);
+            this.Wants = new List<FBMovie>(p.Wants);
+            this.Friends = new List<string>(p.Friends);
+            
+
+        }
+
+
+
+
     }
 }

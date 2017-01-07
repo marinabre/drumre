@@ -166,5 +166,15 @@ namespace BLL
             return person;
         }
 
+        public static void DeleteProfile(Person person)
+        {
+            var db = MongoInstance.GetDatabase;
+            var persons = db.GetCollection<Person>("Person");
+            person.Profile = null;
+            persons.ReplaceOne(p => p.Email == person.Email,
+                person,
+                new UpdateOptions { IsUpsert = true });
+        }
+
     }
 }
