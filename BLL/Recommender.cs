@@ -20,7 +20,7 @@ namespace BLL
         {
             if (person.Profile == null)
                 person = PersonRepository.BuildAndGetProfile(person);
-            return RecommendMoviesFromProfile(person.Profile, genre, actor, director);
+            return RecommendMoviesFromProfile(person.Profile, genre, actor, director).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
         }
         public static IList<Movie> RecommendMoviesFromProfile(Profile profile, int genre, int actor, int director)
         {
@@ -67,7 +67,7 @@ namespace BLL
                     friend = PersonRepository.BuildAndGetProfile(p);
                 recommendation = recommendation.Union(friend.Profile.LikedMovies).ToList();
             }
-            return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
+            return recommendation.Where(x => !person.Profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
         }
         public static IList<Movie> RecommendMoviesFromEverybody(Person person, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
@@ -84,7 +84,7 @@ namespace BLL
                     p = PersonRepository.BuildAndGetProfile(somebody);
                 recommendation = recommendation.Union(p.Profile.LikedMovies).ToList();
             }
-            return recommendation.Except(person.Profile.LikedMovies).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
+            return recommendation.Where(x => !person.Profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
         }
 
         //Preporuka na temelju liste filmova
