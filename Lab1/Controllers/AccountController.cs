@@ -487,7 +487,7 @@ namespace Projekt.Controllers
             IList<BLL.FBMovie> movieList = new List<BLL.FBMovie>();
             IList<BLL.FBMovie> watchesList = new List<BLL.FBMovie>();
             IList<BLL.FBMovie> wantsList = new List<BLL.FBMovie>();
-            IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
+            //IList<BLL.MovieDetails> detailedMovieList = new List<BLL.MovieDetails>();
 
             //dohvat i spremanje kategorije Likes:
             try
@@ -500,7 +500,7 @@ namespace Projekt.Controllers
                         Id = fbMovie.id
                     };
                     movieList.Add(movie);
-                    detailedMovieList.Add(AddToDbIfNotExist(movie));
+                    //detailedMovieList.Add(AddToDbIfNotExist(movie));
                 }
             } catch (RuntimeBinderException)
             {
