@@ -243,13 +243,17 @@ namespace Projekt.Controllers
 
         public ActionResult Recommend()
         {
-            return View();
+            var recommend = new RecommendViewModel();
+            return View(recommend);
         }
 
         [HttpPost]
         public ActionResult Recommend(int Genres, int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Movies, List<string> Friends)
         {
-            return View("RecommendResults");
+            var person = PersonRepository.GetPersonByEmail(User.Identity.Name, true);
+            Recommender.Recommend(person, true, true, true, Genres, Actors, Directors, Gender, MaxAgeDifference, MinimalFriendsTogether, MinimalMoviesTogether);
+            var movies = new SimpleMovieViewModel();
+            return View("RecommendResults", movies);
         }
 
         public ActionResult About()

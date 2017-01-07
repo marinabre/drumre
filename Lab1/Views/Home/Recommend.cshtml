@@ -1,0 +1,145 @@
+﻿@model Projekt.Models.RecommendViewModel
+
+@{
+    ViewBag.Title = "Recommend";
+}
+
+<script type="text/javascript" src="/Scripts/GiantHat.js"></script>
+
+<h2>Recommend</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div  class="Profile">
+            <h3>Profile based recommendations</h3>
+         </div>
+        <p>
+            Here you can pick out numeric values for given properties of movies.
+            Values here represent the number of your top favourites which will be used to 
+            recommend movies for you.
+        </p>
+        <hr />
+        <div class="ProfileDetails">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="range" class="form-control" id="Genres" name="Genres" min="0" max="20" value="10" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="range" class="form-control" id="Actors" name="Actors" min="0" max="20" value="10" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Directors, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="range" class="form-control" id="Directors" name="Directors" min="0" max="20" value="10" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="Friends">
+            <h3>Friends based recommendations</h3>
+        </div>        
+        <p>
+            This group of recommending properties are based on what you share with your facebook friends.            
+        </p>
+        <hr />
+        <div class="FriendsDetails">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Gender)
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxAgeDifference, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaxAgeDifference, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaxAgeDifference, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinimalFriendsTogether, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MinimalFriendsTogether, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MinimalFriendsTogether, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinimalMoviesTogether, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MinimalMoviesTogether, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MinimalMoviesTogether, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>        
+
+        <div class="Community">
+            <h3>Community based recommendations</h3>
+        </div>        
+        <p>
+            Something something giant hat.
+        </p>
+        <hr />
+        <div class="CommunityDetails">
+            <div class="form-group">
+                @Html.LabelFor(model => model.GenderComm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.GenderComm)
+                        @Html.ValidationMessageFor(model => model.GenderComm, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MaxAgeDifferenceComm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MaxAgeDifferenceComm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaxAgeDifferenceComm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinimalFriendsTogetherComm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MinimalFriendsTogetherComm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MinimalFriendsTogetherComm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinimalMoviesTogetherComm, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MinimalMoviesTogetherComm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MinimalMoviesTogetherComm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Recommend me something!" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
