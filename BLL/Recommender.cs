@@ -19,14 +19,12 @@ namespace BLL
         public static IList<Movie> RecommendMoviesFromProfile(Person person, int genre, int actor, int director)
         {
             if (person.Profile == null)
-            {
-                //person.Profile = new Profile(person);
                 person = PersonRepository.BuildAndGetProfile(person);
-            }
             return RecommendMoviesFromProfile(person.Profile, genre, actor, director);
         }
         public static IList<Movie> RecommendMoviesFromProfile(Profile profile, int genre, int actor, int director)
         {
+            if (profile == null) return null;
             if (genre == 0 && actor == 0 && director == 0) return null;
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
@@ -43,7 +41,7 @@ namespace BLL
                 return new List<Movie>();
 
             var filter = genreFilter & actorsFilter & directorsFilter;
-            return movies.Find(filter).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
+            return movies.Find(filter).Limit(150).ToList().Where(x => !profile.LikedMovies.Any(y => y.IMDbId == x.IMDbId)).ToList();
         }
         public static IList<Movie> RecommendMoviesFromProfile(Profile profile)
         {
@@ -75,6 +73,7 @@ namespace BLL
         {
             IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
+
             if (person.Profile == null)
                 person = PersonRepository.BuildAndGetProfile(person);
             foreach (Person somebody in people)
