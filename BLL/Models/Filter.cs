@@ -26,6 +26,9 @@ namespace BLL.Models
         public int? YearFrom { get; set; }
         public int? YearTo { get; set; }
 
+        public int? RuntimeFrom { get; set; }
+        public int? RuntimeTo { get; set; }
+
         public double? IMDBRatingFrom { get; set; }
         public double? IMDBRatingTo { get; set; }
 

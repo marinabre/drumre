@@ -15,6 +15,14 @@ namespace BLL
             if (result.Count() > 0) return result.First();
             else return null;
         }
+        public static List<Person> GetPeople()
+        {
+            var db = MongoInstance.GetDatabase;
+            var people = db.GetCollection<Person>("Person");
+            var result = people.Find(Builders<Person>.Filter.Empty);
+            if (result.Count() > 0) return result.ToList();
+            else return null;
+        }
 
         public static Person GetPersonById(string id, bool buildProfileIfNotExists)
         {
@@ -140,6 +148,7 @@ namespace BLL
                 person,
                 new UpdateOptions { IsUpsert = true });
         }
+
 
         public static Person BuildAndGetProfile(Person person)
         {

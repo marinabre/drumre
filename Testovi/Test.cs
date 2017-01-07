@@ -78,19 +78,22 @@ namespace Testovi
         //    Assert.AreEqual(1, top.Count);
         //}
 
-        //[TestMethod]
-        //public void RecommendFromProfile()
-        //{
-        //    var db = MongoInstance.GetDatabase;
-        //    db.DropCollection("results");
-        //    var collection = db.GetCollection<Movie>("results");
-        //    Person Ana = PersonRepository.GetPersonByName("Ana", "testPerson");
+        [TestMethod]
+        public void RecommendFromProfile()
+        {
+            //var db = MongoInstance.GetDatabase;
+            //db.DropCollection("results");
+            //var collection = db.GetCollection<Movie>("results");
+            Person Ana = PersonRepository.GetPersonByName("Tena");
 
-        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
-        //    foreach (Movie m in rec)
-        //        collection.InsertOne(m);
-        //    Assert.AreEqual(1, rec.Count);
-        //}
+            Ana.Profile.FavouriteActors.Add("Keanu Reeves", 1);
+            
+
+            IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ana.Profile, 4, 5, 10);
+            //foreach (Movie m in rec)
+            //    collection.InsertOne(m);
+            Assert.AreEqual(1, rec.Count);
+        }
 
         //[TestMethod]
         //public void RecommendFromFriends()
@@ -156,24 +159,24 @@ namespace Testovi
         //}
 
 
-        [TestMethod]
-        public void TestNullYear()
-        {
-            Person Ana = PersonRepository.GetPersonByName("Ana");
-            var profile = new Profile(Ana);
-            IList<string> genres = new List<string>();
+        //[TestMethod]
+        //public void TestNullYear()
+        //{
+        //    Person Ana = PersonRepository.GetPersonByName("Ana");
+        //    var profile = new Profile(Ana);
+        //    IList<string> genres = new List<string>();
 
-            genres.Add("Action");
-            //genres.Add("Drama");
-            Filter f = new Filter(genres);
-            f.YearFrom = 1999;
-            f.IMDBRatingFrom = 7;
+        //    genres.Add("Action");
+        //    //genres.Add("Drama");
+        //    Filter f = new Filter(genres);
+        //    f.YearFrom = 1999;
+        //    f.IMDBRatingFrom = 7;
 
-            var res = FilterResults(profile.LikedMovies, f);
-            Assert.AreEqual(0, res.Count);
-            //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
+        //    var res = FilterResults(profile.LikedMovies, f);
+        //    Assert.AreEqual(0, res.Count);
+        //    //Assert.AreNotEqual(profile.LikedMovies.Count, res.Count);
 
-        }
+        //}
 
     }
 }

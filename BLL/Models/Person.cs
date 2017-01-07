@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace BLL
 {
+    [BsonIgnoreExtraElements]
     public class Person
     {
         [BsonId]

@@ -24,14 +24,49 @@ namespace DohvatPodataka
             var prog = new Program();
            // int movies = 0;
             List<TVShow> shows = new List<TVShow>();
-            Task.Run(async () =>
-            {
-              //  movies = await prog.IMDB();
-                shows = await prog.IMDB_shows();
-                num = shows.Count();
+            //Task.Run(async () =>
+            //{
 
-            }).GetAwaiter().GetResult();
-            Console.WriteLine("Povučeno je " + num + "serija\n");
+
+            //    //  movies = await prog.IMDB();
+            //    //shows = await prog.IMDB_shows();
+            //    // num = shows.Count();
+
+            //}).GetAwaiter().GetResult();
+            Baza baza = new Baza();
+            MovieRepository repo = new MovieRepository();
+            var people = PersonRepository.GetPeople();
+            foreach (var person in people)
+            {
+                if (person.Profile != null)
+                {
+                    foreach (var movie in person.Profile.LikedMovies)
+                    {
+                        try
+                        {
+                            if (movie.IMDbId != null)
+                            {
+                                repo.FBData(movie.IMDbId);
+                            }
+
+                        }
+                        catch { }
+                    }
+                }
+            }
+            //for (int i = 145; i < 237122; i+=10)
+            //{
+            //    var idevi = baza.GetMoviesIMDbId(i, 10);
+            //    foreach (var item in idevi)
+            //    {
+            //        try
+            //        {
+            //            movieRepo.FBData(item);
+            //        }
+            //        catch { }
+            //        }
+            //}
+            Console.WriteLine("Povučeno je !");
            // Console.WriteLine(shows.Count);
             Console.ReadLine();
 
