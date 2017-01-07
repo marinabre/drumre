@@ -475,7 +475,13 @@ namespace Projekt.Controllers
             var access_token = claimsforUser.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
             var fb = new FacebookClient(access_token);
             //Specify what info we are getting from Facebook:
-            dynamic myInfo = fb.Get("me?fields=id,email,gender,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch,friends");
+            //dynamic myInfo = fb.Get("me?fields=id,email,gender,first_name,last_name,birthday,movies,video.watches,video.wants_to_watch,friends");
+            dynamic myInfo = fb.Get("me?fields=id,email,gender,first_name,last_name,birthday");
+            dynamic moviesFB = fb.Get("me/movies?limit=200");
+            dynamic watchesFB = fb.Get("me/video.watches?limit=200");
+            dynamic wantsFB = fb.Get("me/video.wants_to_watch?limit=200");
+            dynamic friendsFB = fb.Get("me/friends?limit=200");
+
 
             //Process results:
             IList<BLL.FBMovie> movieList = new List<BLL.FBMovie>();
@@ -486,7 +492,7 @@ namespace Projekt.Controllers
             //dohvat i spremanje kategorije Likes:
             try
             {
-                foreach (dynamic fbMovie in myInfo.movies.data)
+                foreach (dynamic fbMovie in moviesFB.data)
                 {
                     BLL.FBMovie movie = new BLL.FBMovie()
                     {
@@ -505,8 +511,8 @@ namespace Projekt.Controllers
             //dohvat i spremanje kategorije Watched:
             try
             {
-                dynamic watches = GetProperty(myInfo, "video.watches");
-                foreach (dynamic fbMovie in watches.data)
+                //dynamic watches = GetProperty(myInfo, "video.watches");
+                foreach (dynamic fbMovie in watchesFB.data)
                 {
                     BLL.FBMovie movie = new BLL.FBMovie()
                     {
@@ -522,8 +528,8 @@ namespace Projekt.Controllers
             //dohvat i spremanje kategorije Wants To Watch:
             try
             {
-                dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
-                foreach (dynamic fbMovie in wants.data)
+                //dynamic wants = GetProperty(myInfo, "video.wants_to_watch");
+                foreach (dynamic fbMovie in wantsFB.data)
                 {
                     BLL.FBMovie movie = new BLL.FBMovie()
                     {
@@ -550,7 +556,7 @@ namespace Projekt.Controllers
             };
             
             me.Friends = new List<String>();
-            foreach (dynamic friend in myInfo.friends.data)
+            foreach (dynamic friend in friendsFB.data)
             {
                 string f = friend.id;
                 me.Friends.Add(f);

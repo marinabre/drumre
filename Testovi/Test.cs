@@ -248,6 +248,10 @@ namespace Testovi
             PersonRepository.DeleteProfile(p);
             p = PersonRepository.GetPersonByName("Ana");
             PersonRepository.DeleteProfile(p);
+            p = PersonRepository.GetPersonByName("Tena");
+            PersonRepository.DeleteProfile(p);
+            p = PersonRepository.GetPersonByName("Marina");
+            PersonRepository.DeleteProfile(p);
         }
 
     }
