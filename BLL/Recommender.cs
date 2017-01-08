@@ -26,7 +26,7 @@ namespace BLL
         public static IList<Movie> RecommendMoviesFromProfile(Profile profile, int genre, int actor, int director)
         {
             if (profile == null) return null;
-            if (genre == 0 && actor == 0 && director == 0) return null;
+            if (genre == 0 && actor == 0 && director == 0) return new List<Movie>(); //inače bi dohvatilo cijelu bazu
             var db = MongoInstance.GetDatabase;
             var movies = db.GetCollection<Movie>("movies");
 
@@ -159,11 +159,21 @@ namespace BLL
             IEnumerable<Movie> result = movies;
 
             if (filter.Genres != null)
-                result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
+            {
+                if (filter.Genres.Count > 0)
+                    result = result.Where(m => m.Genres.Any(g => filter.Genres.Contains(g.Name)));
+            }
             if (filter.Actors != null)
-                result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
+            {
+                if (filter.Actors.Count > 0)
+                    result = result.Where(m => m.Credits.Cast.Any(g => filter.Actors.Contains(g.Name)));
+            }
+                
             if (filter.Directors != null)
-                result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+            {
+                if (filter.Directors.Count > 0)
+                    result = result.Where(m => m.Credits.Cast.Any(g => filter.Directors.Contains(g.Name)));
+            }
 
             if (filter.YearFrom != null)
                 result = result.Where(m => m.ReleaseDate.HasValue == true).Where(m => m.ReleaseDate.Value.Year >= filter.YearFrom);
