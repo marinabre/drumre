@@ -32,4 +32,14 @@
         $("#Community").prop("checked", false);
             $(".CommunityDetails").addClass("hidden");
         }    });
+
+     $(document).on("click",".Filter",function() {
+        if ($(".FilterDetails").hasClass("hidden")) {
+        $("#Filter").prop("checked", true);
+            $(".FilterDetails").removeClass("hidden");
+        }
+        else {
+        $("#Filter").prop("checked", false);
+            $(".FilterDetails").addClass("hidden");
+        }    });
   

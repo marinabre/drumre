@@ -80,7 +80,19 @@ namespace BLL.Models
 
         public bool isEmpty()
         {
-            if (this == new Filter()) return true;
+            if (this.Genres == null &
+            this.Actors == null &
+            this.Directors == null &
+            this.YearFrom == null &
+            this.YearTo == null &
+            this.IMDBRatingFrom == null &
+            this.IMDBRatingTo == null &
+            this.MetascoreRatingFrom == null &
+            this.MetascoreRatingTo == null &
+            this.FBSharesFrom == null &
+            this.FBSharesTo == null &
+            this.FBLikesFrom == null &
+            this.FBLikesTo == null) return true;
             return false;
         }
     }

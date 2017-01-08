@@ -78,58 +78,58 @@ namespace Testovi
         //    Assert.AreEqual(1, top.Count);
         //}
 
-        [TestMethod]
-        public void RecommendFromProfile()
-        {
-            //var db = MongoInstance.GetDatabase;
-            //db.DropCollection("results");
-            //var collection = db.GetCollection<Movie>("results");
-            Person Ines = PersonRepository.GetPersonByName("Ines");
+        //[TestMethod]
+        //public void RecommendFromProfile()
+        //{
+        //    //var db = MongoInstance.GetDatabase;
+        //    //db.DropCollection("results");
+        //    //var collection = db.GetCollection<Movie>("results");
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
 
-            IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ines.Profile, 4, 5, 10);
-            //foreach (Movie m in rec)
-            //    collection.InsertOne(m);
-            Assert.AreNotEqual(0, rec.Count);
-        }
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromProfile(Ines.Profile, 4, 5, 10);
+        //    //foreach (Movie m in rec)
+        //    //    collection.InsertOne(m);
+        //    Assert.AreNotEqual(0, rec.Count);
+        //}
 
-        [TestMethod]
-        public void RecommendFromFriends()
-        {
-            //var db = MongoInstance.GetDatabase;
-            //var collection = db.GetCollection<Movie>("results");
-            Person Ines = PersonRepository.GetPersonByName("Ines");
+        //[TestMethod]
+        //public void RecommendFromFriends()
+        //{
+        //    //var db = MongoInstance.GetDatabase;
+        //    //var collection = db.GetCollection<Movie>("results");
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
 
-            IList<Movie> rec = Recommender.RecommendMoviesFromFriends(Ines, false, -1, 0, 0);
-            //foreach (Movie m in rec)
-            //    collection.InsertOne(m);
-            Assert.AreNotEqual(0, rec.Count);
-        }
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromFriends(Ines, false, -1, 0, 0);
+        //    //foreach (Movie m in rec)
+        //    //    collection.InsertOne(m);
+        //    Assert.AreNotEqual(0, rec.Count);
+        //}
 
-        [TestMethod]
-        public void RecommendFromEverybody()
-        {
-            //var db = MongoInstance.GetDatabase;
-            //var collection = db.GetCollection<Movie>("results");
-            Person Ines = PersonRepository.GetPersonByName("Ines");
+        //[TestMethod]
+        //public void RecommendFromEverybody()
+        //{
+        //    //var db = MongoInstance.GetDatabase;
+        //    //var collection = db.GetCollection<Movie>("results");
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
 
-            IList<Movie> rec = Recommender.RecommendMoviesFromEverybody(Ines, false, -1, 0, 0);
-            //foreach (Movie m in rec)
-            //    collection.InsertOne(m);
-            Assert.AreNotEqual(0, rec.Count);
-        }
+        //    IList<Movie> rec = Recommender.RecommendMoviesFromEverybody(Ines, false, -1, 0, 0);
+        //    //foreach (Movie m in rec)
+        //    //    collection.InsertOne(m);
+        //    Assert.AreNotEqual(0, rec.Count);
+        //}
 
-        [TestMethod]
-        public void RecommendusMinimus()
-        {
-            //var db = MongoInstance.GetDatabase;
-            //var collection = db.GetCollection<Movie>("results");
-            Person Ines = PersonRepository.GetPersonByName("Ines");
+        //[TestMethod]
+        //public void RecommendusMinimus()
+        //{
+        //    //var db = MongoInstance.GetDatabase;
+        //    //var collection = db.GetCollection<Movie>("results");
+        //    Person Ines = PersonRepository.GetPersonByName("Ines");
 
-            IList<Movie> rec = Recommender.Recommend(Ines);
-            //foreach (Movie m in rec)
-            //    collection.InsertOne(m);
-            Assert.AreNotEqual(0, rec.Count);
-        }
+        //    IList<Movie> rec = Recommender.Recommend(Ines);
+        //    //foreach (Movie m in rec)
+        //    //    collection.InsertOne(m);
+        //    Assert.AreNotEqual(0, rec.Count);
+        //}
 
 
         //[TestMethod]
@@ -284,6 +284,17 @@ namespace Testovi
         //    Assert.AreEqual("bla", Best);
 
         //}
+
+        [TestMethod]
+        public void RecommendFilter()
+        {
+            Person p = PersonRepository.GetPersonByName("Ana");
+            Filter f = new Filter();
+
+            f.YearFrom = 2005;
+            var res = Recommender.FilterResults(p.Profile.LikedMovies, f);
+            Assert.AreEqual(0, res.Count());
+        }
 
     }
 }

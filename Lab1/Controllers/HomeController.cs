@@ -126,7 +126,7 @@ namespace Projekt.Controllers
                 }
             }
 
-            if (RuntimeFrom == -1)
+            if (RuntimeFrom == MinMaxConstants.RuntimeMin)
             {
                 filter.RuntimeFrom = null;
             }
@@ -135,7 +135,7 @@ namespace Projekt.Controllers
                 filter.RuntimeFrom = RuntimeFrom;
             }
 
-            if (RuntimeTo == -1)
+            if (RuntimeTo == MinMaxConstants.RuntimeMax)
             {
                 filter.RuntimeTo = null;
             }
@@ -144,7 +144,7 @@ namespace Projekt.Controllers
                 filter.RuntimeTo = RuntimeTo;
             }
 
-            if (FBLikesFrom == -1)
+            if (FBLikesFrom == MinMaxConstants.FBLikesMin)
             {
                 filter.FBLikesFrom = null;
             }
@@ -153,7 +153,7 @@ namespace Projekt.Controllers
                 filter.FBLikesFrom = FBLikesFrom;
             }
 
-            if (FBLikesTo == -1)
+            if (FBLikesTo == MinMaxConstants.FBLikesMax)
             {
                 filter.FBLikesTo = null;
             }
@@ -162,7 +162,7 @@ namespace Projekt.Controllers
                 filter.FBLikesTo = FBLikesTo;
             }
 
-            if (FBSharesFrom == -1)
+            if (FBSharesFrom == MinMaxConstants.FBSharesMin)
             {
                 filter.FBSharesFrom = null;
             }
@@ -171,7 +171,7 @@ namespace Projekt.Controllers
                 filter.FBSharesFrom = FBSharesFrom;
             }
 
-            if (FBSharesTo == -1)
+            if (FBSharesTo == MinMaxConstants.FBSharesMax)
             {
                 filter.FBSharesTo = null;
             }
@@ -180,7 +180,7 @@ namespace Projekt.Controllers
                 filter.FBSharesTo = FBSharesTo;
             }
 
-            if (IMDBRatingFrom == "-1")
+            if (IMDBRatingFrom == MinMaxConstants.IMDBRatingMin.ToString())
             {
                 filter.IMDBRatingFrom = null;
             }
@@ -189,7 +189,7 @@ namespace Projekt.Controllers
                 filter.IMDBRatingFrom = Convert.ToDouble(IMDBRatingFrom);
             }
 
-            if (IMDBRatingTo == "-1")
+            if (IMDBRatingTo == MinMaxConstants.IMDBRatingMax.ToString())
             {
                 filter.IMDBRatingTo = null;
             }
@@ -198,7 +198,7 @@ namespace Projekt.Controllers
                 filter.IMDBRatingTo = Convert.ToDouble(IMDBRatingTo);
             }
 
-            if (MetascoreRatingFrom == -1)
+            if (MetascoreRatingFrom == MinMaxConstants.MetascoreMin)
             {
                 filter.MetascoreRatingFrom = null;
             }
@@ -207,7 +207,7 @@ namespace Projekt.Controllers
                 filter.MetascoreRatingFrom = MetascoreRatingFrom;
             }
 
-            if (MetascoreRatingTo == -1)
+            if (MetascoreRatingTo == MinMaxConstants.MetascoreMax)
             {
                 filter.MetascoreRatingTo = null;
             }
@@ -216,7 +216,7 @@ namespace Projekt.Controllers
                 filter.MetascoreRatingTo = MetascoreRatingTo;
             }
 
-            if (TomatoRatingFrom == -1)
+            if (TomatoRatingFrom == MinMaxConstants.TomatoMin)
             {
                 filter.TomatoRatingFrom = null;
             }
@@ -225,7 +225,7 @@ namespace Projekt.Controllers
                 filter.TomatoRatingFrom = TomatoRatingFrom;
             }
 
-            if (TomatoRatingTo == -1)
+            if (TomatoRatingTo == MinMaxConstants.TomatoMax)
             {
                 filter.TomatoRatingTo = null;
             }
@@ -234,7 +234,7 @@ namespace Projekt.Controllers
                 filter.TomatoRatingTo = TomatoRatingTo;
             }
 
-            if (YearFrom == -1)
+            if (YearFrom == MinMaxConstants.YearMin)
             {
                 filter.YearFrom = null;
             }
@@ -243,7 +243,7 @@ namespace Projekt.Controllers
                 filter.YearFrom = YearFrom;
             }
 
-            if (YearTo == -1)
+            if (YearTo == MinMaxConstants.YearMax)
             {
                 filter.YearTo = null;
             }
@@ -283,14 +283,186 @@ namespace Projekt.Controllers
         public ActionResult Recommend()
         {
             var recommend = new RecommendViewModel();
+            ViewBag.genres = new List<SelectListItem>();
+            var genresFromDB = MovieRepository.GetAllGenres();
+            foreach (string genre in genresFromDB)
+            {
+                var selectListItem = new SelectListItem();
+                selectListItem.Text = genre;
+                selectListItem.Value = genre;
+                ViewBag.genres.Add(selectListItem);
+            }
             return View(recommend);
         }
 
         [HttpPost]
-        public ActionResult Recommend(bool Profile, bool Friends, bool Community, int Genres, int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Movies, List<string> FriendsList)
+        public ActionResult Recommend(bool Profile, bool Friends, bool Community, int SGenres, 
+            int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, 
+            int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, 
+            int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Genres, 
+            string FilterDirectors, string FilterActors, int YearFrom, int YearTo, string IMDBRatingFrom, 
+            string IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, 
+            int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo, 
+            int RuntimeFrom, int RuntimeTo, bool Filter)
         {
             var person = PersonRepository.GetPersonByEmail(User.Identity.Name, true);
-            var recMovies = Recommender.Recommend(person, Profile, Friends, Community, Genres, Actors, Directors, Gender, MaxAgeDifference, MinimalFriendsTogether, MinimalMoviesTogether, GenderComm, MaxAgeDifferenceComm, MinimalFriendsTogetherComm, MinimalMoviesTogetherComm);
+            var recMovies = Recommender.Recommend(person, Profile, Friends, Community, SGenres, Actors, Directors, Gender, MaxAgeDifference, MinimalFriendsTogether, MinimalMoviesTogether, GenderComm, MaxAgeDifferenceComm, MinimalFriendsTogetherComm, MinimalMoviesTogetherComm);
+            if (Filter)
+            {
+                if (Genres == null)
+                {
+                    Genres = new List<string>();
+                }
+                var filter = new BLL.Models.Filter(Genres);
+                filter.Actors = new List<string>();
+                if (FilterActors != null && FilterActors.Length > 0)
+                {
+                    string[] rawActors = FilterActors.Split(',');
+                    foreach (string actor in rawActors)
+                    {
+                        string fixedActor = actor.Trim();
+                        filter.Actors.Add(fixedActor);
+                    }
+                }
+
+                if (FilterDirectors != null && FilterDirectors.Length > 0)
+                {
+                    filter.Directors = new List<string>();
+                    string[] rawDirectors = FilterDirectors.Split(',');
+                    foreach (string director in rawDirectors)
+                    {
+                        string fixedDirector = director.Trim();
+                        filter.Directors.Add(fixedDirector);
+                    }
+                }
+
+                if (RuntimeFrom == MinMaxConstants.RuntimeMin)
+                {
+                    filter.RuntimeFrom = null;
+                }
+                else
+                {
+                    filter.RuntimeFrom = RuntimeFrom;
+                }
+
+                if (RuntimeTo == MinMaxConstants.RuntimeMax)
+                {
+                    filter.RuntimeTo = null;
+                }
+                else
+                {
+                    filter.RuntimeTo = RuntimeTo;
+                }
+
+                if (FBLikesFrom == MinMaxConstants.FBLikesMin)
+                {
+                    filter.FBLikesFrom = null;
+                }
+                else
+                {
+                    filter.FBLikesFrom = FBLikesFrom;
+                }
+
+                if (FBLikesTo == MinMaxConstants.FBLikesMax)
+                {
+                    filter.FBLikesTo = null;
+                }
+                else
+                {
+                    filter.FBLikesTo = FBLikesTo;
+                }
+
+                if (FBSharesFrom == MinMaxConstants.FBSharesMin)
+                {
+                    filter.FBSharesFrom = null;
+                }
+                else
+                {
+                    filter.FBSharesFrom = FBSharesFrom;
+                }
+
+                if (FBSharesTo == MinMaxConstants.FBSharesMax)
+                {
+                    filter.FBSharesTo = null;
+                }
+                else
+                {
+                    filter.FBSharesTo = FBSharesTo;
+                }
+
+                if (IMDBRatingFrom == MinMaxConstants.IMDBRatingMin.ToString())
+                {
+                    filter.IMDBRatingFrom = null;
+                }
+                else
+                {
+                    filter.IMDBRatingFrom = Convert.ToDouble(IMDBRatingFrom);
+                }
+
+                if (IMDBRatingTo == MinMaxConstants.IMDBRatingMax.ToString())
+                {
+                    filter.IMDBRatingTo = null;
+                }
+                else
+                {
+                    filter.IMDBRatingTo = Convert.ToDouble(IMDBRatingTo);
+                }
+
+                if (MetascoreRatingFrom == MinMaxConstants.MetascoreMin)
+                {
+                    filter.MetascoreRatingFrom = null;
+                }
+                else
+                {
+                    filter.MetascoreRatingFrom = MetascoreRatingFrom;
+                }
+
+                if (MetascoreRatingTo == MinMaxConstants.MetascoreMax)
+                {
+                    filter.MetascoreRatingTo = null;
+                }
+                else
+                {
+                    filter.MetascoreRatingTo = MetascoreRatingTo;
+                }
+
+                if (TomatoRatingFrom == MinMaxConstants.TomatoMin)
+                {
+                    filter.TomatoRatingFrom = null;
+                }
+                else
+                {
+                    filter.TomatoRatingFrom = TomatoRatingFrom;
+                }
+
+                if (TomatoRatingTo == MinMaxConstants.TomatoMax)
+                {
+                    filter.TomatoRatingTo = null;
+                }
+                else
+                {
+                    filter.TomatoRatingTo = TomatoRatingTo;
+                }
+
+                if (YearFrom == MinMaxConstants.YearMin)
+                {
+                    filter.YearFrom = null;
+                }
+                else
+                {
+                    filter.YearFrom = YearFrom;
+                }
+
+                if (YearTo == MinMaxConstants.YearMax)
+                {
+                    filter.YearTo = null;
+                }
+                else
+                {
+                    filter.YearTo = YearTo;
+                }
+                recMovies = Recommender.FilterResults(recMovies, filter);
+            }
             var movies = new List<SimpleMovieViewModel>();
             int i = 1;
             int j = 1;

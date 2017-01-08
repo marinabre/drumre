@@ -233,6 +233,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MinMaxConstants.cs" />
     <Compile Include="Models\MovieViewModel.cs" />
     <Compile Include="Models\RecommendViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
