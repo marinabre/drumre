@@ -87,8 +87,8 @@ namespace Projekt.Controllers
                 string[] rawActors = Actors.Split(',');
                 foreach (string actor in rawActors)
                 {
-                    actor.Trim();
-                    filter.Actors.Add(actor);
+                    string fixedActor = actor.Trim();
+                    filter.Actors.Add(fixedActor);
                 }
             }
 
@@ -98,8 +98,8 @@ namespace Projekt.Controllers
                 string[] rawDirectors = Directors.Split(',');
                 foreach (string director in rawDirectors)
                 {
-                    director.Trim();
-                    filter.Directors.Add(director);
+                    string fixedDirector = director.Trim();
+                    filter.Directors.Add(fixedDirector);
                 }
             }
 
@@ -230,7 +230,7 @@ namespace Projekt.Controllers
             }
 
             // Search comes here
-            List<BLL.Movie> moviesFromDB = Recommender.FilterResults(null, filter).ToList();
+            List<BLL.Movie> moviesFromDB = MovieRepository.SearchFilter(filter);
             foreach (var movieFromDB in moviesFromDB)
             {
                 var movie = new MovieViewModel();
