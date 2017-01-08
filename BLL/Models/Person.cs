@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL
 {
@@ -53,8 +54,31 @@ namespace BLL
             this.Watches = new List<FBMovie>(p.Watches);
             this.Wants = new List<FBMovie>(p.Wants);
             this.Friends = new List<string>(p.Friends);
-            
+        }
 
+        public string GetBestFriend()
+        {
+            try
+            {
+                if (this.Friends != null)
+                {
+                    if (this.Friends.Count > 0)
+                    {
+                        Dictionary<String, int> Besties = new Dictionary<string, int>();
+                        foreach (string f in Friends)
+                        {
+                            Person friend = PersonRepository.GetPersonById(f);
+                            int commonMovies = this.LikedMovies.Select(m => m.Title).Intersect(friend.LikedMovies.Select(n => n.Title)).Count();
+                            Besties.Add(friend.Name + " " + friend.Surname, commonMovies);
+                        }
+                        return Besties.OrderByDescending(pair => pair.Value).Take(1).ToDictionary(pair => pair.Key, pair => pair.Value).Keys.First();
+                    }
+                }
+                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";                    
+            } catch (Exception e)
+            {
+                return "Sorry, we could not find your friend :(";
+            }
         }
 
 
