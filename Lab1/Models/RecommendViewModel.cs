@@ -16,6 +16,7 @@ namespace Projekt.Models
 
         // Friends based
         public bool Friends { get; set; }
+        [DisplayName("Same Gender")]
         public bool Gender { get; set; }
         [DisplayName("Maximal age difference")]
         public int MaxAgeDifference { get; set; }
@@ -26,7 +27,7 @@ namespace Projekt.Models
 
         // Based on community
         public bool Community { get; set; }
-        [DisplayName("Gender")]
+        [DisplayName("Same Gender")]
         public bool GenderComm { get; set; }
         [DisplayName("Maximal age difference")]
         public int MaxAgeDifferenceComm { get; set; }

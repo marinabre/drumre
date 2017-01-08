@@ -95,7 +95,7 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, double IMDBRatingFrom, double IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo, int RuntimeFrom, int RuntimeTo)
+        public ActionResult Search(List<string> Genres, string Directors, string Actors, int YearFrom, int YearTo, string IMDBRatingFrom, string IMDBRatingTo, int TomatoRatingFrom, int TomatoRatingTo, int MetascoreRatingFrom, int MetascoreRatingTo, int FBSharesFrom, int FBSharesTo, int FBLikesFrom, int FBLikesTo, int RuntimeFrom, int RuntimeTo)
         {
             if (Genres == null)
             {
@@ -180,22 +180,22 @@ namespace Projekt.Controllers
                 filter.FBSharesTo = FBSharesTo;
             }
 
-            if (IMDBRatingFrom == -1)
+            if (IMDBRatingFrom == "-1")
             {
                 filter.IMDBRatingFrom = null;
             }
             else
             {
-                filter.IMDBRatingFrom = IMDBRatingFrom;
+                filter.IMDBRatingFrom = Convert.ToDouble(IMDBRatingFrom);
             }
 
-            if (IMDBRatingTo == -1)
+            if (IMDBRatingTo == "-1")
             {
                 filter.IMDBRatingTo = null;
             }
             else
             {
-                filter.IMDBRatingTo = IMDBRatingTo;
+                filter.IMDBRatingTo = Convert.ToDouble(IMDBRatingTo);
             }
 
             if (MetascoreRatingFrom == -1)
