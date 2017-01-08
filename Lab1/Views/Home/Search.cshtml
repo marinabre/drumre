@@ -5,22 +5,28 @@
 }
 
 <!-- Include the plugin's CSS and JS: -->
-<script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>
-<link rel="stylesheet" href="~/Content/bootstrap-multiselect.css" type="text/css" />
+@*<script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>*@
+@*<style rel="stylesheet" src="~/Content/bootstrap-chosen.css" type="text/css" ></style>*@
+<link rel="stylesheet" href="bootstrap.css" />
 
+<script src="~/Scripts/bootstrap-select.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<link href="~/Content/bootstrap-select.css" rel="stylesheet">
+@Styles.Render("/Content/css")
 <h2>Search</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <p class="text-info">
             When naming actors and directors split them using comma (,) - for instance:
-            John Doe, Jane Doe 
+            John Doe, Jane Doe
         </p>
         <div class="form-group">
             @Html.LabelFor(model => model.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -38,26 +44,14 @@
             </div>
         </div>
 
-        @{ 
+        @{
             List<SelectListItem> genresToChoose = ViewBag.genres;
         }
         <div class="form-group">
             @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!--<script type="text/javascript">
-                    $('#example-multiple-selected').multiselect();
-                </script>
-                <!-- Note the missing multiple attribute! 
-                <select id="example-multiple-selected" multiple="multiple">
-                    <option value="1">Option 1</option>
-                    <option value="2" selected="selected">Option 2</option>
-                    <!-- Option 3 will be selected in advance ... 
-                    <option value="3" selected="selected">Option 3</option>
-                    <option value="4">Option 4</option>
-                    <option value="5">Option 5</option>
-                    <option value="6">Option 6</option>
-                </select>-->
-                @Html.DropDownList("Genres", genresToChoose, htmlAttributes: new { multiple = "multiple" })
+                @Html.DropDownList("Genres", genresToChoose, htmlAttributes: new { @class = "selectpicker", multiple = "multiple", tabindex = "4" })
+
             </div>
         </div>
 
@@ -79,17 +73,17 @@
         </div>
 
 
-        <div class="form-group">            
+        <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
                 <h4 class="col-md-3">Year</h4>
             </div>
-                        
+
             <div class="col-md-6">
                 @Html.LabelFor(model => model.YearFrom, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.YearFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-            
+
             <div class="col-md-6">
                 @Html.LabelFor(model => model.YearTo, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.YearTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
@@ -129,8 +123,8 @@
                 @Html.LabelFor(model => model.MetascoreRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.MetascoreRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div>      
-        
+        </div>
+
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
@@ -146,7 +140,7 @@
                 @Html.LabelFor(model => model.TomatoRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.TomatoRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div>         
+        </div>
 
         <div class="form-group">
             <div class="row">
@@ -163,7 +157,7 @@
                 @Html.LabelFor(model => model.FBSharesTo, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.FBSharesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div> 
+        </div>
 
         <div class="form-group">
             <div class="row">
@@ -180,15 +174,15 @@
                 @Html.LabelFor(model => model.FBLikesTo, htmlAttributes: new { @class = "control-label col-md-3" })
                 @Html.EditorFor(model => model.FBLikesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
             </div>
-        </div> 
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Show me what you've got'" class="btn btn-default" />
+                <input type="submit" value="Show me what you've got!" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+            }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -196,4 +190,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }

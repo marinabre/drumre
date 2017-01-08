@@ -68,7 +68,30 @@ namespace Projekt.Controllers
                 selectListItem.Value = genre;
                 ViewBag.genres.Add(selectListItem);
             }
-            return View(search);
+            return View(search);           
+        }
+
+        public ActionResult SearchPaging(int? page, BLL.Models.Filter filter)
+        {
+            var movies = new List<MovieViewModel>();
+            // Search comes here
+            List<BLL.Movie> moviesFromDB = MovieRepository.SearchFilter(filter);
+            foreach (var movieFromDB in moviesFromDB)
+            {
+                var movie = new MovieViewModel();
+                if (movieFromDB.PosterPath == null || movieFromDB.PosterPath == "")
+                {
+                    continue;
+                }
+                movie.CastSearchFromMovie(movieFromDB);
+                movies.Add(movie);
+            }
+
+            ViewBag.filter = filter;
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View("SearchResults", movies.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
@@ -231,6 +254,8 @@ namespace Projekt.Controllers
 
             // Search comes here
             List<BLL.Movie> moviesFromDB = MovieRepository.SearchFilter(filter);
+            int i = 1;
+            int j = 1;
             foreach (var movieFromDB in moviesFromDB)
             {
                 var movie = new MovieViewModel();
@@ -239,9 +264,19 @@ namespace Projekt.Controllers
                     continue;
                 }
                 movie.CastSearchFromMovie(movieFromDB);
+                if (j > 10)
+                {
+                    i++;
+                    j = 1;
+                }
+                else
+                {                    
+                    j++;
+                }
+                movie.htmlClass = i.ToString();
                 movies.Add(movie);
             }
-
+            
             return View("SearchResults", movies);            
         }
 
