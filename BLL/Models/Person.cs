@@ -41,7 +41,7 @@ namespace BLL
             this.Wants = wants;
         }
 
-        public Person (Person p)
+        public Person(Person p)
         {
             this.Profile = Profile;
             this.PersonID = p.PersonID;
@@ -58,8 +58,8 @@ namespace BLL
 
         public string GetBestFriend()
         {
-            //try
-            //{
+            try
+            {
                 if (this.Friends != null)
                 {
                     if (this.Friends.Count > 0)
@@ -77,15 +77,11 @@ namespace BLL
                         return Besties.OrderByDescending(pair => pair.Value).Take(1).ToDictionary(pair => pair.Key, pair => pair.Value).Keys.First();
                     }
                 }
-                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";                    
-            //} catch (Exception e)
-            //{
-            //    return "Sorry, we could not find your friend :(";
-            //}
+                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";
+            } catch (Exception e)
+            {
+                return "Sorry, we could not find your friend :(";
+            }
         }
-
-
-
-
     }
 }
