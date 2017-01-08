@@ -10,7 +10,8 @@ namespace Projekt.Models
     {
         // Profile based
         public bool Profile { get; set; }
-        public int Genres { get; set; }
+        [DisplayName("Genres")]
+        public int SGenres { get; set; }
         public int Actors { get; set; }
         public int Directors { get; set; }
 
@@ -36,6 +37,7 @@ namespace Projekt.Models
         [DisplayName("Minimal movies together")]
         public int MinimalMoviesTogetherComm { get; set; }
 
+        public bool Filter { get; set; }
         // OR
 
         // Based on movies
