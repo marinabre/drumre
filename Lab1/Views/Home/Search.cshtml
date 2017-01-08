@@ -13,7 +13,61 @@
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 
 <link href="~/Content/bootstrap-select.css" rel="stylesheet">
+<link href="~/Content/range-slider.css" rel="stylesheet">
+<link href="~/Content/multirange.css" rel="stylesheet">
 @Styles.Render("/Content/css")
+<style>
+    .range-slider__range.form-control {
+        height: 0;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        padding: 3px 12px;
+        display:inline-block;
+    }
+    .range-slider__value{
+        -ms-transform: rotate(45deg); /* IE 9 */
+        -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+        transform: rotate(30deg);
+        margin: 20px;
+    }
+    .slider_left{
+        margin-left: -15px;
+    }
+    .slider_right{
+        margin-left: -60px;
+    }
+    .multirange.ghost{
+        left: -9%;
+    }
+    .range-slider__value.inverted:after{
+        border-right: 7px solid #fda123;
+    }
+    .inverted{
+        color: #39100a;
+        background: #fda123;
+        /*-webkit-filter: invert(100%);
+        filter: invert(100%);*/
+    }
+    .range-slider__range.inverted::-webkit-slider-thumb, 
+    .range-slider__range.inverted::-moz-range-thumb{
+        background: #fda123;
+    }
+    .range-slider__range.inverted::-webkit-slider-thumb:hover, 
+    .range-slider__range.inverted:active::-webkit-slider-thumb,
+    .range-slider__range.inverted::-moz-range-thumb:hover,
+    .range-slider__range.inverted:active::-moz-range-thumb
+     {
+        background: #442200;
+    }
+    .text-info{
+        color:#442200;
+    }
+
+</style>
+
+
+
 <h2>Search</h2>
 
 
@@ -29,16 +83,18 @@
             John Doe, Jane Doe
         </p>
         <div class="form-group">
-            @Html.LabelFor(model => model.Actors, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-1"></div>
+            <h4 class="col-md-2">Actors</h4>
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Actors, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actors, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Directors, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-1"></div>
+            <h4 class="col-md-2">Directors</h4>
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Directors, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Directors, "", new { @class = "text-danger" })
             </div>
@@ -48,8 +104,9 @@
             List<SelectListItem> genresToChoose = ViewBag.genres;
         }
         <div class="form-group">
-            @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-1"></div>
+            <h4 class="col-md-2">Genres</h4>
+            <div class="col-md-8">
                 @Html.DropDownList("Genres", genresToChoose, htmlAttributes: new { @class = "selectpicker", multiple = "multiple", tabindex = "4" })
 
             </div>
@@ -58,17 +115,15 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Runtime</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.RuntimeFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.RuntimeFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.RuntimeTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.RuntimeTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">I have time (in minutes)</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" multiple="" value="0" min="0" max="350" step="10" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left">0</span>
+                        <input type="range" multiple="" value="350" min="0" max="350" step="10" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -76,17 +131,15 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Year</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.YearFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.YearFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.YearTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.YearTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">Year</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" multiple="" value="1900" min="1900" max="2017" step="1" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left inverted">0</span>
+                        <input type="range" multiple="" value="2017" min="1900" max="2017" step="1" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right inverted">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -94,85 +147,75 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">IMDB Rating</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.IMDBRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.IMDBRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.IMDBRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.IMDBRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">IMDB Rating</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" id="IMDBRatingFrom" name="IMDBRatingFrom" multiple="" value="0" min="0" max="10" step="0.1" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left">0</span>
+                        <input type="range" id="IMDBRatingTo" name="IMDBRatingTo" multiple="" value="10" min="0" max="10" step="0.1" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Metascore Rating</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.MetascoreRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.MetascoreRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.MetascoreRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.MetascoreRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">Metascore Rating</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" id="MetascoreRatingFrom" name="MetascoreRatingFrom" multiple="" value="0" min="0" max="100" step="1" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left inverted">0</span>
+                        <input type="range" id="MetascoreRatingTo" name="MetascoreRatingTo" multiple="" value="100" min="0" max="100" step="1" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right inverted">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Tomato Rating</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.TomatoRatingFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.TomatoRatingFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.TomatoRatingTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.TomatoRatingTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">RottenTomato Rating</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" id="RottenTomatoRatingFrom" name="RottenTomatoRatingFrom" multiple="" value="0" min="0" max="100" step="1" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left">0</span>
+                        <input type="range" id="RottenTomatoRatingTo" name="RottenTomatoRatingTo" multiple="" value="100" min="0" max="100" step="1" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Facebook Shares</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.FBSharesFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.FBSharesFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.FBSharesTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.FBSharesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">Facebook Shares</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" id="FBSharesFrom" name="FBSharesFrom" multiple="" value="0" min="0" max="140000" step="1000" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left inverted">0</span>
+                        <input type="range" id="FBSharesTo" name="FBSharesTo" multiple="" value="140000" min="0" max="140000" step="1000" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right inverted">0</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="row">
                 <div class="col-md-1"></div>
-                <h4 class="col-md-3">Facebook Likes</h4>
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.FBLikesFrom, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.FBLikesFrom, new { htmlAttributes = new { @class = "form-control col-md-3" } })
-            </div>
-
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.FBLikesTo, htmlAttributes: new { @class = "control-label col-md-3" })
-                @Html.EditorFor(model => model.FBLikesTo, new { htmlAttributes = new { @class = "form-control col-md-3" } })
+                <h4 class="col-md-2">Facebook Likes</h4>
+                <div class="col-md-8">
+                    <div class="range-slider">
+                        <input type="range" id="FBLikesFrom" name="FBLikesFrom" multiple="" value="0" min="0" max="176000" step="1000" class="multirange original range-slider__range form-control">
+                        <span class="range-slider__value slider_left">0</span>
+                        <input type="range" id="FBLikesTo" name="FBLikesTo" multiple="" value="176000" min="0" max="176000" step="1000" class="multirange ghost range-slider__range form-control">
+                        <span class="range-slider__value slider_right">0</span>
+                    </div>
+               </div>
             </div>
         </div>
 
@@ -190,5 +233,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
+<script type="text/javascript" src="~/Scripts/range-slider.js"></script>
+<script type="text/javascript" src="~/Scripts/multirange.js"></script>
 }
