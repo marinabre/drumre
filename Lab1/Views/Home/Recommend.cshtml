@@ -90,24 +90,30 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MaxAgeDifference, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MaxAgeDifference, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MaxAgeDifference, "", new { @class = "text-danger" })
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MaxAgeDifference" name="MaxAgeDifference" type="range" value="0" min="0" max="50">
+                        <span class="range-slider__value">0</span>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.MinimalFriendsTogether, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MinimalFriendsTogether, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MinimalFriendsTogether, "", new { @class = "text-danger" })
-                </div>
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MinimalFriendsTogether" name="MinimalFriendsTogether" type="range" value="0" min="0" max="100">
+                        <span class="range-slider__value">0</span>
+                    </div>
+               </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.MinimalMoviesTogether, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MinimalMoviesTogether, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MinimalMoviesTogether, "", new { @class = "text-danger" })
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MinimalMoviesTogether" name="MinimalMoviesTogether" type="range" value="0" min="0" max="100">
+                        <span class="range-slider__value">0</span>
+                    </div>
                 </div>
             </div>
         </div>        
@@ -130,28 +136,33 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.MaxAgeDifferenceComm, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MaxAgeDifferenceComm, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MaxAgeDifferenceComm, "", new { @class = "text-danger" })
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MaxAgeDifferenceComm" name="MaxAgeDifferenceComm" type="range" value="0" min="0" max="50">
+                        <span class="range-slider__value">0</span>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.MinimalFriendsTogetherComm, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MinimalFriendsTogetherComm, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MinimalFriendsTogetherComm, "", new { @class = "text-danger" })
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MinimalFriendsTogetherComm" name="MinimalFriendsTogetherComm" type="range" value="0" min="0" max="100">
+                        <span class="range-slider__value">0</span>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.MinimalMoviesTogetherComm, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MinimalMoviesTogetherComm, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MinimalMoviesTogetherComm, "", new { @class = "text-danger" })
+                    <div class="range-slider">
+                        <input class="range-slider__range form-control" id="MinimalMoviesTogetherComm" name="MinimalMoviesTogetherComm" type="range" value="0" min="0" max="100">
+                        <span class="range-slider__value">0</span>
+                    </div>
                 </div>
             </div>
         </div>

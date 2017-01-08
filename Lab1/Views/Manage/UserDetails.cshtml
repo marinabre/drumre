@@ -3,8 +3,25 @@
 @{
     ViewBag.Title = "UserDetails";
 }
-
+<style>
+    .col-md-2{
+        height:290.91px;
+        width: 195px;
+    }
+</style>
 <h2>UserDetails</h2>
+
+@if (ViewBag.message != "")
+{
+    if (ViewBag.message == "Friend's page")
+    {
+        <h3 style="color: #fcc60a;">This is your movie buddy's page! Enjoy :)</h3>
+    }
+    else
+    {
+    <h3>@ViewBag.message</h3>
+    }
+}
 
 <div>
     <h4>@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h4>
@@ -36,31 +53,46 @@
 
     </dl>
 </div>
+
+@if (ViewBag.message != "Friend's page")
+{
+    <div>
+        @Html.ActionLink("Find me my best movie buddy!", "FriendDetails", new { personEmail = Model.Email }, new { @class = "btn btn-default" })
+    </div>
+}
+
+
+
 <div>
-    <h5>Other Facebook info</h5>
+    <h5>Liked Movies</h5>
     <div class="row">
         <!--Liked movies-->
-        @Html.DisplayNameFor(model => model.LikedMovies)
         @foreach (var item in Model.LikedMovies)
         {
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <a href="/Home/Details?imdbID=@item.IMDBID">
-                        <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
-                        <div class="caption">
-                            <p>@item.Title</p>
-                        </div>
-                    </a>
+            if (item.PosterURL != null)
+            {
+                <div class="col-md-2">
+                    <div class="thumbnail">
+                        <a href="/Home/Details?imdbID=@item.IMDBID">
+                            <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
+                            <div class="caption">
+                                <p>@item.Title</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
+
         }
     </div>
-    
+    <hr />
+    <h5>Watched Movies</h5>
     <div class="row">
         <!--Watches-->
-        @Html.DisplayNameFor(model => model.Watches)
         @foreach (var item in Model.Watches)
         {
+            if (item.PosterURL != null)
+            {
             <div class="col-md-2">
                 <div class="thumbnail">
                     <a href="/Home/Details?imdbID=@item.IMDBID">
@@ -71,14 +103,17 @@
                     </a>
                 </div>
             </div>
+            }
         }
     </div>
-    
+    <hr />
+    <h5>Want to Watch Movies</h5>
     <div class="row">
         <!--Wants-->
-        @Html.DisplayNameFor(model => model.Wants)
         @foreach (var item in Model.Wants)
         {
+            if (item.PosterURL != null)
+            {
             <div class="col-md-2">
                 <div class="thumbnail">
                     <a href="/Home/Details?imdbID=@item.IMDBID">
@@ -89,6 +124,7 @@
                     </a>
                 </div>
             </div>
+            }
         }
     </div>   
 </div>
