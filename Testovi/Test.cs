@@ -275,15 +275,15 @@ namespace Testovi
 
         //}
 
-        [TestMethod]
-        public void getBestie()
-        {
-            Person p = PersonRepository.GetPersonByName("Ines");
-            string Best = p.GetBestFriend();
+        //[TestMethod]
+        //public void getBestie()
+        //{
+        //    Person p = PersonRepository.GetPersonByName("Ines");
+        //    string Best = p.GetBestFriend();
 
-            Assert.AreEqual("bla", Best);
+        //    Assert.AreEqual("bla", Best);
 
-        }
+        //}
 
     }
 }
