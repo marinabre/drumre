@@ -193,7 +193,7 @@
             </div>
             <!--Ne kao lista, već jedno ispod drugog-->
             <div>
-                <h5>Trailer:</h5>
+                <h4>Trailer:</h4>
                 <p>
                     <iframe type="text/html" width="640" height="385" src="@Html.DisplayFor(model => model.TrailerURL)" frameborder="0"></iframe>
                 </p>
@@ -202,16 +202,64 @@
         <!--Desna strana-->
         <div class="col-md-3">
             <div class="row">
-                <h5>Poster</h5>
+                <h4>Poster</h4>
             </div>            
             <div class="row">
                 <img class="col-md-12" src="@Html.DisplayFor(model => model.PosterURL)" alt="@Html.DisplayFor(model => model.Title)">
             </div>
             <div class="row">
-                <h5>Subtitles</h5>
+                <h4>Subtitles</h4>
                 <a href="@Model.SubtitleDownloadLink">Download link,</a>
                 <a href="@Model.SubtitlePageLink">Page link</a>
-            </div>            
+            </div>
+            <div class="row">
+                <h4>Cast</h4>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Actor
+                        </th>
+                        <th>
+                            Character
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Cast.Keys)
+                    {
+                        <tr>
+                            <td>
+                                @item
+                            </td>
+                            <td>
+                                @Model.Cast[item]
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="row">
+                <h4>Crew</h4>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Job
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Crew.Keys)
+                    {
+                        <tr>
+                            <td>
+                                @item
+                            </td>
+                            <td>
+                                @Model.Crew[item]
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
 </div>
