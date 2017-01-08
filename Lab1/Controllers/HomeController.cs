@@ -36,7 +36,7 @@ namespace Projekt.Controllers
                     movies.Add(movie);
                 }
                 #endregion
-                int pageSize = 10;
+                int pageSize = 9;
                 int pageNumber = (page ?? 1);
                 return View("HomeLoggedIn", movies.ToPagedList(pageNumber, pageSize));
             }
@@ -264,7 +264,7 @@ namespace Projekt.Controllers
                     continue;
                 }
                 movie.CastSearchFromMovie(movieFromDB);
-                if (j > 10)
+                if (j > 9)
                 {
                     i++;
                     j = 1;
@@ -298,7 +298,7 @@ namespace Projekt.Controllers
             {
                 var movie = new SimpleMovieViewModel();
                 movie.CastSimpleFromMovie(recmovie);                
-                if (j > 10)
+                if (j > 9)
                 {
                     i++;
                     j = 1;

@@ -133,9 +133,19 @@ namespace Projekt.Models
             TomatoUserRating = movie.TomatoUserRating;
 
             Crew = new Dictionary<string, string>();
+            int i = 1;
             foreach (var crew in movie.Credits.Crew)
             {
-                Crew.Add(crew.Name, crew.Job);
+                if (Crew.Keys.Contains(crew.Job))
+                {
+                    Crew.Add(crew.Job + i.ToString(), crew.Name);
+                    i++;
+                }
+                else
+                {
+                    Crew.Add(crew.Job, crew.Name);
+                }
+                
             }
 
             Cast = new Dictionary<string, string>();
