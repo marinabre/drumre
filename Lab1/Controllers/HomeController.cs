@@ -313,6 +313,52 @@ namespace Projekt.Controllers
             return View("RecommendResults", movies);
         }
 
+        public ActionResult SubtitleDownloadLink(string imdbID)
+        {            
+            try
+            {
+                string url = MovieRepository.GetSubtitleDownloadLink(imdbID).ToString();
+                if (url != null)
+                {
+                    return Redirect(url);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("BadDuck", "Something went wrong with the subtitle download link.");
+            }            
+        }
+
+        public ActionResult SubtitlePageLink(string imdbID)
+        {
+            
+            try
+            {
+                string url = MovieRepository.GetSubtitlePageLink(imdbID).ToString();
+                if (url != null)
+                {
+                    return Redirect(url);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("BadDuck", "Something went wrong with the subtitle page link.");
+            }
+        }
+
+        public ActionResult BadDuck(string message)
+        {
+            return View(message);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

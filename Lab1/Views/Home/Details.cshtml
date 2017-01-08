@@ -214,8 +214,8 @@
             </div>
             <div class="row">
                 <h4>Subtitles</h4>
-                <a href="@Model.SubtitleDownloadLink">Download link,</a>
-                <a href="@Model.SubtitlePageLink">Page link</a>
+                @Html.ActionLink("Download", "SubtitleDownloadLink", new { imdbID = Model.IMDBID }, htmlAttributes: new { @class = "btn btn-default"})
+                @Html.ActionLink("Page", "SubtitlePageLink", new { imdbID = Model.IMDBID }, htmlAttributes: new { @class = "btn btn-default" })
             </div>
             <div class="row">
                 <h4>Cast</h4>
