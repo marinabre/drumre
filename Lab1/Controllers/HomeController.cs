@@ -50,7 +50,7 @@ namespace Projekt.Controllers
         {
             var repo = new MovieRepository();
             var movie = new MovieViewModel();
-            var movieFromDB = new BLL.Movie();
+            var movieFromDB = new BLL.Movie();            
             movieFromDB = repo.GetMovieByIDShortDetails(imdbID);
             movie.CastFromMovie(movieFromDB);
             return View(movie);

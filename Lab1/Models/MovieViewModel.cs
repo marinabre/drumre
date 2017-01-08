@@ -17,6 +17,8 @@ namespace Projekt.Models
         public string IMDBID { get; set; }
 
         public int Runtime { get; set; }
+        public Dictionary<string, string> Crew { get; set; }
+        public Dictionary<string, string> Cast { get; set; }
         //public Credits Credits { get; set; }
         public string Genres { get; set; }
         public string Keywords { get; set; }
@@ -43,17 +45,17 @@ namespace Projekt.Models
         public String Country { get; set; }
         public String Awards { get; set; }
         public int Metascore { get; set; }
-        [DisplayName("Tomato Rating")]
+        [DisplayName("Rotten Tomatoes Rating")]
         public decimal TomatoRating { get; set; }
-        [DisplayName("Tomato Reviews")]
+        [DisplayName("Rotten Tomatoes Reviews")]
         public int TomatoReviews { get; set; }
-        [DisplayName("Tomato Fresh")]
+        [DisplayName("Rotten Tomatoes Fresh")]
         public int TomatoFresh { get; set; }
-        [DisplayName("Tomato Rotten")]
+        [DisplayName("Rotten Tomatoes Rotten")]
         public int TomatoRotten { get; set; }
-        [DisplayName("Tomato User Meter")]
+        [DisplayName("Rotten Tomatoes User Meter")]
         public int TomatoUserMeter { get; set; }
-        [DisplayName("Tomatmo User Rating")]
+        [DisplayName("Rotten Tomatoes User Rating")]
         public decimal TomatoUserRating { get; set; }        
         //public int TomatoUserReviews { get; set; }
 
@@ -129,6 +131,18 @@ namespace Projekt.Models
             TomatoRotten = movie.TomatoRotten;
             TomatoUserMeter = movie.TomatoUserMeter;
             TomatoUserRating = movie.TomatoUserRating;
+
+            Crew = new Dictionary<string, string>();
+            foreach (var crew in movie.Credits.Crew)
+            {
+                Crew.Add(crew.Name, crew.Job);
+            }
+
+            Cast = new Dictionary<string, string>();
+            foreach (var cast in movie.Credits.Cast)
+            {
+                Cast.Add(cast.Name, cast.Character);
+            }
 
             if (movie.MovieSubtitle != null)
             {
