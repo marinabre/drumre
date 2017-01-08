@@ -18,6 +18,7 @@ namespace BLL
         //Ako se bilo koji od njih postavi na 0, taj se ignorira ---> to ukupno daje više rezultata
         public static IList<Movie> RecommendMoviesFromProfile(Person person, int genre, int actor, int director)
         {
+            if (person == null) return new List<Movie>();
             if (person.Profile == null)
                 person = PersonRepository.BuildAndGetProfile(person);
             return RecommendMoviesFromProfile(person.Profile, genre, actor, director).Where(p => !person.Watches.Any(p2 => p2.Title == p.Title)).ToList();
@@ -56,6 +57,7 @@ namespace BLL
         //(naravno, iz liste se prije izbace svi filmovi koje je korisnik već odgledao (Liked, Watched))
         public static IList<Movie> RecommendMoviesFromFriends(Person person, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
+            if (person == null) return new List<Movie>();
             IList<Person> friends = PersonRepository.FilterFriends(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
             if (person.Profile == null)
@@ -71,6 +73,7 @@ namespace BLL
         }
         public static IList<Movie> RecommendMoviesFromEverybody(Person person, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
+            if (person == null) return new List<Movie>();
             IList<Person> people = PersonRepository.FilterPeople(person, sameGender, maxAgeDiff, minFriends, minMovies); //all friends
             IList<Movie> recommendation = new List<Movie>();
 
@@ -103,7 +106,10 @@ namespace BLL
         //Četvrta funkcija je GODLIKE - posebno postavlja za frendače, a posebno za comunity uvjete
         public static IList<Movie> Recommend(Person person, bool profile, bool friends, bool everybody, int genre, int actor, int director, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
+            if (person == null) return new List<Movie>();
             IList<Movie> recommendation = new List<Movie>();
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
             if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile, genre, actor, director)).ToList();
 
             if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();
@@ -112,7 +118,10 @@ namespace BLL
         }
         public static IList<Movie> Recommend(Person person, bool profile, bool friends, bool everybody)
         {
+            if (person == null) return new List<Movie>();
             IList<Movie> recommendation = new List<Movie>();
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
             if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile)).ToList();
 
             if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, false, -1, 0, 0)).ToList();
@@ -128,8 +137,11 @@ namespace BLL
         public static IList<Movie> Recommend(Person person, bool profile, bool friends, bool everybody, int genre, int actor, int director,
             bool FsameGender, int FmaxAgeDiff, int FminFriends, int FminMovies, bool sameGender, int maxAgeDiff, int minFriends, int minMovies)
         {
+            if (person == null) return new List<Movie>();
             IList<Movie> recommendation = new List<Movie>();
-            if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person.Profile, genre, actor, director)).ToList();
+            if (person.Profile == null)
+                person = PersonRepository.BuildAndGetProfile(person);
+            if (profile) recommendation = recommendation.Union(RecommendMoviesFromProfile(person, genre, actor, director)).ToList();
 
             if (friends) recommendation = recommendation.Union(RecommendMoviesFromFriends(person, FsameGender, FmaxAgeDiff, FminFriends, FminMovies)).ToList();
             if (everybody) recommendation = recommendation.Union(RecommendMoviesFromEverybody(person, sameGender, maxAgeDiff, minFriends, minMovies)).ToList();

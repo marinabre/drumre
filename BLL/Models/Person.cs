@@ -23,13 +23,16 @@ namespace BLL
         public IList<string> Friends { get; set; }
         public Profile Profile { get; set; }
 
-        public Person(string id, string name, string surname, string gender,
+        public Person() { }
+
+        public Person(string id, string name, string surname, string email, string gender,
             DateTime birthday, IList<FBMovie> liked, IList<FBMovie> watches,
             IList<FBMovie> wants)
         {
             this.PersonID = id;
             this.Name = name;
             this.Surname = surname;
+            this.Email = email;
             this.Gender = gender;
             this.Birthday = birthday;
             this.LikedMovies = liked;
