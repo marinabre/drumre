@@ -16,7 +16,14 @@ namespace Projekt.Models
         {
             Title = movie.Title;
             IMDBID = movie.IMDbId;
-            PosterURL = "http://image.tmdb.org/t/p/w185" + movie.PosterPath;
+            if (movie.PosterPath == "" || movie.PosterPath == null)
+            {
+                PosterURL = null;
+            }
+            else
+            {
+                PosterURL = "http://image.tmdb.org/t/p/w185" + movie.PosterPath;
+            }
         }
 
         public void CastSimpleFromMovie(BLL.FBMovie movie)
@@ -26,7 +33,14 @@ namespace Projekt.Models
 
             var movieRepo = new BLL.MovieRepository();
             var movieFromDB = movieRepo.GetMovieByID(IMDBID);
-            PosterURL = "http://image.tmdb.org/t/p/w185" + movieFromDB.PosterPath;
+            if (movieFromDB.PosterPath == "" || movieFromDB.PosterPath == null)
+            {
+                PosterURL = null;
+            }
+            else
+            {
+                PosterURL = "http://image.tmdb.org/t/p/w185" + movieFromDB.PosterPath;
+            }
         }
     }
 }

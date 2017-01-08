@@ -76,12 +76,29 @@ namespace Projekt.Controllers
             return View(model);
         }
 
-        public ActionResult UserDetails()
+        public ActionResult UserDetails(string buddyEmail = "", Person buddy = null)
         {
-            var person = PersonRepository.GetPersonByEmail(User.Identity.Name);
             var user = new UserViewModel();
+            var person = new Person();
+            if (buddy.Email == null || buddyEmail == "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...")
+            {
+                person = PersonRepository.GetPersonByEmail(User.Identity.Name);
+                ViewBag.message = buddyEmail;
+            }
+            else
+            {
+                ViewBag.message = "Friend's page";
+                person = PersonRepository.GetPersonByEmail(buddy.Email);
+            }
             user.CastPersonToUser(person);
             return View(user);
+        }
+
+        public ActionResult FriendDetails(string personEmail)
+        {
+            var bestBuddy = PersonRepository.GetPersonByEmail(PersonRepository.GetPersonByEmail(personEmail).GetBestFriend());
+
+            return RedirectToAction("UserDetails", "Manage", bestBuddy);
         }
 
         //
