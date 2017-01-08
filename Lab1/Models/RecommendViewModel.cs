@@ -42,5 +42,14 @@ namespace Projekt.Models
 
         // Based on friends
         public List<string> FriendsList { get; set; }
+
+        public RecommendViewModel()
+        {
+            Profile = false;
+            Friends = false;
+            Community = false;
+            MaxAgeDifference = -1;
+            MaxAgeDifferenceComm = -1;
+        }
     }
 }

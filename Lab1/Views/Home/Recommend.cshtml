@@ -33,6 +33,8 @@
             recommend movies for you.
         </p>
         <div class="ProfileDetails">
+            @Html.EditorFor(model => model.Profile)
+            @Html.Label("I want to use this for recommendation")
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,6 +75,8 @@
         </p>
 
         <div class="FriendsDetails">
+            @Html.EditorFor(model => model.Friends)
+            @Html.Label("I want to use this for recommendation")
             <div class="form-group">
                 @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -112,10 +116,12 @@
             <h3>Community based recommendations</h3>
         </div>        
         <p>
-            Something something giant hat.
+            These settings define community properties for recommendation.
         </p>
 
         <div class="CommunityDetails">
+            @Html.EditorFor(model => model.Community)
+            @Html.Label("I want to use this for recommendation")
             <div class="form-group">
                 @Html.LabelFor(model => model.GenderComm, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">

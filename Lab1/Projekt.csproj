@@ -378,6 +378,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\multirange.js" />
+    <Content Include="Scripts\Pagination.js" />
     <Content Include="Scripts\range-slider.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -425,6 +426,7 @@
     <Content Include="Views\Home\SearchResults.cshtml" />
     <Content Include="Views\Manage\UserDetails.cshtml" />
     <Content Include="Views\Home\Recommend.cshtml" />
+    <Content Include="Views\Home\RecommendResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
