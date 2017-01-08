@@ -5,7 +5,7 @@
 });
 
 function init_events() {
-    $(document).on("click", "li", function () {
+    $(document).on("click", ".pagingIndex", function () {
         var indx = this.textContent;
         $(".pagedEl").addClass("hidden");
         $("." + indx).removeClass("hidden");
