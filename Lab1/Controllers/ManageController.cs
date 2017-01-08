@@ -80,10 +80,10 @@ namespace Projekt.Controllers
         {
             var user = new UserViewModel();
             var person = new Person();
-            if (buddy.Email == null || buddyEmail == "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...")
+            if (buddy.Email == null || buddy.Email == "You don't seem to have any friends using CocoaDuck\n. Why could recommend it..." || buddy.Email == "Sorry, we could not find your friend :(")
             {
                 person = PersonRepository.GetPersonByEmail(User.Identity.Name);
-                ViewBag.message = buddyEmail;
+                ViewBag.message = buddy.Email;
             }
             else
             {
@@ -96,9 +96,18 @@ namespace Projekt.Controllers
 
         public ActionResult FriendDetails(string personEmail)
         {
-            var bestBuddy = PersonRepository.GetPersonByEmail(PersonRepository.GetPersonByEmail(personEmail).GetBestFriend());
+            var buddyMail = PersonRepository.GetPersonByEmail(personEmail).GetBestFriend();
 
-            return RedirectToAction("UserDetails", "Manage", bestBuddy);
+            if (buddyMail != "Sorry, we could not find your friend :(" && buddyMail != "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...")
+            {
+                var bestBuddy = PersonRepository.GetPersonByEmail(buddyMail);
+                return RedirectToAction("UserDetails", "Manage", bestBuddy);
+            }else
+            {
+                var error = new Person();
+                error.Email = buddyMail;
+                return RedirectToAction("UserDetails", "Manage", error);
+            }            
         }
 
         //

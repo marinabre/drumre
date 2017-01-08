@@ -20,7 +20,7 @@
     }
     else
     {
-    <h3>@ViewBag.message</h3>
+        <h3>@ViewBag.message</h3>
     }
 }
 
@@ -55,7 +55,7 @@
     </dl>
 </div>
 
-@if (ViewBag.message != "Friend's page")
+@if (ViewBag.message != "Friend's page" && ViewBag.message == "")
 {
     <div>
         @Html.ActionLink("Find me my best movie buddy!", "FriendDetails", new { personEmail = Model.Email }, new { @class = "btn btn-default" })
