@@ -29,9 +29,9 @@
             <h3>@Html.EditorFor(model => model.Profile) Profile based recommendations</h3>
          </div>
         <p>
-            Here you can pick out numeric values for given properties of movies.
-            Values here represent the number of your top favourites which will be used to 
-            recommend movies for you.
+            Based on movies you liked on Facebook<br />
+            Choose how important each category is (how many of your favourites we take into account)<br />
+            Just put zero if you don't care about a category<br />
         </p>
         <div class="ProfileDetails">
             <div class="form-group">
@@ -69,7 +69,10 @@
             <h3>@Html.EditorFor(model => model.Friends) Friends based recommendations</h3>
         </div>        
         <p>
-            This group of recommending properties are based on what you share with your facebook friends.            
+            Watch movies that your friends liked<br />
+            Use the properties below to filter your friends<br />
+            Note: CocoaDuck can only search the friends who also use CocoaDuck <br />
+            The more friends you invite to join CocoaDuck, the better the recommendations will be :)           
         </p>
 
         <div class="FriendsDetails">
@@ -112,7 +115,8 @@
             <h3>@Html.EditorFor(model => model.Community) Community based recommendations</h3>
         </div>        
         <p>
-            These settings define community properties for recommendation.
+            Based on the entire CocoaDuck community<br />
+            Use the properties below so we know who to compare you with 
         </p>
 
         <div class="CommunityDetails hidden">
