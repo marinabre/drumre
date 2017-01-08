@@ -41,7 +41,7 @@ namespace BLL
             this.Wants = wants;
         }
 
-        public Person (Person p)
+        public Person(Person p)
         {
             this.Profile = Profile;
             this.PersonID = p.PersonID;
@@ -68,21 +68,20 @@ namespace BLL
                         foreach (string f in Friends)
                         {
                             Person friend = PersonRepository.GetPersonById(f);
+                            if (friend == null) continue;
                             int commonMovies = this.LikedMovies.Select(m => m.Title).Intersect(friend.LikedMovies.Select(n => n.Title)).Count();
+                            if (commonMovies > 0) ;
                             Besties.Add(friend.Name + " " + friend.Surname, commonMovies);
                         }
+                        if (Besties.Count < 1) throw new Exception();
                         return Besties.OrderByDescending(pair => pair.Value).Take(1).ToDictionary(pair => pair.Key, pair => pair.Value).Keys.First();
                     }
                 }
-                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";                    
+                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";
             } catch (Exception e)
             {
                 return "Sorry, we could not find your friend :(";
             }
         }
-
-
-
-
     }
 }
