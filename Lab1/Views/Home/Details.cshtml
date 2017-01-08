@@ -4,227 +4,214 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Title)</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Title)</h4>
     <hr />
     <!--Lijeva strana-->
-    <div class="left">
-        <!--U listi-->
-        <div>
-            <dl class="dl-horizontal">              
-                <dt>
-                    @Html.DisplayNameFor(model => model.Runtime)
-                </dt>
+    <div class="row">
 
-                <dd>
-                    @Html.DisplayFor(model => model.Runtime)
-                </dd>
+        <div class="col-md-9">
+            <!--U listi-->
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Runtime)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Genres)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Genres)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Runtime)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Keywords)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Genres)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Genres)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Keywords)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Keywords)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Overview)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Keywords)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Overview)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Overview)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Popularity)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Overview)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Popularity)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Popularity)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.ReleaseDate)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Popularity)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.ReleaseDate)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ReleaseDate)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Status)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ReleaseDate)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Status)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.VoteAverage)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.VoteAverage)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VoteAverage)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.VoteCount)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.VoteAverage)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.VoteCount)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VoteCount)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.FBLikes)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.VoteCount)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.FBLikes)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FBLikes)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.FBShares)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FBLikes)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.FBShares)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FBShares)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Rated)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FBShares)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Rated)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Rated)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Language)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Rated)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Language)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Language)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Country)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Language)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Country)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Country)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Awards)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Country)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Awards)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Awards)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.Metascore)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Awards)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Metascore)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Metascore)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoRating)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Metascore)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoRating)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoRating)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoReviews)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoRating)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoReviews)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoReviews)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoFresh)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoReviews)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoFresh)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoFresh)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoRotten)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoFresh)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoRotten)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoRotten)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoUserMeter)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoRotten)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoUserMeter)
-                </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoUserMeter)
+                    </dt>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TomatoUserRating)
-                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoUserMeter)
+                    </dd>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TomatoUserRating)
-                </dd>                
-            </dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TomatoUserRating)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TomatoUserRating)
+                    </dd>
+                </dl>
+            </div>
+            <!--Ne kao lista, već jedno ispod drugog-->
+            <div>
+                <h5>Trailer:</h5>
+                <p>
+                    <iframe type="text/html" width="640" height="385" src="@Html.DisplayFor(model => model.TrailerURL)" frameborder="0"></iframe>
+                </p>
+            </div>
         </div>
-        <!--Ne kao lista, već jedno ispod drugog-->     
-        <div>
-           <h5>Trailer:</h5> 
-            <p>
-                <iframe type="text/html" width="640" height="385" src="@Html.DisplayFor(model => model.TrailerURL)" frameborder="0"></iframe>
-            </p>            
-        </div>    
-    </div>
-    <!--Desna strana-->
-    <div class="right">
-        <h5>Poster</h5>
-        <p>
-            <img src="@Html.DisplayFor(model => model.PosterURL)" alt="@Html.DisplayFor(model => model.Title)" style="width:100%">
-        </p>
-        <h5>Subtitles</h5>
-        <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.SubtitleDownloadLink)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SubtitleDownloadLink)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SubtitlePageLink)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SubtitlePageLink)
-            </dd>
-        </dl>
+        <!--Desna strana-->
+        <div class="col-md-3">
+            <div class="row">
+                <h5>Poster</h5>
+            </div>            
+            <div class="row">
+                <img class="col-md-12" src="@Html.DisplayFor(model => model.PosterURL)" alt="@Html.DisplayFor(model => model.Title)">
+            </div>
+            <div class="row">
+                <h5>Subtitles</h5>
+                <a href="@Model.SubtitleDownloadLink">Download link,</a>
+                <a href="@Model.SubtitlePageLink">Page link</a>
+            </div>            
+        </div>
     </div>
 </div>
-<!--<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>-->

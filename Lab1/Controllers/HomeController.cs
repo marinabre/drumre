@@ -30,7 +30,7 @@ namespace Projekt.Controllers
                 //BLLmovies = MovieProvider.RecommendMovies();
                 foreach (var BLLmovie in BLLmovies)
                 {
-                    if (BLLmovie.Title == "") continue;
+                    if (BLLmovie.Title == "" || BLLmovie.PosterPath == null || BLLmovie.PosterPath == "") continue;
                     var movie = new MovieViewModel();
                     movie.CastSimpleFromMovie(BLLmovie);
                     movies.Add(movie);
@@ -234,6 +234,10 @@ namespace Projekt.Controllers
             foreach (var movieFromDB in moviesFromDB)
             {
                 var movie = new MovieViewModel();
+                if (movieFromDB.PosterPath == null || movieFromDB.PosterPath == "")
+                {
+                    continue;
+                }
                 movie.CastSearchFromMovie(movieFromDB);
                 movies.Add(movie);
             }

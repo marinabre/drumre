@@ -283,7 +283,7 @@ namespace BLL
 
         public static string GetYTURLForMovie(Movie movie)
         {
-            // http://www.youtube.com/embed/6vQgHBugHxA?autoplay=0
+            // https://www.youtube.com/embed/6vQgHBugHxA?autoplay=0
             string url = "";
             if (movie.Videos.Results.Count > 0)
             {
@@ -291,7 +291,7 @@ namespace BLL
                 {
                     if (result.Site == "YouTube")
                     {
-                        url = "http://www.youtube.com/embed/" + result.Key + "?autoplay=0";
+                        url = "https://www.youtube.com/embed/" + result.Key + "?autoplay=0";
                     }
                 }
             }
@@ -333,7 +333,7 @@ namespace BLL
                                     var count = video.Statistics.ViewCount;
                                 }
                             }
-                            videos.Add("http://www.youtube.com/embed/" + searchResult.Id.VideoId + "?autoplay=0");
+                            videos.Add("https://www.youtube.com/embed/" + searchResult.Id.VideoId + "?autoplay=0");
                             break;
 
                         case "youtube#channel":
