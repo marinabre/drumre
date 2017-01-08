@@ -422,6 +422,7 @@
     <Content Include="Views\Home\SearchResults.cshtml" />
     <Content Include="Views\Manage\UserDetails.cshtml" />
     <Content Include="Views\Home\Recommend.cshtml" />
+    <Content Include="Views\Home\RecommendResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

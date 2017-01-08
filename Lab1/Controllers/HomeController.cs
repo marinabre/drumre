@@ -287,11 +287,29 @@ namespace Projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Recommend(int Genres, int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Movies, List<string> Friends)
+        public ActionResult Recommend(bool Profile, bool Friends, bool Community, int Genres, int Actors, int Directors, bool Gender, int MaxAgeDifference, int MinimalFriendsTogether, int MinimalMoviesTogether, bool GenderComm, int MaxAgeDifferenceComm, int MinimalFriendsTogetherComm, int MinimalMoviesTogetherComm, List<string> Movies, List<string> FriendsList)
         {
             var person = PersonRepository.GetPersonByEmail(User.Identity.Name, true);
-            Recommender.Recommend(person, true, true, true, Genres, Actors, Directors, Gender, MaxAgeDifference, MinimalFriendsTogether, MinimalMoviesTogether);
-            var movies = new SimpleMovieViewModel();
+            var recMovies = Recommender.Recommend(person, Profile, Friends, Community, Genres, Actors, Directors, Gender, MaxAgeDifference, MinimalFriendsTogether, MinimalMoviesTogether, GenderComm, MaxAgeDifferenceComm, MinimalFriendsTogetherComm, MinimalMoviesTogetherComm);
+            var movies = new List<SimpleMovieViewModel>();
+            int i = 1;
+            int j = 1;
+            foreach (var recmovie in recMovies)
+            {
+                var movie = new SimpleMovieViewModel();
+                movie.CastSimpleFromMovie(recmovie);                
+                if (j > 10)
+                {
+                    i++;
+                    j = 1;
+                }
+                else
+                {
+                    j++;
+                }
+                movie.htmlClass = i.ToString();
+                movies.Add(movie);
+            }
             return View("RecommendResults", movies);
         }
 

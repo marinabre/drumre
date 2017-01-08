@@ -7,6 +7,7 @@ namespace Projekt.Models
 {
     public class SimpleMovieViewModel
     {
+        public string htmlClass { get; set; }
         public string Title { get; set; }
         public string PosterURL { get; set; }
         public string IMDBID { get; set; }

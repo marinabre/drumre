@@ -1,29 +1,23 @@
-﻿@model IEnumerable<Projekt.Models.MovieViewModel>
+﻿@model IEnumerable<Projekt.Models.SimpleMovieViewModel>
 
 @{
-    ViewBag.Title = "Search Results";
+    ViewBag.Title = "RecommendResults";
 }
 
 <script type="text/javascript" src="/Scripts/Pagination.js"></script>
 
-<h2>Search Results</h2>
+<h2>The results are in</h2>
 
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-4 @item.htmlClass pagedEl">            
+        <div class="col-md-4 @item.htmlClass pagedEl">
             <div class="thumbnail">
                 <a href="/Home/Details?imdbID=@item.IMDBID">
                     <img src="@item.PosterURL" alt="@item.Title" style="width:100%">
                     <div class="caption">
                         <p>
                             @item.Title
-                            <br />
-                            IMDB Rating: @item.VoteAverage
-                            <br />
-                            Tomato Rating: @item.TomatoRating
-                            <br />
-                            Metascore Rating: @item.Metascore
                         </p>
                     </div>
                 </a>
