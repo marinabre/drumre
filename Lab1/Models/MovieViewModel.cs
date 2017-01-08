@@ -10,6 +10,8 @@ namespace Projekt.Models
     public class MovieViewModel
     {
         #region Variables
+        public string htmlClass { get; set; }
+
         public string Title { get; set; }
         public string PosterURL { get; set; }
         public string IMDBID { get; set; }
