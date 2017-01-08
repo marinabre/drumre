@@ -127,5 +127,6 @@ namespace BLL
             return FavouriteGenres.OrderByDescending(pair => pair.Value).Take(limit)
                .ToDictionary(pair => pair.Key, pair => pair.Value).Keys.ToList();
         }
+
     }
 }
