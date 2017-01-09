@@ -356,16 +356,35 @@ namespace BLL
 
         public static List<string> GetAllGenres()
         {
-            var db = MongoInstance.GetDatabase;
-            var genresColl = db.GetCollection<BsonDocument>("genres");
+            IMongoDatabase db = null;
+            IMongoCollection<BsonDocument> genresColl = null;
             var filter = new BsonDocument();
-            var genres = genresColl.Find(filter).Limit(50).ToList();
             var result = new List<string>();
-            foreach (var genre in genres)
+            try
             {
-                result.Add(genre["Name"].ToString());
+                db = MongoInstance.GetDatabase;
+                genresColl = db.GetCollection<BsonDocument>("genres");
+                var genres = genresColl.Find(filter).Limit(50).ToList();
+
+                foreach (var genre in genres)
+                {
+                    result.Add(genre["Name"].ToString());
+                }
+                return result;
             }
-            return result;
+            catch (MongoDB.Driver.MongoConnectionException)
+            {
+                db = MongoInstance.Reconnect;
+                genresColl = db.GetCollection<BsonDocument>("genres");
+                var genres = genresColl.Find(filter).Limit(50).ToList();
+
+                foreach (var genre in genres)
+                {
+                    result.Add(genre["Name"].ToString());
+                }
+                return result;
+            }
+
         }
 
         public static List<Movie> SearchFilter(Filter filter)
@@ -453,7 +472,17 @@ namespace BLL
                                                      & tomatoRatingFromF & tomatoRatingToF
                                                      & fbSharesFromF & fbSharesToF
                                                      & fbLikesFromF & fbLikesToF;
-                return movies.Find(MainFilter).Limit(150).ToList();
+                try
+                {
+                    return movies.Find(MainFilter).Limit(150).ToList();
+                }
+                catch (MongoDB.Driver.MongoConnectionException)
+                {
+                    db = MongoInstance.Reconnect;
+                    movies = db.GetCollection<Movie>("movies");
+                    return movies.Find(MainFilter).Limit(150).ToList();
+                }
+
             } catch (Exception e)
             { return new List<Movie>(); }
 

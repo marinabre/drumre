@@ -120,7 +120,7 @@ namespace BLL
                         return Besties.OrderByDescending(pair => pair.Value).Take(1).ToDictionary(pair => pair.Key, pair => pair.Value).Keys.First();
                     }
                 }
-                return "You don't seem to have any friends using CocoaDuck\n. Why could recommend it...";
+                return "You don't seem to have any friends using CocoaDuck\n. Why don't you recommend it...";
             } catch (Exception e)
             {
                 return "Sorry, we could not find your friend :(";

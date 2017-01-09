@@ -13,10 +13,11 @@ namespace BLL
     {
         public async void saveMovies(List<Movie> newObjects)
         {
-            var db = MongoInstance.GetDatabase;
+            IMongoDatabase db = null;
             //collection.InsertMany(newObjects);
             try
             {
+                db = MongoInstance.GetDatabase;
                 IMongoCollection<Movie> collection = db.GetCollection<Movie>("movies");
                 await collection.InsertManyAsync(newObjects);
             }
@@ -84,59 +85,97 @@ namespace BLL
         }
         public Movie GetMovieByID(string imdbID, bool shortDetails = false)
         {
-            var db = MongoInstance.GetDatabase;
-            var movies = db.GetCollection<Movie>("movies");
+            IMongoDatabase db = null;
+            IMongoCollection<Movie> movies = null;
             Movie result = new Movie();
-            if (shortDetails)
+            ProjectionDefinition<Movie> project = null;
+            try
             {
-                var project = Builders<Movie>.Projection.Slice((StringFieldDefinition<Movie>)("Credits.Cast"), 0, 5).Slice((StringFieldDefinition<Movie>)("Credits.Crew"), 0, 5);
-                //BsonDocument shortenDetails = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>("{ 'Credits.Cast': {$slice: 5 }, 'Credits.Crew': {$slice: 5 } }");
-                result = movies.Find(p => p.IMDbId == imdbID).Project<Movie>(project).First();
-                //db.getCollection('movies').find( {}, { "Credits.Cast": {$slice: 5 }, "Credits.Crew": {$slice: 5 } } );
-            }else
+                db = MongoInstance.GetDatabase;
+                movies = db.GetCollection<Movie>("movies");
+                if (shortDetails)
+                {
+                    project = Builders<Movie>.Projection.Slice((StringFieldDefinition<Movie>)("Credits.Cast"), 0, 5).Slice((StringFieldDefinition<Movie>)("Credits.Crew"), 0, 5);
+                    //BsonDocument shortenDetails = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>("{ 'Credits.Cast': {$slice: 5 }, 'Credits.Crew': {$slice: 5 } }");
+                    result = movies.Find(p => p.IMDbId == imdbID).Project<Movie>(project).First();
+                    //db.getCollection('movies').find( {}, { "Credits.Cast": {$slice: 5 }, "Credits.Crew": {$slice: 5 } } );
+                }
+                else
+                {
+                    result = movies.Find(p => p.IMDbId == imdbID).First();
+                }
+                return result;
+            }
+            catch (MongoDB.Driver.MongoConnectionException)
             {
-                result = movies.Find(p => p.IMDbId == imdbID).First();
+                db = MongoInstance.Reconnect;
+                movies = db.GetCollection<Movie>("movies");
+                if (shortDetails)
+                {
+                    result = movies.Find(p => p.IMDbId == imdbID).Project<Movie>(project).First();
+                }
+                else
+                {
+                    result = movies.Find(p => p.IMDbId == imdbID).First();
+                }
+                return result;
             }
 
-            return result;
         }
 
         public Movie GetMovieByTitle(string title)
         {
-            var db = MongoInstance.GetDatabase;
-            var movies = db.GetCollection<Movie>("movies");
-            var result = movies.Find(p => p.Title == title);
-            if (result.Count() > 0)
-                return result.First();
-            return null;
+            IMongoDatabase db = null;
+            IMongoCollection<Movie> movies = null;
+            try
+            {
+                db = MongoInstance.GetDatabase;
+                movies = db.GetCollection<Movie>("movies");
+                var result = movies.Find(p => p.Title == title);
+                if (result.Count() > 0)
+                    return result.First();
+                return null;
+            }
+            catch (MongoDB.Driver.MongoConnectionException)
+            {
+                db = MongoInstance.Reconnect;
+                movies = db.GetCollection<Movie>("movies");
+                var result = movies.Find(p => p.Title == title);
+                if (result.Count() > 0)
+                    return result.First();
+                return null;
+            }
         }
 
 
         public void updateMovieFB(string imdbId, long shares, long likes)
         {
-            var db = MongoInstance.GetDatabase;
+            IMongoDatabase db = null;
+            IMongoCollection<Movie> movies = null;
             var filter = Builders<Movie>.Filter.Eq("IMDbId", imdbId);
             var update = Builders<Movie>.Update
                 .Set("FBShares", shares).Set("FBLikes", likes);
             try {
-                var collection = db.GetCollection<Movie>("movies");
-                collection.UpdateOneAsync(filter, update);
+                db = MongoInstance.GetDatabase;
+                movies = db.GetCollection<Movie>("movies");
+                movies.UpdateOneAsync(filter, update);
             }
             catch (MongoDB.Driver.MongoConnectionException)
             {
                 db = MongoInstance.Reconnect;
-                var collection = db.GetCollection<Movie>("movies");
-                collection.UpdateOneAsync(filter, update);
+                movies = db.GetCollection<Movie>("movies");
+                movies.UpdateOneAsync(filter, update);
             }
         }
 
         public List<string> GetMoviesIMDbId(int skip, int limit)
         {
-            var db = MongoInstance.GetDatabase;
+            IMongoDatabase db = null;
             IMongoCollection<Movie> collection = null;
-            List<BsonDocument> results = null;
+            List<BsonDocument> results = new List<BsonDocument>();
             try
             {
+                db = MongoInstance.GetDatabase;
                 collection = db.GetCollection<Movie>("movies");
                 results = collection.Find(Builders<Movie>.Filter.Empty).Project(Builders<Movie>.Projection.Include(m => m.IMDbId).Exclude(m => m.Id)).Skip(skip).Limit(limit).ToList();
             }
