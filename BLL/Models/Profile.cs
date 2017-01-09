@@ -24,44 +24,48 @@ namespace BLL
             FavouriteDirectors = new Dictionary<String, int>();
             FavouriteGenres = new Dictionary<String, int>();
             LikedMovies = repo.GetMoviesByFB(person.LikedMovies);
-            foreach (Movie movie in LikedMovies)
+            if (LikedMovies != null)
             {
-                if (movie.Credits.Cast.Count > 0)
+                foreach (Movie movie in LikedMovies)
                 {
-                    foreach (var actor in movie.Credits.Cast)
+                    if (movie.Credits.Cast.Count > 0)
                     {
-                        if (FavouriteActors.ContainsKey(actor.Name))
-                            FavouriteActors[actor.Name]++;
-                        else
-                            FavouriteActors.Add(actor.Name, 1);
-                    }
-                }
-
-                if (movie.Credits.Crew.Count > 0)
-                {
-                    foreach (var crewMember in movie.Credits.Crew)
-                    {
-                        if (crewMember.Job == "Director")
+                        foreach (var actor in movie.Credits.Cast)
                         {
-                            if (FavouriteDirectors.ContainsKey(crewMember.Name))
-                                FavouriteDirectors[crewMember.Name]++;
+                            if (FavouriteActors.ContainsKey(actor.Name))
+                                FavouriteActors[actor.Name]++;
                             else
-                                FavouriteDirectors.Add(crewMember.Name, 1);
+                                FavouriteActors.Add(actor.Name, 1);
+                        }
+                    }
+
+                    if (movie.Credits.Crew.Count > 0)
+                    {
+                        foreach (var crewMember in movie.Credits.Crew)
+                        {
+                            if (crewMember.Job == "Director")
+                            {
+                                if (FavouriteDirectors.ContainsKey(crewMember.Name))
+                                    FavouriteDirectors[crewMember.Name]++;
+                                else
+                                    FavouriteDirectors.Add(crewMember.Name, 1);
+                            }
+                        }
+                    }
+
+                    if (movie.Genres.Count > 0)
+                    {
+                        foreach (Genre genre in movie.Genres)
+                        {
+                            if (FavouriteGenres.ContainsKey(genre.Name))
+                                FavouriteGenres[genre.Name]++;
+                            else
+                                FavouriteGenres.Add(genre.Name, 1);
                         }
                     }
                 }
-
-                if (movie.Genres.Count > 0)
-                {
-                    foreach (Genre genre in movie.Genres)
-                    {
-                        if (FavouriteGenres.ContainsKey(genre.Name))
-                            FavouriteGenres[genre.Name]++;
-                        else
-                            FavouriteGenres.Add(genre.Name, 1);
-                    }
-                }
-            }           
+            }
+            else LikedMovies = new List<Movie>();           
         }
         public Profile(IList<Movie> LikedMovies)
         {
@@ -69,43 +73,46 @@ namespace BLL
             FavouriteDirectors = new Dictionary<String, int>();
             FavouriteGenres = new Dictionary<String, int>();
 
-            foreach (Movie movie in LikedMovies)
+            if (LikedMovies != null)
             {
-                if (movie.Credits.Cast.Count > 0)
+                foreach (Movie movie in LikedMovies)
                 {
-                    foreach (var actor in movie.Credits.Cast)
+                    if (movie.Credits.Cast.Count > 0)
                     {
-                        if (FavouriteActors.ContainsKey(actor.Name))
-                            FavouriteActors[actor.Name]++;
-                        else
-                            FavouriteActors.Add(actor.Name, 1);
-                    }
-                }
-
-                if (movie.Credits.Crew.Count > 0)
-                {
-                    foreach (var crewMember in movie.Credits.Crew)
-                    {
-                        if (crewMember.Job == "Director")
+                        foreach (var actor in movie.Credits.Cast)
                         {
-                            if (FavouriteDirectors.ContainsKey(crewMember.Name))
-                                FavouriteDirectors[crewMember.Name]++;
+                            if (FavouriteActors.ContainsKey(actor.Name))
+                                FavouriteActors[actor.Name]++;
                             else
-                                FavouriteDirectors.Add(crewMember.Name, 1);
+                                FavouriteActors.Add(actor.Name, 1);
                         }
                     }
-                }
 
-                if (movie.Genres.Count > 0)
-                {
-                    foreach (Genre genre in movie.Genres)
+                    if (movie.Credits.Crew.Count > 0)
                     {
-                        if (FavouriteGenres.ContainsKey(genre.Name))
-                            FavouriteGenres[genre.Name]++;
-                        else
-                            FavouriteGenres.Add(genre.Name, 1);
+                        foreach (var crewMember in movie.Credits.Crew)
+                        {
+                            if (crewMember.Job == "Director")
+                            {
+                                if (FavouriteDirectors.ContainsKey(crewMember.Name))
+                                    FavouriteDirectors[crewMember.Name]++;
+                                else
+                                    FavouriteDirectors.Add(crewMember.Name, 1);
+                            }
+                        }
                     }
-                }
+
+                    if (movie.Genres.Count > 0)
+                    {
+                        foreach (Genre genre in movie.Genres)
+                        {
+                            if (FavouriteGenres.ContainsKey(genre.Name))
+                                FavouriteGenres[genre.Name]++;
+                            else
+                                FavouriteGenres.Add(genre.Name, 1);
+                        }
+                    }
+                }          
             }
         }
 

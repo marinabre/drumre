@@ -542,12 +542,22 @@ namespace Projekt.Controllers
             }
             catch (RuntimeBinderException) { }
 
+            DateTime birthday = DateTime.Now;
+            try
+            {
+                birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+
+            }
+
             Person me = new Person
             {
                 PersonID = myInfo.id,
                 Name = myInfo.first_name,
                 Surname = myInfo.last_name,
-                Birthday = DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+                Birthday = birthday,
                 LikedMovies = movieList,
                 Watches = watchesList,
                 Wants = wantsList,

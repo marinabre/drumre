@@ -217,7 +217,7 @@ namespace BLL
                 }
                 return movies.Find(filter).ToList();
             }
-            return null;
+            return new List<Movie>();
         }
 
         public async Task<Movie> GetMovieByTitleFromAPI(string title)
