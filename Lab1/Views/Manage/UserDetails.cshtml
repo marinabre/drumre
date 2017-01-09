@@ -10,7 +10,7 @@
         margin-bottom: 20px;
     }
 </style>
-<h2>UserDetails</h2>
+<h2>User Details</h2>
 
 @if (ViewBag.message != "")
 {
@@ -55,7 +55,7 @@
     </dl>
 </div>
 
-@if (ViewBag.message != "Friend's page" && ViewBag.message == "")
+@if (ViewBag.message != "Friend's page" && (ViewBag.message == null || ViewBag.message == ""))
 {
     <div>
         @Html.ActionLink("Find me my best movie buddy!", "FriendDetails", new { personEmail = Model.Email }, new { @class = "btn btn-default" })
