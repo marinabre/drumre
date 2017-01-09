@@ -11,6 +11,8 @@
 <div class="row">
 @foreach (var item in Model)
 {
+    if (item.PosterURL != null)
+    {
     <div class="col-md-4">
         <div class="thumbnail">
             <a href="/Home/Details?imdbID=@item.IMDBID">
@@ -20,7 +22,8 @@
                 </div>
             </a>
         </div>
-    </div>
+    </div>    
+    }
 }    
 </div>
 <br />

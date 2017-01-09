@@ -36,9 +36,30 @@ namespace BLL
             this.Email = email;
             this.Gender = gender;
             this.Birthday = birthday;
-            this.LikedMovies = liked;
-            this.Watches = watches;
-            this.Wants = wants;
+            if (liked == null)
+            {
+                this.LikedMovies = new List<FBMovie>();
+            }
+            else
+            {
+                this.LikedMovies = liked;
+            }
+            if (watches == null)
+            {
+                this.Watches = new List<FBMovie>();
+            }
+            else
+            {
+                this.Watches = watches;
+            }
+            if (wants == null)
+            {
+                this.Wants = new List<FBMovie>();
+            }
+            else
+            {
+                this.Wants = wants;
+            }         
         }
 
         public Person(Person p)
@@ -50,9 +71,31 @@ namespace BLL
             this.Email = p.Email;
             this.Gender = p.Gender;
             this.Birthday = p.Birthday;
-            this.LikedMovies = new List<FBMovie>(p.LikedMovies);
-            this.Watches = new List<FBMovie>(p.Watches);
-            this.Wants = new List<FBMovie>(p.Wants);
+            if (p.LikedMovies == null)
+            {
+                this.LikedMovies = new List<FBMovie>();
+            }
+            else
+            {
+                this.LikedMovies = new List<FBMovie>(p.LikedMovies);
+            }
+            if (p.Watches == null)
+            {
+                this.Watches = new List<FBMovie>();
+            }
+            else
+            {
+                this.Watches = new List<FBMovie>(p.Watches);
+            }
+            if (p.Wants == null)
+            {
+                this.Wants = new List<FBMovie>();
+            }
+            else
+            {
+                this.Wants = new List<FBMovie>(p.Wants);
+            }
+
             this.Friends = new List<string>(p.Friends);
         }
 
