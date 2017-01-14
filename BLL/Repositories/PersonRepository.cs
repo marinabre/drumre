@@ -16,10 +16,6 @@ namespace BLL
             else return null;
         }
 
-        public  void meh()
-        {
-
-        }
         public static List<Person> GetPeople()
         {
             var db = MongoInstance.GetDatabase;
