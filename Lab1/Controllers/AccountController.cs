@@ -549,23 +549,23 @@ namespace Projekt.Controllers
             }
             catch (Exception e)
             {
-
+                birthday = DateTime.Now;
             }
 
-            //Person me = new Person
-            //{
-            //    PersonID = myInfo.id,
-            //    Name = myInfo.first_name,
-            //    Surname = myInfo.last_name,
-            //    Birthday = birthday,
-            //    LikedMovies = movieList,
-            //    Watches = watchesList,
-            //    Wants = wantsList,
-            //    Email = myInfo.email,
-            //    Gender = myInfo.gender,
-            //};
-            Person me = new Person(myInfo.id, myInfo.first_name, myInfo.last_name, myInfo.email, myInfo.gender, DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
-                movieList, watchesList, wantsList);
+            Person me = new Person
+            {
+                PersonID = myInfo.id,
+                Name = myInfo.first_name,
+                Surname = myInfo.last_name,
+                Birthday = birthday,
+                LikedMovies = movieList,
+                Watches = watchesList,
+                Wants = wantsList,
+                Email = myInfo.email,
+                Gender = myInfo.gender,
+            };
+            //Person me = new Person(myInfo.id, myInfo.first_name, myInfo.last_name, myInfo.email, myInfo.gender, DateTime.ParseExact(myInfo.birthday + " 08:00", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture),
+            //    movieList, watchesList, wantsList);
 
             me.Friends = new List<String>();
             foreach (dynamic friend in friendsFB.data)
